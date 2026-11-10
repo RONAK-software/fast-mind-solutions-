@@ -7,63 +7,116 @@
 <title>MobiStock ERP</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f1f5f9;color:#172033}
+body{margin:0;font-family:Arial;background:#f1f5f9;color:#14213d}
 header{background:#14213d;color:white;padding:22px}
-header h1{margin:0;font-size:25px}
-header p{margin:7px 0 0;color:#cbd5e1}
+header h1{margin:0}
+header p{color:#cbd5e1}
 main{padding:18px;max-width:900px;margin:auto}
-h2{font-size:20px}
 .cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.card{background:white;padding:18px;border-radius:12px;box-shadow:0 2px 8px #0001}
-.card p{color:#64748b;margin-bottom:5px}
-.card strong{font-size:25px}
-button{background:#2563eb;color:white;border:0;padding:12px 16px;border-radius:8px;font-size:15px}
-input{width:100%;padding:12px;margin:7px 0 14px;border:1px solid #cbd5e1;border-radius:7px}
-.panel{background:white;padding:18px;border-radius:12px;margin-top:18px}
-#products{padding-left:20px}
+.card,.panel{background:white;padding:18px;border-radius:12px;margin-bottom:16px}
+.card strong{font-size:24px}
+label{display:block;margin-top:12px}
+input{width:100%;padding:12px;margin-top:6px;border:1px solid #cbd5e1;border-radius:7px;font-size:16px}
+button{background:#2563eb;color:white;border:0;padding:12px 18px;border-radius:7px;margin-top:14px;font-size:16px}
+.delete{background:#dc2626;margin:0;padding:7px 10px}
+li{padding:12px 0;border-bottom:1px solid #ddd}
 </style>
 </head>
 <body>
 <header>
-<h1>📱 MobiStock ERP</h1>
+<h1>MobiStock ERP</h1>
 <p>Mobile Accessories Management System</p>
 </header>
 <main>
-<h2>Dashboard</h2>
 <div class="cards">
-<div class="card"><p>Total Products</p><strong id="total">0</strong></div>
-<div class="card"><p>Stock Value</p><strong id="value">Rs. 0</strong></div>
+<div class="card">
+<p>Total Products</p>
+<strong id="total">0</strong>
 </div>
+<div class="card">
+<p>Stock Value</p>
+<strong id="value">Rs. 0</strong>
+</div>
+</div>
+
 <div class="panel">
 <h2>Add New Product</h2>
-<input id="name" placeholder="Product name">
-<input id="price" type="number" placeholder="Purchase price">
-<input id="qty" type="number" placeholder="Quantity">
+<label>Product Name</label>
+<input id="name" placeholder="e.g. iPhone Charger">
+<label>Purchase Price (Rs.)</label>
+<input id="price" type="number" placeholder="500">
+<label>Quantity</label>
+<input id="quantity" type="number" placeholder="10">
 <button onclick="addProduct()">Add Product</button>
 </div>
+
 <div class="panel">
-<h2>Products Inventory</h2>
+<h2>Inventory</h2>
 <ul id="products"></ul>
 </div>
 </main>
+
 <script>
-let items=[];
+let items=JSON.parse(localStorage.getItem("mobistockItems")||"[]");
+
+function save(){
+localStorage.setItem("mobistockItems",JSON.stringify(items));
+}
+
+function render(){
+let list=document.getElementById("products");
+list.innerHTML="";
+let total=0;
+let value=0;
+
+items.forEach((item,index)=>{
+total+=Number(item.quantity);
+value+=Number(item.price)*Number(item.quantity);
+
+let li=document.createElement("li");
+let name=document.createElement("strong");
+name.textContent=item.name+" ";
+let details=document.createElement("span");
+details.textContent="Price: Rs. "+item.price+" | Qty: "+item.quantity+" ";
+let del=document.createElement("button");
+del.textContent="Delete";
+del.className="delete";
+del.onclick=()=>removeProduct(index);
+
+li.append(name,details,del);
+list.appendChild(li);
+});
+
+document.getElementById("total").textContent=items.length;
+document.getElementById("value").textContent="Rs. "+value;
+}
+
 function addProduct(){
-let name=document.getElementById('name').value.trim();
-let price=Number(document.getElementById('price').value);
-let qty=Number(document.getElementById('qty').value);
-if(!name||price<=0||qty<=0){alert('Please enter valid product details');return;}
-items.push({name,price,qty});
-document.getElementById('name').value='';
-document.getElementById('price').value='';
-document.getElementById('qty').value='';
+let name=document.getElementById("name").value.trim();
+let price=Number(document.getElementById("price").value);
+let quantity=Number(document.getElementById("quantity").value);
+
+if(!name||price<=0||quantity<=0){
+alert("Please enter valid product details");
+return;
+}
+
+items.push({name,price,quantity});
+save();
+render();
+
+document.getElementById("name").value="";
+document.getElementById("price").value="";
+document.getElementById("quantity").value="";
+}
+
+function removeProduct(index){
+items.splice(index,1);
+save();
 render();
 }
-function render(){
-document.getElementById('total').textContent=items.length;
-document.getElementById('value').textContent='Rs. '+items.reduce((s,p)=>s+p.price*p.qty,0);
-document.getElementById('products').innerHTML=items.map(p=>'<li>'+p.name+' — Rs. '+p.price+' × '+p.qty+'</li>').join('');
-}
+
+render();
 </script>
 </body>
 </html>
