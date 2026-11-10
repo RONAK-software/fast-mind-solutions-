@@ -117,7 +117,6 @@ render();
 }
 
 render();
-</script> 
 let sales=JSON.parse(localStorage.getItem("mobistockSales")||"[]");
 
 function loadSaleProducts(){
@@ -186,6 +185,28 @@ list.appendChild(li);
 
 loadSaleProducts();
 showSales();
+</script> 
+  
+alert("Sales Order Created!");
+
+document.getElementById("customer").value="";
+document.getElementById("salePrice").value="";
+document.getElementById("saleQuantity").value="";
+}
+
+function showSales(){
+let list=document.getElementById("salesHistory");
+list.innerHTML="";
+
+sales.forEach(sale=>{
+let li=document.createElement("li");
+li.textContent=sale.customer+" | "+sale.product+" | Qty: "+sale.quantity+" | Rs. "+(sale.price*sale.quantity);
+list.appendChild(li);
+});
+}
+
+loadSaleProducts();
+showSales();
 </body> 
 <div class="panel">
 <h2>Sales Order</h2>
@@ -211,4 +232,5 @@ showSales();
 <h2>Sales History</h2>
 <ul id="salesHistory"></ul>
 </div>
+</body>
 </html>
