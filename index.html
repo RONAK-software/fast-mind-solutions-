@@ -117,6 +117,98 @@ render();
 }
 
 render();
-</script>
-</body>
+</script> 
+let sales=JSON.parse(localStorage.getItem("mobistockSales")||"[]");
+
+function loadSaleProducts(){
+let select=document.getElementById("saleProduct");
+select.innerHTML='<option value="">Select Product</option>';
+
+items.forEach((item,index)=>{
+let option=document.createElement("option");
+option.value=index;
+option.textContent=item.name+" (Stock: "+item.quantity+")";
+select.appendChild(option);
+});
+}
+
+function createOrder(){
+let customer=document.getElementById("customer").value.trim();
+let index=document.getElementById("saleProduct").value;
+let price=Number(document.getElementById("salePrice").value);
+let quantity=Number(document.getElementById("saleQuantity").value);
+
+if(!customer||index===""||price<=0||quantity<=0){
+alert("Please enter all details");
+return;
+}
+
+let product=items[index];
+
+if(quantity>product.quantity){
+alert("Not enough stock!");
+return;
+}
+
+product.quantity-=quantity;
+
+sales.push({
+customer:customer,
+product:product.name,
+price:price,
+quantity:quantity,
+date:new Date().toLocaleDateString()
+});
+
+localStorage.setItem("mobistockSales",JSON.stringify(sales));
+save();
+render();
+loadSaleProducts();
+showSales();
+
+alert("Sales Order Created!");
+
+document.getElementById("customer").value="";
+document.getElementById("salePrice").value="";
+document.getElementById("saleQuantity").value="";
+}
+
+function showSales(){
+let list=document.getElementById("salesHistory");
+list.innerHTML="";
+
+sales.forEach(sale=>{
+let li=document.createElement("li");
+li.textContent=sale.customer+" | "+sale.product+" | Qty: "+sale.quantity+" | Rs. "+(sale.price*sale.quantity);
+list.appendChild(li);
+});
+}
+
+loadSaleProducts();
+showSales();
+</body> 
+<div class="panel">
+<h2>Sales Order</h2>
+
+<label>Customer Name</label>
+<input id="customer" placeholder="Customer name">
+
+<label>Select Product</label>
+<select id="saleProduct" style="width:100%;padding:12px">
+<option value="">Select Product</option>
+</select>
+
+<label>Sale Price (Rs.)</label>
+<input id="salePrice" type="number" placeholder="Sale price">
+
+<label>Quantity</label>
+<input id="saleQuantity" type="number" placeholder="Quantity">
+
+<button onclick="createOrder()">Create Sales Order</button>
+</div>
+
+<div class="panel">
+<h2>Sales History</h2>
+<ul id="salesHistory"></ul>
+</div>
 </html>
