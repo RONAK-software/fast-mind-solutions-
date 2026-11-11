@@ -4,300 +4,402 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MobiStock ERP</title>
-
+<title>MobiStock VIP ERP</title>
 <style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  padding:20px;
-  font-family:Arial,sans-serif;
-  background:#f1f5f9;
-  color:#1e293b;
+:root{
+--bg:#080e1d;--side:#0b1426;--card:#121f35;
+--gold:#d6ad55;--gold2:#f2d58a;
+--white:#f5f5f5;--muted:#9aa9bd;
+--border:rgba(214,173,85,.2);
 }
-header{
-  background:#1e40af;
-  color:white;
-  padding:22px;
-  border-radius:12px;
-  text-align:center;
-  margin-bottom:20px;
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:var(--bg);color:var(--white)}
+button{cursor:pointer}
+.sidebar{
+position:fixed;top:0;left:0;width:260px;height:100vh;
+background:var(--side);border-right:1px solid var(--border);
+overflow-y:auto;z-index:100;transition:.3s;
+}
+.logo{padding:24px 20px;border-bottom:1px solid var(--border)}
+.logo h2{color:var(--gold);letter-spacing:2px}
+.logo small{color:var(--muted);letter-spacing:3px}
+.group-title{
+padding:20px 18px 8px;color:var(--gold);
+font-size:10px;font-weight:bold;letter-spacing:1.5px;
+}
+.menu-item{
+display:flex;align-items:center;gap:13px;
+padding:12px 17px;margin:3px 9px;border-radius:7px;
+font-size:13px;color:#bac6d8;cursor:pointer;
+transition:.2s;
+}
+.menu-item:hover,.menu-item.active{
+background:linear-gradient(90deg,#a77d31,#60471f);
+color:white;
+}
+.menu-item span:first-child{width:20px;text-align:center;font-size:16px}
+.logout{color:#ff7777;margin-bottom:25px}
+.main{margin-left:260px;min-height:100vh;transition:.3s}
+.topbar{
+height:72px;background:#0c1629;border-bottom:1px solid var(--border);
+display:flex;align-items:center;justify-content:space-between;
+padding:0 25px;position:sticky;top:0;z-index:50;
+}
+.top-left{display:flex;align-items:center;gap:15px}
+.hamburger{
+background:none;border:0;color:var(--gold);font-size:27px;
+}
+.topbar h3{font-size:17px}
+.profile{display:flex;align-items:center;gap:12px;color:var(--gold);font-size:13px}
+.avatar{
+width:36px;height:36px;border-radius:50%;background:#735522;
+display:grid;place-items:center;color:white;font-weight:bold;
+}
+.content{padding:27px}
+.welcome{
+display:flex;justify-content:space-between;align-items:center;
+flex-wrap:wrap;gap:15px;margin-bottom:25px;
+}
+.welcome h1{font-size:25px;margin-bottom:8px}
+.welcome p{font-size:13px;color:var(--muted)}
+.date{
+border:1px solid var(--border);padding:10px 15px;
+border-radius:7px;color:var(--gold);font-size:12px;
+}
+.cards{
+display:grid;grid-template-columns:repeat(4,1fr);
+gap:17px;margin-bottom:25px;
+}
+.card{
+background:linear-gradient(145deg,#172641,#101a2d);
+border:1px solid var(--border);border-radius:11px;
+padding:20px;min-height:125px;
+}
+.card-top{display:flex;justify-content:space-between;align-items:center}
+.card-label{font-size:12px;color:var(--muted)}
+.card-icon{font-size:23px;color:var(--gold)}
+.card h2{font-size:25px;margin-top:15px;color:var(--gold2)}
+.card small{font-size:11px;color:#8fa0b7}
+.section-grid{
+display:grid;grid-template-columns:1.5fr 1fr;gap:18px;
 }
 .panel{
-  background:white;
-  padding:18px;
-  margin-bottom:18px;
-  border-radius:12px;
-  box-shadow:0 2px 8px #00000012;
+background:var(--card);border:1px solid var(--border);
+border-radius:11px;padding:20px;margin-bottom:18px;
 }
-h2{margin-top:0;color:#1e40af}
-input,select{
-  width:100%;
-  padding:12px;
-  margin:7px 0 14px;
-  border:1px solid #cbd5e1;
-  border-radius:7px;
-  font-size:16px;
+.panel h3{font-size:15px;margin-bottom:18px;color:var(--gold2)}
+.chart{
+height:190px;display:flex;align-items:end;justify-content:space-around;
+gap:12px;padding:15px 5px 25px;
+border-bottom:1px solid #35435b;
 }
-button{
-  padding:12px 16px;
-  border:0;
-  border-radius:7px;
-  background:#2563eb;
-  color:white;
-  font-size:15px;
-  cursor:pointer;
+.bar{
+width:9%;border-radius:5px 5px 0 0;
+background:linear-gradient(#f2d58a,#8c6428);
+min-height:15px;position:relative;
 }
-.delete{background:#dc2626;padding:8px 10px}
-.stats{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+.bar span{
+position:absolute;bottom:-22px;left:50%;
+transform:translateX(-50%);font-size:10px;color:var(--muted);
 }
-.stat{
-  background:#eff6ff;
-  padding:15px;
-  border-radius:9px;
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{text-align:left;color:var(--gold);padding:12px 8px}
+td{padding:13px 8px;border-top:1px solid var(--border);color:#d2d9e4}
+.status{color:#72d9a0}
+.status.pending{color:#e9bd64}
+.quick-grid{
+display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
 }
-.stat strong{display:block;font-size:22px;margin-top:7px}
-li{
-  padding:12px 0;
-  border-bottom:1px solid #e2e8f0;
-  line-height:1.7;
+.quick{
+background:#1b2a43;border:1px solid var(--border);
+padding:17px 10px;border-radius:8px;text-align:center;
+color:var(--gold2);font-size:12px;cursor:pointer;
 }
-.small{color:#64748b;font-size:13px}
+.quick:hover{background:#263b5b}
+.module-page{display:none}
+.module-page.show{display:block}
+.module-intro{
+background:var(--card);border:1px solid var(--border);
+padding:25px;border-radius:10px;margin-bottom:20px;
+}
+.module-intro h2{color:var(--gold);margin-bottom:10px}
+.module-intro p{color:var(--muted);font-size:13px;line-height:1.7}
+.module-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+.action-btn{
+background:#a77d31;color:white;border:0;
+padding:11px 17px;border-radius:6px;font-size:12px;
+}
+.action-btn.secondary{background:#263751;border:1px solid var(--border)}
+.module-table{overflow-x:auto}
+.overlay{
+display:none;position:fixed;inset:0;background:#0009;z-index:90;
+}
+.overlay.show{display:block}
+@media(max-width:1100px){
+.cards{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:750px){
+.sidebar{left:-260px}
+.sidebar.open{left:0}
+.main{margin-left:0;width:100%}
+.topbar{padding:0 15px}
+.content{padding:17px}
+.section-grid{grid-template-columns:1fr}
+.cards{gap:10px}
+.card{padding:14px;min-height:110px}
+.card h2{font-size:21px}
+.welcome h1{font-size:21px}
+.profile .profile-name{display:none}
+.quick-grid{grid-template-columns:repeat(2,1fr)}
+}
 </style>
 </head>
-
 <body>
 
-<header>
-  <h1>MobiStock ERP</h1>
-  <p>Inventory & Sales Management</p>
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<aside class="sidebar" id="sidebar">
+<div class="logo">
+<h2>MOBISTOCK</h2>
+<small>VIP ENTERPRISE ERP</small>
+</div>
+
+<div class="group-title">MAIN MENU</div>
+<div class="menu-item active" onclick="openPage('Dashboard',this)"><span>◈</span>Dashboard</div>
+<div class="menu-item" onclick="openPage('Inventory',this)"><span>▣</span>Inventory</div>
+<div class="menu-item" onclick="openPage('Products',this)"><span>◫</span>Products</div>
+<div class="menu-item" onclick="openPage('Categories',this)"><span>▤</span>Categories</div>
+<div class="menu-item" onclick="openPage('Stock In',this)"><span>↓</span>Stock In</div>
+<div class="menu-item" onclick="openPage('Stock Out',this)"><span>↑</span>Stock Out</div>
+
+<div class="group-title">BUSINESS MANAGEMENT</div>
+<div class="menu-item" onclick="openPage('Sales',this)"><span>◈</span>Sales</div>
+<div class="menu-item" onclick="openPage('Purchases',this)"><span>▧</span>Purchases</div>
+<div class="menu-item" onclick="openPage('Customers',this)"><span>♙</span>Customers</div>
+<div class="menu-item" onclick="openPage('Suppliers',this)"><span>♧</span>Suppliers</div>
+<div class="menu-item" onclick="openPage('Reports',this)"><span>▥</span>Reports</div>
+<div class="menu-item" onclick="openPage('Employees',this)"><span>♟</span>Employees</div>
+<div class="menu-item" onclick="openPage('Expenses',this)"><span>◉</span>Expenses</div>
+
+<div class="group-title">ENTERPRISE MODULES</div>
+<div class="menu-item" onclick="openPage('Finance & Accounting',this)"><span>＄</span>Finance & Accounting</div>
+<div class="menu-item" onclick="openPage('CRM',this)"><span>♧</span>CRM</div>
+<div class="menu-item" onclick="openPage('Sales Management',this)"><span>◈</span>Sales</div>
+<div class="menu-item" onclick="openPage('Inventory & Warehouse',this)"><span>▣</span>Inventory & Warehouse</div>
+<div class="menu-item" onclick="openPage('Human Resource Management',this)"><span>♟</span>Human Resource Management</div>
+<div class="menu-item" onclick="openPage('Production',this)"><span>⚙</span>Production</div>
+<div class="menu-item" onclick="openPage('Procurement',this)"><span>▤</span>Procurement</div>
+<div class="menu-item" onclick="openPage('Project Management',this)"><span>▦</span>Project Management</div>
+<div class="menu-item" onclick="openPage('Assets Management',this)"><span>◫</span>Assets Management</div>
+<div class="menu-item" onclick="openPage('Customer',this)"><span>♙</span>Customer</div>
+<div class="menu-item" onclick="openPage('Principle',this)"><span>◇</span>Principle</div>
+
+<div class="group-title">SYSTEM</div>
+<div class="menu-item" onclick="openPage('Settings',this)"><span>⚙</span>Settings</div>
+<div class="menu-item logout" onclick="logout()"><span>⇥</span>Logout</div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+<div class="top-left">
+<button class="hamburger" onclick="toggleMenu()">☰</button>
+<h3 id="topTitle">Dashboard</h3>
+</div>
+<div class="profile">
+<div class="avatar">M</div>
+<div class="profile-name">Administrator<br><small>VIP Account</small></div>
+</div>
 </header>
 
+<div class="content">
+
+<!-- DASHBOARD -->
+<section class="module-page show" id="page-Dashboard">
+<div class="welcome">
+<div>
+<h1>Welcome to MobiStock ERP</h1>
+<p>Your business overview and performance at a glance.</p>
+</div>
+<div class="date" id="today"></div>
+</div>
+
+<div class="cards">
+<div class="card">
+<div class="card-top"><span class="card-label">Total Revenue</span><span class="card-icon">＄</span></div>
+<h2>Rs. 850,000</h2><small>Business revenue</small>
+</div>
+<div class="card">
+<div class="card-top"><span class="card-label">Total Sales</span><span class="card-icon">↗</span></div>
+<h2>1,250</h2><small>Total sales records</small>
+</div>
+<div class="card">
+<div class="card-top"><span class="card-label">Total Products</span><span class="card-icon">▣</span></div>
+<h2>540</h2><small>Products in catalog</small>
+</div>
+<div class="card">
+<div class="card-top"><span class="card-label">Customers</span><span class="card-icon">♙</span></div>
+<h2>320</h2><small>Registered customers</small>
+</div>
+<div class="card">
+<div class="card-top"><span class="card-label">Purchases</span><span class="card-icon">▧</span></div>
+<h2>Rs. 320,000</h2><small>Total purchases</small>
+</div>
+<div class="card">
+<div class="card-top"><span class="card-label">Stock In</span><span class="card-icon">↓</span></div>
+<h2>850</h2><small>Items received</small>
+</div>
+<div class="card">
+<div class="card-top"><span class="card-label">Stock Out</span><span class="card-icon">↑</span></div>
+<h2>420</h2><small>Items dispatched</small>
+</div>
+<div class="card">
+<div class="card-top"><span class="card-label">Expenses</span><span class="card-icon">◉</span></div>
+<h2>Rs. 75,000</h2><small>Total expenses</small>
+</div>
+</div>
+
+<div class="section-grid">
 <div class="panel">
-  <h2>Dashboard</h2>
-  <div class="stats">
-    <div class="stat">
-      Total Products
-      <strong id="totalProducts">0</strong>
-    </div>
-    <div class="stat">
-      Stock Value
-      <strong id="stockValue">Rs. 0</strong>
-    </div>
-  </div>
+<h3>Sales Overview</h3>
+<div class="chart">
+<div class="bar" style="height:45%"><span>Jan</span></div>
+<div class="bar" style="height:70%"><span>Feb</span></div>
+<div class="bar" style="height:55%"><span>Mar</span></div>
+<div class="bar" style="height:85%"><span>Apr</span></div>
+<div class="bar" style="height:65%"><span>May</span></div>
+<div class="bar" style="height:95%"><span>Jun</span></div>
+<div class="bar" style="height:75%"><span>Jul</span></div>
+</div>
 </div>
 
 <div class="panel">
-  <h2>Add Product</h2>
-
-  <label>Product Name</label>
-  <input id="productName" placeholder="Enter product name">
-
-  <label>Purchase Price (Rs.)</label>
-  <input id="purchasePrice" type="number" min="0" placeholder="Purchase price">
-
-  <label>Quantity</label>
-  <input id="productQuantity" type="number" min="1" placeholder="Quantity">
-
-  <button onclick="addProduct()">Add Product</button>
+<h3>Inventory Summary</h3>
+<p style="color:var(--muted);font-size:13px;margin:15px 0">Total Products: <b style="color:var(--gold)">540</b></p>
+<p style="color:var(--muted);font-size:13px;margin:15px 0">In Stock: <b class="status">420</b></p>
+<p style="color:var(--muted);font-size:13px;margin:15px 0">Low Stock: <b style="color:#e9bd64">85</b></p>
+<p style="color:var(--muted);font-size:13px;margin:15px 0">Out of Stock: <b style="color:#ff7777">35</b></p>
+</div>
 </div>
 
 <div class="panel">
-  <h2>Inventory</h2>
-  <ul id="inventoryList"></ul>
-  <p class="small" id="emptyInventory">No products added yet.</p>
+<h3>Recent Transactions</h3>
+<div class="module-table">
+<table>
+<thead><tr><th>Invoice</th><th>Customer</th><th>Amount</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>#INV-001</td><td>Ali Traders</td><td>Rs. 25,000</td><td class="status">Paid</td></tr>
+<tr><td>#INV-002</td><td>Ahmed Store</td><td>Rs. 18,500</td><td class="status pending">Pending</td></tr>
+<tr><td>#INV-003</td><td>City Mart</td><td>Rs. 32,000</td><td class="status">Paid</td></tr>
+</tbody>
+</table>
+</div>
 </div>
 
 <div class="panel">
-  <h2>Sales Order</h2>
-
-  <label>Customer Name</label>
-  <input id="customer" placeholder="Customer name">
-
-  <label>Select Product</label>
-  <select id="saleProduct">
-    <option value="">Select Product</option>
-  </select>
-
-  <label>Sale Price (Rs.)</label>
-  <input id="salePrice" type="number" min="0" placeholder="Sale price">
-
-  <label>Quantity</label>
-  <input id="saleQuantity" type="number" min="1" placeholder="Quantity">
-
-  <button onclick="createOrder()">Create Sales Order</button>
+<h3>Quick Access</h3>
+<div class="quick-grid">
+<div class="quick" onclick="openByName('Products')">▣<br><br>Products</div>
+<div class="quick" onclick="openByName('Sales')">◈<br><br>New Sale</div>
+<div class="quick" onclick="openByName('Customers')">♙<br><br>Customers</div>
+<div class="quick" onclick="openByName('Reports')">▥<br><br>Reports</div>
 </div>
+</div>
+</section>
 
+<!-- ALL OTHER MODULES -->
+<div id="modulePage" class="module-page">
+<div class="welcome">
+<div>
+<h1 id="moduleTitle">Module</h1>
+<p>MobiStock Enterprise Resource Planning System</p>
+</div>
+<div class="date">VIP MANAGEMENT</div>
+</div>
+<div class="module-intro">
+<h2 id="moduleHeading">Module Management</h2>
+<p id="moduleDescription">Manage and monitor your business operations from this module. Use the available actions to get started.</p>
+<div class="module-actions">
+<button class="action-btn" onclick="alert('This feature needs database integration.')">+ Add New</button>
+<button class="action-btn secondary" onclick="alert('This feature needs database integration.')">View Records</button>
+<button class="action-btn secondary" onclick="window.print()">Print</button>
+</div>
+</div>
 <div class="panel">
-  <h2>Sales History</h2>
-  <ul id="salesHistory"></ul>
-  <p class="small" id="emptySales">No sales yet.</p>
+<h3 id="tableHeading">Module Records</h3>
+<div class="module-table">
+<table>
+<thead><tr><th>ID</th><th>Name / Details</th><th>Date</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>001</td><td>Sample Record</td><td>11 Nov 2026</td><td class="status">Active</td></tr>
+<tr><td>002</td><td>Sample Record</td><td>11 Nov 2026</td><td class="status pending">Pending</td></tr>
+</tbody>
+</table>
 </div>
+<p style="font-size:11px;color:var(--muted);margin-top:18px">
+Demo records only. Connect a database to store and manage real business data.
+</p>
+</div>
+</div>
+
+</div>
+</main>
 
 <script>
-let items = JSON.parse(localStorage.getItem("mobistockItems") || "[]");
-let sales = JSON.parse(localStorage.getItem("mobistockSales") || "[]");
+const sidebar=document.getElementById('sidebar');
+const overlay=document.getElementById('overlay');
 
-function save(){
-  localStorage.setItem("mobistockItems", JSON.stringify(items));
-  localStorage.setItem("mobistockSales", JSON.stringify(sales));
+function toggleMenu(){
+sidebar.classList.toggle('open');
+overlay.classList.toggle('show');
 }
 
-function addProduct(){
-  const name = document.getElementById("productName").value.trim();
-  const price = Number(document.getElementById("purchasePrice").value);
-  const quantity = Number(document.getElementById("productQuantity").value);
-
-  if(!name || price <= 0 || quantity <= 0 ||
-     !Number.isInteger(quantity)){
-    alert("Please enter valid product details.");
-    return;
-  }
-
-  items.push({
-    name:name,
-    price:price,
-    quantity:quantity
-  });
-
-  save();
-  render();
-
-  document.getElementById("productName").value = "";
-  document.getElementById("purchasePrice").value = "";
-  document.getElementById("productQuantity").value = "";
+function closeMenu(){
+sidebar.classList.remove('open');
+overlay.classList.remove('show');
 }
 
-function deleteProduct(index){
-  if(!confirm("Delete this product?")) return;
+function openPage(name,element){
+document.querySelectorAll('.module-page').forEach(p=>p.classList.remove('show'));
+document.querySelectorAll('.menu-item').forEach(m=>m.classList.remove('active'));
 
-  items.splice(index,1);
-  save();
-  render();
+if(element) element.classList.add('active');
+
+document.getElementById('topTitle').textContent=name;
+
+if(name==='Dashboard'){
+document.getElementById('page-Dashboard').classList.add('show');
+}else{
+document.getElementById('modulePage').classList.add('show');
+document.getElementById('moduleTitle').textContent=name;
+document.getElementById('moduleHeading').textContent=name+' Management';
+document.getElementById('tableHeading').textContent=name+' Records';
+document.getElementById('moduleDescription').textContent=
+'Manage your '+name+' operations, view records and organize your business activities through MobiStock ERP.';
+}
+closeMenu();
 }
 
-function render(){
-  const list = document.getElementById("inventoryList");
-  list.innerHTML = "";
-
-  let totalValue = 0;
-  let totalProducts = 0;
-
-  items.forEach((item,index)=>{
-    const price = Number(item.price ?? item.purchasePrice ?? 0);
-    const quantity = Number(item.quantity ?? 0);
-
-    totalValue += price * quantity;
-    totalProducts++;
-
-    const li = document.createElement("li");
-    li.textContent =
-      item.name + " | Purchase: Rs. " + price +
-      " | Stock: " + quantity + " ";
-
-    const btn = document.createElement("button");
-    btn.textContent = "Delete";
-    btn.className = "delete";
-    btn.onclick = ()=>deleteProduct(index);
-
-    li.appendChild(btn);
-    list.appendChild(li);
-  });
-
-  document.getElementById("totalProducts").textContent = totalProducts;
-  document.getElementById("stockValue").textContent =
-    "Rs. " + totalValue.toLocaleString();
-
-  document.getElementById("emptyInventory").style.display =
-    items.length ? "none" : "block";
-
-  loadSaleProducts();
+function openByName(name){
+const items=document.querySelectorAll('.menu-item');
+let found=false;
+items.forEach(item=>{
+if(!found && item.textContent.trim()===name){
+openPage(name,item);
+found=true;
+}
+});
 }
 
-function loadSaleProducts(){
-  const select = document.getElementById("saleProduct");
-  const previousValue = select.value;
-
-  select.innerHTML = '<option value="">Select Product</option>';
-
-  items.forEach((item,index)=>{
-    const option = document.createElement("option");
-    option.value = index;
-    option.textContent = item.name + " (Stock: " + item.quantity + ")";
-    select.appendChild(option);
-  });
-
-  if(previousValue !== "" && items[Number(previousValue)]){
-    select.value = previousValue;
-  }
+function logout(){
+if(confirm('Are you sure you want to logout?')){
+alert('Connect an authentication system to enable secure logout.');
+}
 }
 
-function createOrder(){
-  const customer = document.getElementById("customer").value.trim();
-  const index = document.getElementById("saleProduct").value;
-  const price = Number(document.getElementById("salePrice").value);
-  const quantity = Number(document.getElementById("saleQuantity").value);
-
-  if(!customer || index === "" || price <= 0 ||
-     quantity <= 0 || !Number.isInteger(quantity)){
-    alert("Please enter all sales details correctly.");
-    return;
-  }
-
-  const product = items[Number(index)];
-
-  if(!product || quantity > Number(product.quantity)){
-    alert("Not enough stock available!");
-    return;
-  }
-
-  product.quantity = Number(product.quantity) - quantity;
-
-  sales.push({
-    customer:customer,
-    product:product.name,
-    price:price,
-    quantity:quantity,
-    date:new Date().toLocaleString()
-  });
-
-  save();
-  render();
-  showSales();
-
-  document.getElementById("customer").value = "";
-  document.getElementById("salePrice").value = "";
-  document.getElementById("saleQuantity").value = "";
-  document.getElementById("saleProduct").value = "";
-
-  alert("Sales Order Created!");
-}
-
-function showSales(){
-  const list = document.getElementById("salesHistory");
-  list.innerHTML = "";
-
-  sales.forEach(sale=>{
-    const li = document.createElement("li");
-    li.textContent =
-      sale.customer + " | " + sale.product +
-      " | Qty: " + sale.quantity +
-      " | Total: Rs. " + (sale.price * sale.quantity) +
-      " | " + sale.date;
-
-    list.appendChild(li);
-  });
-
-  document.getElementById("emptySales").style.display =
-    sales.length ? "none" : "block";
-}
-
-render();
-showSales();
+document.getElementById('today').textContent=
+new Date().toLocaleDateString('en-PK',{
+day:'numeric',month:'short',year:'numeric'
+});
 </script>
-
 </body>
 </html>
