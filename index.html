@@ -1,404 +1,304 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FAST MIND SOLUTION</title>
+<title>FAST MIND SOLUTION | Login</title>
+
 <style>
-:root{
---bg:#080e1d;--side:#0b1426;--card:#121f35;
---gold:#d6ad55;--gold2:#f2d58a;
---white:#f5f5f5;--muted:#9aa9bd;
---border:rgba(214,173,85,.2);
+:root {
+  --navy: #07182f;
+  --navy2: #10294a;
+  --gold: #d4ad55;
+  --gold-light: #f0d58d;
+  --text: #f6e8c1;
+  --muted: #aebbd0;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:var(--bg);color:var(--white)}
-button{cursor:pointer}
-.sidebar{
-position:fixed;top:0;left:0;width:260px;height:100vh;
-background:var(--side);border-right:1px solid var(--border);
-overflow-y:auto;z-index:100;transition:.3s;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.logo{padding:24px 20px;border-bottom:1px solid var(--border)}
-.logo h2{color:var(--gold);letter-spacing:2px}
-.logo small{color:var(--muted);letter-spacing:3px}
-.group-title{
-padding:20px 18px 8px;color:var(--gold);
-font-size:10px;font-weight:bold;letter-spacing:1.5px;
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% 20%, #19385e 0, transparent 35%),
+    linear-gradient(135deg, #061326, #0b203d 60%, #07182f);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
 }
-.menu-item{
-display:flex;align-items:center;gap:13px;
-padding:12px 17px;margin:3px 9px;border-radius:7px;
-font-size:13px;color:#bac6d8;cursor:pointer;
-transition:.2s;
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  display: grid;
+  grid-template-columns: 1fr 430px;
+  gap: 70px;
+  align-items: center;
 }
-.menu-item:hover,.menu-item.active{
-background:linear-gradient(90deg,#a77d31,#60471f);
-color:white;
+
+.brand {
+  color: var(--gold);
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 55px;
 }
-.menu-item span:first-child{width:20px;text-align:center;font-size:16px}
-.logout{color:#ff7777;margin-bottom:25px}
-.main{margin-left:260px;min-height:100vh;transition:.3s}
-.topbar{
-height:72px;background:#0c1629;border-bottom:1px solid var(--border);
-display:flex;align-items:center;justify-content:space-between;
-padding:0 25px;position:sticky;top:0;z-index:50;
+
+.left h1 {
+  font-size: clamp(34px, 5vw, 55px);
+  line-height: 1.15;
+  color: var(--gold-light);
+  margin-bottom: 25px;
 }
-.top-left{display:flex;align-items:center;gap:15px}
-.hamburger{
-background:none;border:0;color:var(--gold);font-size:27px;
+
+.left p {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.9;
+  max-width: 470px;
 }
-.topbar h3{font-size:17px}
-.profile{display:flex;align-items:center;gap:12px;color:var(--gold);font-size:13px}
-.avatar{
-width:36px;height:36px;border-radius:50%;background:#735522;
-display:grid;place-items:center;color:white;font-weight:bold;
+
+.features {
+  margin-top: 35px;
+  display: grid;
+  gap: 17px;
 }
-.content{padding:27px}
-.welcome{
-display:flex;justify-content:space-between;align-items:center;
-flex-wrap:wrap;gap:15px;margin-bottom:25px;
+
+.feature {
+  color: var(--gold-light);
+  font-size: 14px;
 }
-.welcome h1{font-size:25px;margin-bottom:8px}
-.welcome p{font-size:13px;color:var(--muted)}
-.date{
-border:1px solid var(--border);padding:10px 15px;
-border-radius:7px;color:var(--gold);font-size:12px;
+
+.login-card {
+  background: linear-gradient(145deg, #10294a, #091b34);
+  border: 1px solid #bd984a;
+  border-radius: 22px;
+  padding: 38px 32px;
+  box-shadow: 0 20px 65px #0008;
 }
-.cards{
-display:grid;grid-template-columns:repeat(4,1fr);
-gap:17px;margin-bottom:25px;
+
+.logo {
+  text-align: center;
+  color: var(--gold);
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
 }
-.card{
-background:linear-gradient(145deg,#172641,#101a2d);
-border:1px solid var(--border);border-radius:11px;
-padding:20px;min-height:125px;
+
+.subtitle {
+  color: var(--muted);
+  text-align: center;
+  font-size: 13px;
+  margin-bottom: 35px;
 }
-.card-top{display:flex;justify-content:space-between;align-items:center}
-.card-label{font-size:12px;color:var(--muted)}
-.card-icon{font-size:23px;color:var(--gold)}
-.card h2{font-size:25px;margin-top:15px;color:var(--gold2)}
-.card small{font-size:11px;color:#8fa0b7}
-.section-grid{
-display:grid;grid-template-columns:1.5fr 1fr;gap:18px;
+
+.login-card h2 {
+  color: var(--gold-light);
+  text-align: center;
+  font-size: 25px;
+  margin-bottom: 9px;
 }
-.panel{
-background:var(--card);border:1px solid var(--border);
-border-radius:11px;padding:20px;margin-bottom:18px;
+
+.login-card .welcome {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 28px;
 }
-.panel h3{font-size:15px;margin-bottom:18px;color:var(--gold2)}
-.chart{
-height:190px;display:flex;align-items:end;justify-content:space-around;
-gap:12px;padding:15px 5px 25px;
-border-bottom:1px solid #35435b;
+
+label {
+  display: block;
+  color: var(--gold-light);
+  font-size: 12px;
+  margin: 18px 0 9px;
+  letter-spacing: 1px;
 }
-.bar{
-width:9%;border-radius:5px 5px 0 0;
-background:linear-gradient(#f2d58a,#8c6428);
-min-height:15px;position:relative;
+
+input {
+  width: 100%;
+  background: #07182f;
+  color: white;
+  border: 1px solid #9c7a37;
+  border-radius: 9px;
+  padding: 15px;
+  outline: none;
+  font-size: 14px;
 }
-.bar span{
-position:absolute;bottom:-22px;left:50%;
-transform:translateX(-50%);font-size:10px;color:var(--muted);
+
+input:focus {
+  border-color: var(--gold-light);
+  box-shadow: 0 0 10px #d4ad5540;
 }
-table{width:100%;border-collapse:collapse;font-size:12px}
-th{text-align:left;color:var(--gold);padding:12px 8px}
-td{padding:13px 8px;border-top:1px solid var(--border);color:#d2d9e4}
-.status{color:#72d9a0}
-.status.pending{color:#e9bd64}
-.quick-grid{
-display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
+
+.forgot {
+  display: block;
+  text-align: right;
+  margin-top: 14px;
+  color: var(--gold-light);
+  text-decoration: none;
+  font-size: 12px;
 }
-.quick{
-background:#1b2a43;border:1px solid var(--border);
-padding:17px 10px;border-radius:8px;text-align:center;
-color:var(--gold2);font-size:12px;cursor:pointer;
+
+button {
+  width: 100%;
+  padding: 16px;
+  margin-top: 25px;
+  border: none;
+  border-radius: 9px;
+  background: linear-gradient(90deg, #b58b36, #f0d58d);
+  color: #07182f;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: .2s;
 }
-.quick:hover{background:#263b5b}
-.module-page{display:none}
-.module-page.show{display:block}
-.module-intro{
-background:var(--card);border:1px solid var(--border);
-padding:25px;border-radius:10px;margin-bottom:20px;
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px #d4ad5540;
 }
-.module-intro h2{color:var(--gold);margin-bottom:10px}
-.module-intro p{color:var(--muted);font-size:13px;line-height:1.7}
-.module-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
-.action-btn{
-background:#a77d31;color:white;border:0;
-padding:11px 17px;border-radius:6px;font-size:12px;
+
+.message {
+  color: var(--gold-light);
+  font-size: 12px;
+  text-align: center;
+  margin-top: 15px;
+  min-height: 18px;
 }
-.action-btn.secondary{background:#263751;border:1px solid var(--border)}
-.module-table{overflow-x:auto}
-.overlay{
-display:none;position:fixed;inset:0;background:#0009;z-index:90;
+
+.footer {
+  text-align: center;
+  color: #b89a59;
+  font-size: 10px;
+  margin-top: 30px;
+  letter-spacing: 1px;
 }
-.overlay.show{display:block}
-@media(max-width:1100px){
-.cards{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:750px){
-.sidebar{left:-260px}
-.sidebar.open{left:0}
-.main{margin-left:0;width:100%}
-.topbar{padding:0 15px}
-.content{padding:17px}
-.section-grid{grid-template-columns:1fr}
-.cards{gap:10px}
-.card{padding:14px;min-height:110px}
-.card h2{font-size:21px}
-.welcome h1{font-size:21px}
-.profile .profile-name{display:none}
-.quick-grid{grid-template-columns:repeat(2,1fr)}
+
+@media(max-width: 800px) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    max-width: 470px;
+  }
+
+  .brand {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .left {
+    text-align: center;
+  }
+
+  .left p {
+    margin: auto;
+  }
+
+  .features {
+    display: none;
+  }
+
+  .login-card {
+    padding: 30px 23px;
+  }
 }
 </style>
 </head>
+
 <body>
 
-<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+<div class="container">
 
-<aside class="sidebar" id="sidebar">
-<div class="logo">
-<h2>FAST MIND</h2>
-<small>SOLUTION ERP</small>
-</div>
+  <section class="left">
+    <div class="brand">✦ FAST MIND SOLUTION</div>
 
-<div class="group-title">MAIN MENU</div>
-<div class="menu-item active" onclick="openPage('Dashboard',this)"><span>◈</span>Dashboard</div>
-<div class="menu-item" onclick="openPage('Inventory',this)"><span>▣</span>Inventory</div>
-<div class="menu-item" onclick="openPage('Products',this)"><span>◫</span>Products</div>
-<div class="menu-item" onclick="openPage('Categories',this)"><span>▤</span>Categories</div>
-<div class="menu-item" onclick="openPage('Stock In',this)"><span>↓</span>Stock In</div>
-<div class="menu-item" onclick="openPage('Stock Out',this)"><span>↑</span>Stock Out</div>
+    <h1>High clarity operations with brain signal precision.</h1>
 
-<div class="group-title">BUSINESS MANAGEMENT</div>
-<div class="menu-item" onclick="openPage('Sales',this)"><span>◈</span>Sales</div>
-<div class="menu-item" onclick="openPage('Purchases',this)"><span>▧</span>Purchases</div>
-<div class="menu-item" onclick="openPage('Customers',this)"><span>♙</span>Customers</div>
-<div class="menu-item" onclick="openPage('Suppliers',this)"><span>♧</span>Suppliers</div>
-<div class="menu-item" onclick="openPage('Reports',this)"><span>▥</span>Reports</div>
-<div class="menu-item" onclick="openPage('Employees',this)"><span>♟</span>Employees</div>
-<div class="menu-item" onclick="openPage('Expenses',this)"><span>◉</span>Expenses</div>
+    <p>
+      Manage your business operations, inventory,
+      sales, purchases and finance — all in one
+      intelligent business management platform.
+    </p>
 
-<div class="group-title">ENTERPRISE MODULES</div>
-<div class="menu-item" onclick="openPage('Finance & Accounting',this)"><span>＄</span>Finance & Accounting</div>
-<div class="menu-item" onclick="openPage('CRM',this)"><span>♧</span>CRM</div>
-<div class="menu-item" onclick="openPage('Sales Management',this)"><span>◈</span>Sales</div>
-<div class="menu-item" onclick="openPage('Inventory & Warehouse',this)"><span>▣</span>Inventory & Warehouse</div>
-<div class="menu-item" onclick="openPage('Human Resource Management',this)"><span>♟</span>Human Resource Management</div>
-<div class="menu-item" onclick="openPage('Production',this)"><span>⚙</span>Production</div>
-<div class="menu-item" onclick="openPage('Procurement',this)"><span>▤</span>Procurement</div>
-<div class="menu-item" onclick="openPage('Project Management',this)"><span>▦</span>Project Management</div>
-<div class="menu-item" onclick="openPage('Assets Management',this)"><span>◫</span>Assets Management</div>
-<div class="menu-item" onclick="openPage('Customer',this)"><span>♙</span>Customer</div>
-<div class="menu-item" onclick="openPage('Principle',this)"><span>◇</span>Principle</div>
+    <div class="features">
+      <div class="feature">✦ Smart Inventory Management</div>
+      <div class="feature">✦ Sales & Purchase Management</div>
+      <div class="feature">✦ Finance & Accounting</div>
+      <div class="feature">✦ Business Reports & Analytics</div>
+    </div>
+  </section>
 
-<div class="group-title">SYSTEM</div>
-<div class="menu-item" onclick="openPage('Settings',this)"><span>⚙</span>Settings</div>
-<div class="menu-item logout" onclick="logout()"><span>⇥</span>Logout</div>
-</aside>
+  <section class="login-card">
 
-<main class="main">
-<header class="topbar">
-<div class="top-left">
-<button class="hamburger" onclick="toggleMenu()">☰</button>
-<h3 id="topTitle">Dashboard</h3>
-</div>
-<div class="profile">
-<div class="avatar">M</div>
-<div class="profile-name">Administrator<br><small>VIP Account</small></div>
-</div>
-</header>
+    <div class="logo">✦ FAST MIND</div>
+    <div class="subtitle">BUSINESS MANAGEMENT SYSTEM</div>
 
-<div class="content">
+    <h2>Welcome Back</h2>
+    <p class="welcome">Sign in to access your account</p>
 
-<!-- DASHBOARD -->
-<section class="module-page show" id="page-Dashboard">
-<div class="welcome">
-<div>
-<h1>Welcome to MobiStock ERP</h1>
-<p>Your business overview and performance at a glance.</p>
-</div>
-<div class="date" id="today"></div>
-</div>
+    <form id="loginForm">
 
-<div class="cards">
-<div class="card">
-<div class="card-top"><span class="card-label">Total Revenue</span><span class="card-icon">＄</span></div>
-<h2>Rs. 850,000</h2><small>Business revenue</small>
-</div>
-<div class="card">
-<div class="card-top"><span class="card-label">Total Sales</span><span class="card-icon">↗</span></div>
-<h2>1,250</h2><small>Total sales records</small>
-</div>
-<div class="card">
-<div class="card-top"><span class="card-label">Total Products</span><span class="card-icon">▣</span></div>
-<h2>540</h2><small>Products in catalog</small>
-</div>
-<div class="card">
-<div class="card-top"><span class="card-label">Customers</span><span class="card-icon">♙</span></div>
-<h2>320</h2><small>Registered customers</small>
-</div>
-<div class="card">
-<div class="card-top"><span class="card-label">Purchases</span><span class="card-icon">▧</span></div>
-<h2>Rs. 320,000</h2><small>Total purchases</small>
-</div>
-<div class="card">
-<div class="card-top"><span class="card-label">Stock In</span><span class="card-icon">↓</span></div>
-<h2>850</h2><small>Items received</small>
-</div>
-<div class="card">
-<div class="card-top"><span class="card-label">Stock Out</span><span class="card-icon">↑</span></div>
-<h2>420</h2><small>Items dispatched</small>
-</div>
-<div class="card">
-<div class="card-top"><span class="card-label">Expenses</span><span class="card-icon">◉</span></div>
-<h2>Rs. 75,000</h2><small>Total expenses</small>
-</div>
-</div>
+      <label for="email">EMAIL OR USERNAME</label>
+      <input
+        type="email"
+        id="email"
+        placeholder="Enter your email"
+        required
+      >
 
-<div class="section-grid">
-<div class="panel">
-<h3>Sales Overview</h3>
-<div class="chart">
-<div class="bar" style="height:45%"><span>Jan</span></div>
-<div class="bar" style="height:70%"><span>Feb</span></div>
-<div class="bar" style="height:55%"><span>Mar</span></div>
-<div class="bar" style="height:85%"><span>Apr</span></div>
-<div class="bar" style="height:65%"><span>May</span></div>
-<div class="bar" style="height:95%"><span>Jun</span></div>
-<div class="bar" style="height:75%"><span>Jul</span></div>
-</div>
-</div>
+      <label for="password">PASSWORD</label>
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter your password"
+        required
+      >
 
-<div class="panel">
-<h3>Inventory Summary</h3>
-<p style="color:var(--muted);font-size:13px;margin:15px 0">Total Products: <b style="color:var(--gold)">540</b></p>
-<p style="color:var(--muted);font-size:13px;margin:15px 0">In Stock: <b class="status">420</b></p>
-<p style="color:var(--muted);font-size:13px;margin:15px 0">Low Stock: <b style="color:#e9bd64">85</b></p>
-<p style="color:var(--muted);font-size:13px;margin:15px 0">Out of Stock: <b style="color:#ff7777">35</b></p>
-</div>
-</div>
+      <a href="#" class="forgot" id="forgotPassword">
+        Forgot Password?
+      </a>
 
-<div class="panel">
-<h3>Recent Transactions</h3>
-<div class="module-table">
-<table>
-<thead><tr><th>Invoice</th><th>Customer</th><th>Amount</th><th>Status</th></tr></thead>
-<tbody>
-<tr><td>#INV-001</td><td>Ali Traders</td><td>Rs. 25,000</td><td class="status">Paid</td></tr>
-<tr><td>#INV-002</td><td>Ahmed Store</td><td>Rs. 18,500</td><td class="status pending">Pending</td></tr>
-<tr><td>#INV-003</td><td>City Mart</td><td>Rs. 32,000</td><td class="status">Paid</td></tr>
-</tbody>
-</table>
-</div>
-</div>
+      <button type="submit">LOGIN →</button>
 
-<div class="panel">
-<h3>Quick Access</h3>
-<div class="quick-grid">
-<div class="quick" onclick="openByName('Products')">▣<br><br>Products</div>
-<div class="quick" onclick="openByName('Sales')">◈<br><br>New Sale</div>
-<div class="quick" onclick="openByName('Customers')">♙<br><br>Customers</div>
-<div class="quick" onclick="openByName('Reports')">▥<br><br>Reports</div>
-</div>
-</div>
-</section>
+      <div class="message" id="message"></div>
 
-<!-- ALL OTHER MODULES -->
-<div id="modulePage" class="module-page">
-<div class="welcome">
-<div>
-<h1 id="moduleTitle">Module</h1>
-<p>MobiStock Enterprise Resource Planning System</p>
-</div>
-<div class="date">VIP MANAGEMENT</div>
-</div>
-<div class="module-intro">
-<h2 id="moduleHeading">Module Management</h2>
-<p id="moduleDescription">Manage and monitor your business operations from this module. Use the available actions to get started.</p>
-<div class="module-actions">
-<button class="action-btn" onclick="alert('This feature needs database integration.')">+ Add New</button>
-<button class="action-btn secondary" onclick="alert('This feature needs database integration.')">View Records</button>
-<button class="action-btn secondary" onclick="window.print()">Print</button>
-</div>
-</div>
-<div class="panel">
-<h3 id="tableHeading">Module Records</h3>
-<div class="module-table">
-<table>
-<thead><tr><th>ID</th><th>Name / Details</th><th>Date</th><th>Status</th></tr></thead>
-<tbody>
-<tr><td>001</td><td>Sample Record</td><td>11 Nov 2026</td><td class="status">Active</td></tr>
-<tr><td>002</td><td>Sample Record</td><td>11 Nov 2026</td><td class="status pending">Pending</td></tr>
-</tbody>
-</table>
-</div>
-<p style="font-size:11px;color:var(--muted);margin-top:18px">
-Demo records only. Connect a database to store and manage real business data.
-</p>
-</div>
-</div>
+    </form>
+
+    <div class="footer">
+      PREMIUM ERP SOFTWARE<br><br>
+      © 2026 FAST MIND SOLUTION
+    </div>
+
+  </section>
 
 </div>
-</main>
 
 <script>
-const sidebar=document.getElementById('sidebar');
-const overlay=document.getElementById('overlay');
+document.getElementById("loginForm")
+.addEventListener("submit", function(event) {
+  event.preventDefault();
 
-function toggleMenu(){
-sidebar.classList.toggle('open');
-overlay.classList.toggle('show');
-}
-
-function closeMenu(){
-sidebar.classList.remove('open');
-overlay.classList.remove('show');
-}
-
-function openPage(name,element){
-document.querySelectorAll('.module-page').forEach(p=>p.classList.remove('show'));
-document.querySelectorAll('.menu-item').forEach(m=>m.classList.remove('active'));
-
-if(element) element.classList.add('active');
-
-document.getElementById('topTitle').textContent=name;
-
-if(name==='Dashboard'){
-document.getElementById('page-Dashboard').classList.add('show');
-}else{
-document.getElementById('modulePage').classList.add('show');
-document.getElementById('moduleTitle').textContent=name;
-document.getElementById('moduleHeading').textContent=name+' Management';
-document.getElementById('tableHeading').textContent=name+' Records';
-document.getElementById('moduleDescription').textContent=
-'Manage your '+name+' operations, view records and organize your business activities through MobiStock ERP.';
-}
-closeMenu();
-}
-
-function openByName(name){
-const items=document.querySelectorAll('.menu-item');
-let found=false;
-items.forEach(item=>{
-if(!found && item.textContent.trim()===name){
-openPage(name,item);
-found=true;
-}
+  document.getElementById("message").textContent =
+    "Login authentication setup is required. Connect Supabase to enable secure login.";
 });
-}
 
-function logout(){
-if(confirm('Are you sure you want to logout?')){
-alert('Connect an authentication system to enable secure logout.');
-}
-}
+document.getElementById("forgotPassword")
+.addEventListener("click", function(event) {
+  event.preventDefault();
 
-document.getElementById('today').textContent=
-new Date().toLocaleDateString('en-PK',{
-day:'numeric',month:'short',year:'numeric'
+  document.getElementById("message").textContent =
+    "Password recovery will be available after Supabase setup.";
 });
 </script>
+
 </body>
 </html>
