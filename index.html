@@ -210,10 +210,9 @@ onAuthStateChanged(auth,async user=>{
   currentCompanyId=profile.companyId.trim();
   showApp();
   await loadProducts();
- }catch(error){
+  }catch(error){
  console.error("LOGIN ERROR:", error.code, error.message);
-  await signOut(auth);
-  showLogin("Account verification failed. Check your Firebase owner profile.");
+ showLogin("Firebase Error: " + (error.code || "") + " " + error.message);
  }
 });
 
