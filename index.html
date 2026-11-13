@@ -4,301 +4,328 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FAST MIND SOLUTION | Login</title>
-
+<title>FAST MIND SOLUTION | ERP</title>
 <style>
 :root {
-  --navy: #07182f;
-  --navy2: #10294a;
-  --gold: #d4ad55;
-  --gold-light: #f0d58d;
-  --text: #f6e8c1;
-  --muted: #aebbd0;
+  --navy:#071426;
+  --panel:#10233d;
+  --gold:#d9ad50;
+  --white:#f4f6fa;
+  --muted:#aab6c8;
+  --border:#263c58;
 }
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--navy);
+  color:var(--white);
+  font-family:Arial,sans-serif;
 }
-
-body {
-  min-height: 100vh;
-  background:
-    radial-gradient(circle at 15% 20%, #19385e 0, transparent 35%),
-    linear-gradient(135deg, #061326, #0b203d 60%, #07182f);
-  color: var(--text);
-  font-family: Arial, sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 25px;
+button,input{font:inherit}
+.login-wrap{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:20px;
 }
-
-.container {
-  width: 100%;
-  max-width: 1100px;
-  display: grid;
-  grid-template-columns: 1fr 430px;
-  gap: 70px;
-  align-items: center;
+.login-card{
+  width:100%;
+  max-width:410px;
+  padding:35px 28px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+  text-align:center;
+  box-shadow:0 15px 50px #0005;
 }
-
-.brand {
-  color: var(--gold);
-  font-size: 25px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  margin-bottom: 55px;
+.logo{
+  color:var(--gold);
+  font-size:27px;
+  font-weight:800;
+  letter-spacing:1px;
 }
-
-.left h1 {
-  font-size: clamp(34px, 5vw, 55px);
-  line-height: 1.15;
-  color: var(--gold-light);
-  margin-bottom: 25px;
+.subtitle{color:var(--muted);margin:9px 0 28px}
+input{
+  width:100%;
+  padding:15px;
+  margin:9px 0;
+  border-radius:9px;
+  border:1px solid var(--border);
+  background:#08172a;
+  color:white;
+  outline:none;
 }
-
-.left p {
-  color: var(--muted);
-  font-size: 16px;
-  line-height: 1.9;
-  max-width: 470px;
+input:focus{border-color:var(--gold)}
+.gold-btn{
+  width:100%;
+  padding:14px;
+  margin-top:14px;
+  border:0;
+  border-radius:9px;
+  background:var(--gold);
+  color:#101827;
+  font-weight:bold;
+  cursor:pointer;
 }
-
-.features {
-  margin-top: 35px;
-  display: grid;
-  gap: 17px;
+#message{color:#ffb6a8;font-size:13px;min-height:20px}
+#app{display:none;min-height:100vh}
+.sidebar{
+  position:fixed;
+  top:0;bottom:0;left:0;
+  width:245px;
+  padding:24px 16px;
+  background:#091a30;
+  border-right:1px solid var(--border);
+  overflow-y:auto;
 }
-
-.feature {
-  color: var(--gold-light);
-  font-size: 14px;
+.brand{font-size:21px;color:var(--gold);font-weight:bold;margin:5px 8px 28px}
+.nav-btn{
+  width:100%;
+  display:block;
+  text-align:left;
+  padding:13px 14px;
+  margin:4px 0;
+  border:0;
+  border-radius:8px;
+  color:#dce4f0;
+  background:transparent;
+  cursor:pointer;
 }
-
-.login-card {
-  background: linear-gradient(145deg, #10294a, #091b34);
-  border: 1px solid #bd984a;
-  border-radius: 22px;
-  padding: 38px 32px;
-  box-shadow: 0 20px 65px #0008;
+.nav-btn:hover,.nav-btn.active{
+  background:#1b304c;
+  color:var(--gold);
 }
-
-.logo {
-  text-align: center;
-  color: var(--gold);
-  font-size: 26px;
-  font-weight: 900;
-  letter-spacing: 1px;
-  margin-bottom: 12px;
+.main{margin-left:245px;padding:28px}
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+  border-bottom:1px solid var(--border);
+  padding-bottom:20px;
 }
-
-.subtitle {
-  color: var(--muted);
-  text-align: center;
-  font-size: 13px;
-  margin-bottom: 35px;
+h1{font-size:25px;margin:0}
+.gold{color:var(--gold)}
+.small{color:var(--muted);font-size:13px}
+.logout{
+  background:transparent;
+  color:var(--gold);
+  border:1px solid var(--gold);
+  border-radius:8px;
+  padding:10px 16px;
+  cursor:pointer;
 }
-
-.login-card h2 {
-  color: var(--gold-light);
-  text-align: center;
-  font-size: 25px;
-  margin-bottom: 9px;
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:16px;
+  margin:25px 0;
 }
-
-.login-card .welcome {
-  text-align: center;
-  color: var(--muted);
-  font-size: 13px;
-  margin-bottom: 28px;
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:20px;
 }
-
-label {
-  display: block;
-  color: var(--gold-light);
-  font-size: 12px;
-  margin: 18px 0 9px;
-  letter-spacing: 1px;
+.card h3{font-size:14px;color:var(--muted);font-weight:normal}
+.card strong{font-size:25px;color:var(--gold)}
+.welcome{
+  background:linear-gradient(110deg,#132b49,#10213a);
+  border:1px solid var(--border);
+  padding:25px;
+  border-radius:14px;
 }
-
-input {
-  width: 100%;
-  background: #07182f;
-  color: white;
-  border: 1px solid #9c7a37;
-  border-radius: 9px;
-  padding: 15px;
-  outline: none;
-  font-size: 14px;
+.module-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
+  gap:13px;
+  margin-top:20px;
 }
-
-input:focus {
-  border-color: var(--gold-light);
-  box-shadow: 0 0 10px #d4ad5540;
+.module{
+  padding:20px 12px;
+  text-align:center;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:12px;
+  color:var(--white);
+  cursor:pointer;
 }
-
-.forgot {
-  display: block;
-  text-align: right;
-  margin-top: 14px;
-  color: var(--gold-light);
-  text-decoration: none;
-  font-size: 12px;
-}
-
-button {
-  width: 100%;
-  padding: 16px;
-  margin-top: 25px;
-  border: none;
-  border-radius: 9px;
-  background: linear-gradient(90deg, #b58b36, #f0d58d);
-  color: #07182f;
-  font-size: 16px;
-  font-weight: 800;
-  cursor: pointer;
-  transition: .2s;
-}
-
-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px #d4ad5540;
-}
-
-.message {
-  color: var(--gold-light);
-  font-size: 12px;
-  text-align: center;
-  margin-top: 15px;
-  min-height: 18px;
-}
-
-.footer {
-  text-align: center;
-  color: #b89a59;
-  font-size: 10px;
-  margin-top: 30px;
-  letter-spacing: 1px;
-}
-
-@media(max-width: 800px) {
-  .container {
-    grid-template-columns: 1fr;
-    gap: 35px;
-    max-width: 470px;
+.module:hover{border-color:var(--gold);color:var(--gold)}
+#pageMessage{color:var(--muted);margin-top:20px}
+@media(max-width:700px){
+  .sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+    padding:15px;
   }
-
-  .brand {
-    margin-bottom: 20px;
-    text-align: center;
+  .sidebar nav{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:3px;
   }
-
-  .left {
-    text-align: center;
-  }
-
-  .left p {
-    margin: auto;
-  }
-
-  .features {
-    display: none;
-  }
-
-  .login-card {
-    padding: 30px 23px;
-  }
+  .brand{margin-bottom:12px}
+  .main{margin-left:0;padding:18px}
+  h1{font-size:21px}
 }
 </style>
 </head>
-
 <body>
 
-<div class="container">
-
-  <section class="left">
-    <div class="brand">✦ FAST MIND SOLUTION</div>
-
-    <h1>High clarity operations with brain signal precision.</h1>
-
-    <p>
-      Manage your business operations, inventory,
-      sales, purchases and finance — all in one
-      intelligent business management platform.
-    </p>
-
-    <div class="features">
-      <div class="feature">✦ Smart Inventory Management</div>
-      <div class="feature">✦ Sales & Purchase Management</div>
-      <div class="feature">✦ Finance & Accounting</div>
-      <div class="feature">✦ Business Reports & Analytics</div>
-    </div>
-  </section>
-
-  <section class="login-card">
-
-    <div class="logo">✦ FAST MIND</div>
-    <div class="subtitle">BUSINESS MANAGEMENT SYSTEM</div>
-
-    <h2>Welcome Back</h2>
-    <p class="welcome">Sign in to access your account</p>
-
+<section class="login-wrap" id="loginScreen">
+  <div class="login-card">
+    <div class="logo">FAST MIND</div>
+    <h2 class="gold">SOLUTION ERP</h2>
+    <p class="subtitle">Secure Owner Login</p>
     <form id="loginForm">
-
-      <label for="email">EMAIL OR USERNAME</label>
-      <input
-        type="email"
-        id="email"
-        placeholder="Enter your email"
-        required
-      >
-
-      <label for="password">PASSWORD</label>
-      <input
-        type="password"
-        id="password"
-        placeholder="Enter your password"
-        required
-      >
-
-      <a href="#" class="forgot" id="forgotPassword">
-        Forgot Password?
-      </a>
-
-      <button type="submit">LOGIN →</button>
-
-      <div class="message" id="message"></div>
-
+      <input id="email" type="email" placeholder="Owner Email" required>
+      <input id="password" type="password" placeholder="Password" required>
+      <button class="gold-btn" type="submit">LOGIN</button>
     </form>
+    <p id="message"></p>
+    <p class="small">Authorized accounts only</p>
+  </div>
+</section>
 
-    <div class="footer">
-      PREMIUM ERP SOFTWARE<br><br>
-      © 2026 FAST MIND SOLUTION
-    </div>
+<div id="app">
+  <aside class="sidebar">
+    <div class="brand">FAST MIND ERP</div>
+    <nav id="navigation">
+      <button class="nav-btn active" data-page="Dashboard">▦ Dashboard</button>
+      <button class="nav-btn" data-page="Inventory">▣ Inventory</button>
+      <button class="nav-btn" data-page="Sales">↗ Sales</button>
+      <button class="nav-btn" data-page="Purchases">↙ Purchases</button>
+      <button class="nav-btn" data-page="Customers">♙ Customers</button>
+      <button class="nav-btn" data-page="Suppliers">♧ Suppliers</button>
+      <button class="nav-btn" data-page="Finance">◈ Finance</button>
+      <button class="nav-btn" data-page="Expenses">▤ Expenses</button>
+      <button class="nav-btn" data-page="HR & Payroll">♧ HR & Payroll</button>
+      <button class="nav-btn" data-page="Reports">▥ Reports</button>
+      <button class="nav-btn" data-page="Settings">⚙ Settings</button>
+      <button class="nav-btn" data-page="Super Admin">♛ Super Admin</button>
+    </nav>
+  </aside>
 
-  </section>
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <h1 id="pageTitle">Dashboard</h1>
+        <p class="small">FAST MIND SOLUTION • ERP SYSTEM</p>
+      </div>
+      <button class="logout" id="logoutBtn">Logout</button>
+    </header>
 
+    <section id="dashboardContent">
+      <div class="welcome">
+        <h2>Welcome to <span class="gold">FAST MIND SOLUTION</span></h2>
+        <p class="small">Your business management workspace</p>
+      </div>
+      <div class="cards">
+        <div class="card"><h3>Total Sales</h3><strong>—</strong></div>
+        <div class="card"><h3>Total Purchases</h3><strong>—</strong></div>
+        <div class="card"><h3>Stock Items</h3><strong>—</strong></div>
+        <div class="card"><h3>Net Balance</h3><strong>—</strong></div>
+      </div>
+      <h2>ERP Modules</h2>
+      <div class="module-grid" id="moduleGrid"></div>
+    </section>
+    <p id="pageMessage"></p>
+  </main>
 </div>
 
-<script>
-document.getElementById("loginForm")
-.addEventListener("submit", function(event) {
-  event.preventDefault();
+<script type="module">
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
 
-  document.getElementById("message").textContent =
-    "Login authentication setup is required. Connect Supabase to enable secure login.";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+} from
+"https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAIYhnQBwVB4nicSwKWzwDvaJQVQvibnMU",
+  authDomain: "fast-mind-solution.firebaseapp.com",
+  projectId: "fast-mind-solution",
+  storageBucket: "fast-mind-solution.firebasestorage.app",
+  messagingSenderId: "505740976965",
+  appId: "1:505740976965:web:12f6e5dfab4f6b66ff542c",
+  measurementId: "G-4ZJNWHD59Y"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+const loginScreen = document.getElementById("loginScreen");
+const appScreen = document.getElementById("app");
+const message = document.getElementById("message");
+
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  message.textContent = "Signing in...";
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    message.textContent = "";
+  } catch (error) {
+    message.textContent = "Login failed. Check your email and password.";
+    console.error(error);
+  }
 });
 
-document.getElementById("forgotPassword")
-.addEventListener("click", function(event) {
-  event.preventDefault();
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    loginScreen.style.display = "none";
+    appScreen.style.display = "block";
+  } else {
+    loginScreen.style.display = "grid";
+    appScreen.style.display = "none";
+  }
+});
 
-  document.getElementById("message").textContent =
-    "Password recovery will be available after Supabase setup.";
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+  await signOut(auth);
+});
+
+const modules = [
+  "Inventory","Sales","Purchases","Customers","Suppliers",
+  "Finance","Expenses","HR & Payroll","CRM","Production",
+  "Procurement","Projects","Assets","Reports","Settings",
+  "Super Admin"
+];
+
+const moduleGrid = document.getElementById("moduleGrid");
+modules.forEach(name => {
+  const button = document.createElement("button");
+  button.className = "module";
+  button.textContent = name;
+  button.addEventListener("click", () => showPage(name));
+  moduleGrid.appendChild(button);
+});
+
+function showPage(name) {
+  document.getElementById("pageTitle").textContent = name;
+  document.getElementById("dashboardContent").style.display =
+    name === "Dashboard" ? "block" : "none";
+  document.getElementById("pageMessage").textContent =
+    name === "Dashboard"
+      ? ""
+      : name + " module is being prepared. Database functions will be connected next.";
+
+  document.querySelectorAll(".nav-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.page === name);
+  });
+}
+
+document.querySelectorAll(".nav-btn").forEach(btn => {
+  btn.addEventListener("click", () => showPage(btn.dataset.page));
 });
 </script>
-
 </body>
 </html>
