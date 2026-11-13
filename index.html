@@ -211,7 +211,7 @@ onAuthStateChanged(auth,async user=>{
   showApp();
   await loadProducts();
  }catch(error){
-  console.error(error);
+ console.error("LOGIN ERROR:", error.code, error.message);
   await signOut(auth);
   showLogin("Account verification failed. Check your Firebase owner profile.");
  }
