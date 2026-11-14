@@ -6,48 +6,103 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FAST MIND SOLUTION ERP</title>
 <style>
-:root{--navy:#071426;--panel:#10233d;--gold:#d9ad50;--white:#f4f6fa;--muted:#aab6c8;--border:#263c58}
+:root{
+ --navy:#071426;
+ --panel:#10233d;
+ --gold:#d9ad50;
+ --white:#f4f6fa;
+ --muted:#aab6c8;
+ --border:#263c58;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--navy);color:var(--white);font-family:Arial,sans-serif}
+body{
+ margin:0;background:var(--navy);color:var(--white);
+ font-family:Arial,sans-serif
+}
 button,input{font:inherit}
 button{cursor:pointer}
-.login-wrap{min-height:100vh;display:grid;place-items:center;padding:20px}
-.login-card{width:100%;max-width:410px;padding:32px 26px;background:var(--panel);border:1px solid var(--border);border-radius:18px;text-align:center}
+.login-wrap{
+ min-height:100vh;display:grid;place-items:center;padding:20px
+}
+.login-card{
+ width:100%;max-width:410px;padding:32px 26px;
+ background:var(--panel);border:1px solid var(--border);
+ border-radius:18px;text-align:center
+}
 .logo{font-size:27px;font-weight:800;color:var(--gold)}
 .subtitle,.small{color:var(--muted)}
-input{width:100%;padding:13px;margin:8px 0;border-radius:8px;border:1px solid var(--border);background:#08172a;color:white}
-.gold-btn{padding:13px 18px;border:0;border-radius:8px;background:var(--gold);color:#101827;font-weight:bold}
+input{
+ width:100%;padding:13px;margin:8px 0;border-radius:8px;
+ border:1px solid var(--border);background:#08172a;color:white
+}
+.gold-btn{
+ padding:13px 18px;border:0;border-radius:8px;
+ background:var(--gold);color:#101827;font-weight:bold
+}
 .login-card .gold-btn{width:100%;margin-top:12px}
-#message{color:#ffb6a8;font-size:13px;min-height:20px}
+#message{color:#ffb6a8;font-size:13px;overflow-wrap:anywhere}
 #app{display:none;min-height:100vh}
-.sidebar{position:fixed;inset:0 auto 0 0;width:235px;padding:22px 15px;background:#091a30;border-right:1px solid var(--border);overflow:auto}
+.sidebar{
+ position:fixed;inset:0 auto 0 0;width:235px;padding:22px 15px;
+ background:#091a30;border-right:1px solid var(--border);overflow:auto
+}
 .brand{font-size:21px;color:var(--gold);font-weight:bold;margin:5px 8px 25px}
-.nav-btn{width:100%;display:block;text-align:left;padding:12px;margin:4px 0;border:0;border-radius:8px;color:#dce4f0;background:transparent}
+.nav-btn{
+ width:100%;display:block;text-align:left;padding:12px;margin:4px 0;
+ border:0;border-radius:8px;color:#dce4f0;background:transparent
+}
 .nav-btn.active,.nav-btn:hover{background:#1b304c;color:var(--gold)}
 .main{margin-left:235px;padding:26px}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:18px}
+.topbar{
+ display:flex;justify-content:space-between;align-items:center;
+ gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--border);
+ padding-bottom:18px
+}
 h1{font-size:25px;margin:0}
 .gold{color:var(--gold)}
-.logout{background:transparent;color:var(--gold);border:1px solid var(--gold);border-radius:8px;padding:10px 15px}
-.welcome,.card,.panel{background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:20px}
-.welcome{margin-top:22px;background:linear-gradient(110deg,#132b49,#10213a)}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:20px 0}
+.logout{
+ background:transparent;color:var(--gold);border:1px solid var(--gold);
+ border-radius:8px;padding:10px 15px
+}
+.welcome,.card,.panel{
+ background:var(--panel);border:1px solid var(--border);
+ border-radius:13px;padding:20px
+}
+.welcome{
+ margin-top:22px;background:linear-gradient(110deg,#132b49,#10213a)
+}
+.cards{
+ display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+ gap:14px;margin:20px 0
+}
 .card h3{font-size:14px;color:var(--muted);font-weight:normal}
 .card strong{font-size:25px;color:var(--gold)}
-.module-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:16px}
-.module{padding:18px 10px;background:var(--panel);border:1px solid var(--border);border-radius:10px;color:white}
+.module-grid{
+ display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+ gap:12px;margin-top:16px
+}
+.module{
+ padding:18px 10px;background:var(--panel);border:1px solid var(--border);
+ border-radius:10px;color:white
+}
 .module:hover{border-color:var(--gold);color:var(--gold)}
 .panel{margin-top:20px}
 .panel h2{margin-top:0}
-.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+.form-grid{
+ display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+ gap:10px
+}
 .form-grid input{margin:0}
 .table-wrap{overflow-x:auto;margin-top:16px}
 table{width:100%;border-collapse:collapse;min-width:540px}
 th,td{text-align:left;padding:12px;border-bottom:1px solid var(--border)}
 th{color:var(--gold);font-size:13px}
 td{font-size:14px}
-.delete-btn{background:#612e37;color:white;border:0;border-radius:6px;padding:7px 10px}
-.status{color:var(--muted);font-size:13px;margin-top:12px}
+.delete-btn{
+ background:#612e37;color:white;border:0;border-radius:6px;padding:7px 10px
+}
+.status{color:var(--muted);font-size:13px;margin-top:12px;overflow-wrap:anywhere}
+[hidden]{display:none!important}
 @media(max-width:700px){
  .sidebar{position:relative;width:100%;height:auto;padding:12px}
  .sidebar nav{display:grid;grid-template-columns:repeat(2,1fr);gap:3px}
@@ -67,7 +122,7 @@ td{font-size:14px}
   <form id="loginForm">
    <input id="email" type="email" placeholder="Owner Email" required>
    <input id="password" type="password" placeholder="Password" required>
-   <button class="gold-btn" type="submit">LOGIN</button>
+   <button class="gold-btn" id="loginButton" type="submit">LOGIN</button>
   </form>
   <p id="message"></p>
   <p class="small">Authorized accounts only</p>
@@ -132,21 +187,24 @@ td{font-size:14px}
    <p class="status" id="inventoryStatus"></p>
    <div class="table-wrap">
     <table>
-     <thead><tr><th>Product</th><th>SKU</th><th>Stock</th><th>Unit Price</th><th>Action</th></tr></thead>
+     <thead>
+      <tr><th>Product</th><th>SKU</th><th>Stock</th><th>Unit Price</th><th>Action</th></tr>
+     </thead>
      <tbody id="productRows"></tbody>
     </table>
    </div>
   </section>
-
   <p class="status" id="pageMessage"></p>
  </main>
 </div>
 
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+
 import {
  getAuth,signInWithEmailAndPassword,onAuthStateChanged,signOut
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
 import {
  getFirestore,doc,getDoc,collection,addDoc,getDocs,
  deleteDoc,serverTimestamp
@@ -183,37 +241,72 @@ function showApp(){
 
 $("loginForm").addEventListener("submit",async e=>{
  e.preventDefault();
+ $("loginButton").disabled=true;
  $("message").textContent="Signing in...";
+
  try{
-  await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value);
+  await signInWithEmailAndPassword(
+   auth,$("email").value.trim(),$("password").value
+  );
  }catch(error){
-  console.error(error);
-  $("message").textContent="Login failed. Check your email and password.";
+  console.error("SIGN IN ERROR:",error.code,error.message);
+  $("message").textContent=
+   "Login Error: "+error.code+" — "+error.message;
+ }finally{
+  $("loginButton").disabled=false;
  }
 });
 
-$("logoutBtn").addEventListener("click",()=>signOut(auth));
+$("logoutBtn").addEventListener("click",async()=>{
+ await signOut(auth);
+});
 
 onAuthStateChanged(auth,async user=>{
  currentUser=user;
  currentCompanyId=null;
- if(!user){showLogin();return;}
+
+ if(!user){
+  showLogin();
+  return;
+ }
+
+ showLogin("Checking owner profile...");
+
  try{
   const profileRef=doc(db,"userProfiles",user.uid);
   const profileSnap=await getDoc(profileRef);
-  if(!profileSnap.exists()) throw new Error("Owner profile not found.");
+
+  if(!profileSnap.exists()){
+   throw new Error("PROFILE_NOT_FOUND: No profile document for UID "+user.uid);
+  }
+
   const profile=profileSnap.data();
-  if(profile.active!==true) throw new Error("This account is inactive.");
-  if(profile.role!=="owner") throw new Error("Owner access only.");
-  if(typeof profile.companyId!=="string" || !profile.companyId.trim())
-   throw new Error("Company ID missing.");
+
+  if(profile.active!==true){
+   throw new Error("PROFILE_INACTIVE: active must be Boolean true.");
+  }
+
+  if(String(profile.role||"").trim()!=="owner"){
+   throw new Error("INVALID_ROLE: role must be owner.");
+  }
+
+  if(typeof profile.companyId!=="string"||!profile.companyId.trim()){
+   throw new Error("COMPANY_ID_MISSING: companyId is empty.");
+  }
+
   currentCompanyId=profile.companyId.trim();
-  showApp();
-  await loadProducts();
-  }catch(error){
- console.error("LOGIN ERROR:", error.code, error.message);
- showLogin("Firebase Error: " + (error.code || "") + " " + error.message);
+
+ }catch(error){
+  console.error("PROFILE VERIFICATION ERROR:",error);
+  showLogin(
+   "Profile Error: "+(error.code||"")+" "+error.message
+  );
+  await signOut(auth);
+  return;
  }
+
+ showApp();
+ await loadProducts();
 });
 
 const modules=[
@@ -234,13 +327,16 @@ function showPage(name){
  $("pageTitle").textContent=name;
  $("dashboardContent").hidden=name!=="Dashboard";
  $("inventoryContent").hidden=name!=="Inventory";
+
  $("pageMessage").textContent=
   ["Dashboard","Inventory"].includes(name)?"":
   name+" module is not connected yet. We will build it next.";
+
  document.querySelectorAll(".nav-btn").forEach(btn=>{
   btn.classList.toggle("active",btn.dataset.page===name);
  });
- if(name==="Inventory") loadProducts();
+
+ if(name==="Inventory")loadProducts();
 }
 
 document.querySelectorAll(".nav-btn").forEach(btn=>{
@@ -248,24 +344,29 @@ document.querySelectorAll(".nav-btn").forEach(btn=>{
 });
 
 function inventoryRef(){
- if(!currentCompanyId) throw new Error("Company is not verified.");
+ if(!currentCompanyId)throw new Error("Company is not verified.");
  return collection(db,"companies",currentCompanyId,"inventory");
 }
 
 async function loadProducts(){
  if(!currentCompanyId)return;
+
  $("inventoryStatus").textContent="Loading products...";
  $("productRows").replaceChildren();
+
  try{
   const snapshot=await getDocs(inventoryRef());
+
   snapshot.forEach(productDoc=>{
    const p=productDoc.data();
    const tr=document.createElement("tr");
+
    [p.name,p.sku,String(p.quantity??0),String(p.price??0)].forEach(value=>{
     const td=document.createElement("td");
     td.textContent=value??"";
     tr.appendChild(td);
    });
+
    const action=document.createElement("td");
    const del=document.createElement("button");
    del.className="delete-btn";
@@ -275,50 +376,65 @@ async function loadProducts(){
    tr.appendChild(action);
    $("productRows").appendChild(tr);
   });
+
   $("stockCount").textContent=String(snapshot.size);
   $("inventoryStatus").textContent=snapshot.size+" product(s) found.";
+
  }catch(error){
-  console.error(error);
-  $("inventoryStatus").textContent="Could not load products. Check Firestore rules and connection.";
+  console.error("INVENTORY LOAD ERROR:",error);
+  $("inventoryStatus").textContent=
+   "Inventory Error: "+(error.code||"")+" "+error.message;
  }
 }
 
 $("productForm").addEventListener("submit",async e=>{
  e.preventDefault();
  if(!currentCompanyId)return;
+
  const name=$("productName").value.trim();
  const sku=$("productSku").value.trim();
  const quantity=Number($("productQty").value);
  const price=Number($("productPrice").value);
+
  if(!name||!sku||!Number.isFinite(quantity)||quantity<0||
     !Number.isFinite(price)||price<0){
   $("inventoryStatus").textContent="Please enter valid product details.";
   return;
  }
+
  $("inventoryStatus").textContent="Saving product...";
+
  try{
   await addDoc(inventoryRef(),{
    name,sku,quantity,price,
    createdAt:serverTimestamp(),
    createdBy:currentUser.uid
   });
+
   $("productForm").reset();
   await loadProducts();
   $("inventoryStatus").textContent="Product saved successfully.";
+
  }catch(error){
-  console.error(error);
-  $("inventoryStatus").textContent="Save failed. Check Firestore rules.";
+  console.error("PRODUCT SAVE ERROR:",error);
+  $("inventoryStatus").textContent=
+   "Save Error: "+(error.code||"")+" "+error.message;
  }
 });
 
 async function removeProduct(productId){
  if(!confirm("Delete this product?"))return;
+
  try{
-  await deleteDoc(doc(db,"companies",currentCompanyId,"inventory",productId));
+  await deleteDoc(
+   doc(db,"companies",currentCompanyId,"inventory",productId)
+  );
   await loadProducts();
+
  }catch(error){
-  console.error(error);
-  $("inventoryStatus").textContent="Delete failed. Check Firestore rules.";
+  console.error("DELETE ERROR:",error);
+  $("inventoryStatus").textContent=
+   "Delete Error: "+(error.code||"")+" "+error.message;
  }
 }
 </script>
