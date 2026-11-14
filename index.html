@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FAST MIND SOLUTION ERP</title>
+<title>FAST MIND SOLUTIONS ERP</title>
 <style>
 :root{
  --navy:#071426;
@@ -39,8 +39,12 @@ input{
  padding:13px 18px;border:0;border-radius:8px;
  background:var(--gold);color:#101827;font-weight:bold
 }
+.gold-btn:disabled{opacity:.6;cursor:wait}
 .login-card .gold-btn{width:100%;margin-top:12px}
-#message{color:#ffb6a8;font-size:13px;overflow-wrap:anywhere}
+#message{
+ color:#ffb6a8;font-size:13px;overflow-wrap:anywhere;
+ line-height:1.5
+}
 #app{display:none;min-height:100vh}
 .sidebar{
  position:fixed;inset:0 auto 0 0;width:235px;padding:22px 15px;
@@ -116,8 +120,8 @@ td{font-size:14px}
 
 <section class="login-wrap" id="loginScreen">
  <div class="login-card">
-  <div class="logo">FAST MIND</div>
-  <h2 class="gold">SOLUTION ERP</h2>
+  <div class="logo">FAST MIND SOLUTIONS</div>
+  <h2 class="gold">ERP SOFTWARE</h2>
   <p class="subtitle">Secure Owner Login</p>
   <form id="loginForm">
    <input id="email" type="email" placeholder="Owner Email" required>
@@ -131,7 +135,7 @@ td{font-size:14px}
 
 <div id="app">
  <aside class="sidebar">
-  <div class="brand">FAST MIND ERP</div>
+  <div class="brand">FAST MIND SOLUTIONS</div>
   <nav id="navigation">
    <button class="nav-btn active" data-page="Dashboard">▦ Dashboard</button>
    <button class="nav-btn" data-page="Inventory">▣ Inventory</button>
@@ -152,14 +156,14 @@ td{font-size:14px}
   <header class="topbar">
    <div>
     <h1 id="pageTitle">Dashboard</h1>
-    <p class="small">FAST MIND SOLUTION • ERP SYSTEM</p>
+    <p class="small">FAST MIND SOLUTIONS • ERP SYSTEM</p>
    </div>
    <button class="logout" id="logoutBtn">Logout</button>
   </header>
 
   <section id="dashboardContent">
    <div class="welcome">
-    <h2>Welcome to <span class="gold">FAST MIND SOLUTION</span></h2>
+    <h2>Welcome to <span class="gold">FAST MIND SOLUTIONS</span></h2>
     <p class="small">Your business management workspace</p>
    </div>
    <div class="cards">
@@ -227,6 +231,7 @@ const db=getFirestore(firebaseApp);
 const $=id=>document.getElementById(id);
 let currentCompanyId=null;
 let currentUser=null;
+let verificationInProgress=false;
 
 function showLogin(messageText=""){
  $("loginScreen").style.display="grid";
@@ -239,20 +244,30 @@ function showApp(){
  $("app").style.display="block";
 }
 
+function withTimeout(promise,milliseconds,label){
+ let timer;
+ const timeout=new Promise((_,reject)=>{
+  timer=setTimeout(()=>{
+   reject(new Error(label+" timed out after "+milliseconds/1000+" seconds."));
+  },milliseconds);
+ });
+ return Promise.race([promise,timeout]).finally(()=>clearTimeout(timer));
+}
+
 $("loginForm").addEventListener("submit",async e=>{
  e.preventDefault();
  $("loginButton").disabled=true;
  $("message").textContent="Signing in...";
 
  try{
-  await signInWithEmailAndPassword(
-   auth,$("email").value.trim(),$("password").value
+  await withTimeout(
+   signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value),
+   20000,
+   "Firebase sign-in"
   );
  }catch(error){
   console.error("SIGN IN ERROR:",error.code,error.message);
-  $("message").textContent=
-   "Login Error: "+error.code+" — "+error.message;
- }finally{
+  showLogin("Login Error: "+(error.code||"")+" "+error.message);
   $("loginButton").disabled=false;
  }
 });
@@ -262,19 +277,30 @@ $("logoutBtn").addEventListener("click",async()=>{
 });
 
 onAuthStateChanged(auth,async user=>{
+ if(verificationInProgress)return;
+
  currentUser=user;
  currentCompanyId=null;
 
  if(!user){
   showLogin();
+  $("loginButton").disabled=false;
   return;
  }
 
+ verificationInProgress=true;
  showLogin("Checking owner profile...");
+
+ let errorMessage="";
 
  try{
   const profileRef=doc(db,"userProfiles",user.uid);
-  const profileSnap=await getDoc(profileRef);
+
+  const profileSnap=await withTimeout(
+   getDoc(profileRef),
+   15000,
+   "Firestore owner profile read"
+  );
 
   if(!profileSnap.exists()){
    throw new Error("PROFILE_NOT_FOUND: No profile document for UID "+user.uid);
@@ -296,15 +322,40 @@ onAuthStateChanged(auth,async user=>{
 
   currentCompanyId=profile.companyId.trim();
 
+  const companyRef=doc(db,"companies",currentCompanyId);
+  const companySnap=await withTimeout(
+   getDoc(companyRef),
+   15000,
+   "Firestore company read"
+  );
+
+  if(!companySnap.exists()){
+   throw new Error("COMPANY_NOT_FOUND: "+currentCompanyId);
+  }
+
+  const company=companySnap.data();
+
+  if(company.active!==true){
+   throw new Error("COMPANY_INACTIVE: Company active must be true.");
+  }
+
  }catch(error){
   console.error("PROFILE VERIFICATION ERROR:",error);
-  showLogin(
-   "Profile Error: "+(error.code||"")+" "+error.message
-  );
-  await signOut(auth);
+  errorMessage="Profile Error: "+(error.code||"")+" "+error.message;
+  currentCompanyId=null;
+
+  try{
+   await signOut(auth);
+  }catch(signOutError){
+   console.error("SIGN OUT ERROR:",signOutError);
+  }
+
+  showLogin(errorMessage);
+  verificationInProgress=false;
   return;
  }
 
+ verificationInProgress=false;
  showApp();
  await loadProducts();
 });
@@ -355,7 +406,9 @@ async function loadProducts(){
  $("productRows").replaceChildren();
 
  try{
-  const snapshot=await getDocs(inventoryRef());
+  const snapshot=await withTimeout(
+   getDocs(inventoryRef()),15000,"Inventory loading"
+  );
 
   snapshot.forEach(productDoc=>{
    const p=productDoc.data();
@@ -405,11 +458,11 @@ $("productForm").addEventListener("submit",async e=>{
  $("inventoryStatus").textContent="Saving product...";
 
  try{
-  await addDoc(inventoryRef(),{
+  await withTimeout(addDoc(inventoryRef(),{
    name,sku,quantity,price,
    createdAt:serverTimestamp(),
    createdBy:currentUser.uid
-  });
+  }),15000,"Saving product");
 
   $("productForm").reset();
   await loadProducts();
