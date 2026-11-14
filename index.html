@@ -5,491 +5,826 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FAST MIND SOLUTIONS ERP</title>
+
 <style>
-:root{
- --navy:#071426;
- --panel:#10233d;
- --gold:#d9ad50;
- --white:#f4f6fa;
- --muted:#aab6c8;
- --border:#263c58;
+:root {
+  --navy:#071426;
+  --panel:#10233d;
+  --gold:#d9ad50;
+  --white:#f4f6fa;
+  --muted:#aab6c8;
+  --border:#263c58;
 }
 *{box-sizing:border-box}
 body{
- margin:0;background:var(--navy);color:var(--white);
- font-family:Arial,sans-serif
+  margin:0;
+  background:var(--navy);
+  color:var(--white);
+  font-family:Arial,sans-serif;
 }
 button,input{font:inherit}
 button{cursor:pointer}
+
 .login-wrap{
- min-height:100vh;display:grid;place-items:center;padding:20px
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:20px;
 }
 .login-card{
- width:100%;max-width:410px;padding:32px 26px;
- background:var(--panel);border:1px solid var(--border);
- border-radius:18px;text-align:center
+  width:100%;
+  max-width:410px;
+  padding:32px 26px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+  text-align:center;
 }
-.logo{font-size:27px;font-weight:800;color:var(--gold)}
+.logo{
+  font-size:27px;
+  font-weight:800;
+  color:var(--gold);
+}
 .subtitle,.small{color:var(--muted)}
 input{
- width:100%;padding:13px;margin:8px 0;border-radius:8px;
- border:1px solid var(--border);background:#08172a;color:white
+  width:100%;
+  padding:13px;
+  margin:8px 0;
+  border-radius:8px;
+  border:1px solid var(--border);
+  background:#08172a;
+  color:white;
 }
 .gold-btn{
- padding:13px 18px;border:0;border-radius:8px;
- background:var(--gold);color:#101827;font-weight:bold
+  padding:13px 18px;
+  border:0;
+  border-radius:8px;
+  background:var(--gold);
+  color:#101827;
+  font-weight:bold;
 }
 .gold-btn:disabled{opacity:.6;cursor:wait}
-.login-card .gold-btn{width:100%;margin-top:12px}
+.login-card .gold-btn{
+  width:100%;
+  margin-top:12px;
+}
 #message{
- color:#ffb6a8;font-size:13px;overflow-wrap:anywhere;
- line-height:1.5
+  color:#ffb6a8;
+  font-size:13px;
+  overflow-wrap:anywhere;
+  line-height:1.5;
 }
 #app{display:none;min-height:100vh}
+
 .sidebar{
- position:fixed;inset:0 auto 0 0;width:235px;padding:22px 15px;
- background:#091a30;border-right:1px solid var(--border);overflow:auto
+  position:fixed;
+  inset:0 auto 0 0;
+  width:235px;
+  padding:22px 15px;
+  background:#091a30;
+  border-right:1px solid var(--border);
+  overflow:auto;
 }
-.brand{font-size:21px;color:var(--gold);font-weight:bold;margin:5px 8px 25px}
+.brand{
+  font-size:21px;
+  color:var(--gold);
+  font-weight:bold;
+  margin:5px 8px 25px;
+}
 .nav-btn{
- width:100%;display:block;text-align:left;padding:12px;margin:4px 0;
- border:0;border-radius:8px;color:#dce4f0;background:transparent
+  width:100%;
+  display:block;
+  text-align:left;
+  padding:12px;
+  margin:4px 0;
+  border:0;
+  border-radius:8px;
+  color:#dce4f0;
+  background:transparent;
 }
-.nav-btn.active,.nav-btn:hover{background:#1b304c;color:var(--gold)}
-.main{margin-left:235px;padding:26px}
+.nav-btn.active,.nav-btn:hover{
+  background:#1b304c;
+  color:var(--gold);
+}
+.main{
+  margin-left:235px;
+  padding:26px;
+}
 .topbar{
- display:flex;justify-content:space-between;align-items:center;
- gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--border);
- padding-bottom:18px
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+  border-bottom:1px solid var(--border);
+  padding-bottom:18px;
 }
 h1{font-size:25px;margin:0}
 .gold{color:var(--gold)}
 .logout{
- background:transparent;color:var(--gold);border:1px solid var(--gold);
- border-radius:8px;padding:10px 15px
+  background:transparent;
+  color:var(--gold);
+  border:1px solid var(--gold);
+  border-radius:8px;
+  padding:10px 15px;
 }
 .welcome,.card,.panel{
- background:var(--panel);border:1px solid var(--border);
- border-radius:13px;padding:20px
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:20px;
 }
 .welcome{
- margin-top:22px;background:linear-gradient(110deg,#132b49,#10213a)
+  margin-top:22px;
+  background:linear-gradient(110deg,#132b49,#10213a);
 }
 .cards{
- display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
- gap:14px;margin:20px 0
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:14px;
+  margin:20px 0;
 }
-.card h3{font-size:14px;color:var(--muted);font-weight:normal}
-.card strong{font-size:25px;color:var(--gold)}
+.card h3{
+  font-size:14px;
+  color:var(--muted);
+  font-weight:normal;
+}
+.card strong{
+  font-size:25px;
+  color:var(--gold);
+}
 .module-grid{
- display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
- gap:12px;margin-top:16px
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:12px;
+  margin-top:16px;
 }
 .module{
- padding:18px 10px;background:var(--panel);border:1px solid var(--border);
- border-radius:10px;color:white
+  padding:18px 10px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:10px;
+  color:white;
 }
-.module:hover{border-color:var(--gold);color:var(--gold)}
+.module:hover{
+  border-color:var(--gold);
+  color:var(--gold);
+}
 .panel{margin-top:20px}
 .panel h2{margin-top:0}
 .form-grid{
- display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
- gap:10px
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:10px;
 }
 .form-grid input{margin:0}
-.table-wrap{overflow-x:auto;margin-top:16px}
-table{width:100%;border-collapse:collapse;min-width:540px}
-th,td{text-align:left;padding:12px;border-bottom:1px solid var(--border)}
+.table-wrap{
+  overflow-x:auto;
+  margin-top:16px;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:540px;
+}
+th,td{
+  text-align:left;
+  padding:12px;
+  border-bottom:1px solid var(--border);
+}
 th{color:var(--gold);font-size:13px}
 td{font-size:14px}
 .delete-btn{
- background:#612e37;color:white;border:0;border-radius:6px;padding:7px 10px
+  background:#612e37;
+  color:white;
+  border:0;
+  border-radius:6px;
+  padding:7px 10px;
 }
-.status{color:var(--muted);font-size:13px;margin-top:12px;overflow-wrap:anywhere}
+.status{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:12px;
+  overflow-wrap:anywhere;
+}
 [hidden]{display:none!important}
+
 @media(max-width:700px){
- .sidebar{position:relative;width:100%;height:auto;padding:12px}
- .sidebar nav{display:grid;grid-template-columns:repeat(2,1fr);gap:3px}
- .brand{margin-bottom:12px}
- .main{margin:0;padding:16px}
- h1{font-size:21px}
+  .sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+    padding:12px;
+  }
+  .sidebar nav{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:3px;
+  }
+  .brand{margin-bottom:12px}
+  .main{margin:0;padding:16px}
+  h1{font-size:21px}
 }
 </style>
 </head>
+
 <body>
 
 <section class="login-wrap" id="loginScreen">
- <div class="login-card">
-  <div class="logo">FAST MIND SOLUTIONS</div>
-  <h2 class="gold">ERP SOFTWARE</h2>
-  <p class="subtitle">Secure Owner Login</p>
-  <form id="loginForm">
-   <input id="email" type="email" placeholder="Owner Email" required>
-   <input id="password" type="password" placeholder="Password" required>
-   <button class="gold-btn" id="loginButton" type="submit">LOGIN</button>
-  </form>
-  <p id="message"></p>
-  <p class="small">Authorized accounts only</p>
- </div>
+  <div class="login-card">
+    <div class="logo">FAST MIND SOLUTIONS</div>
+    <h2 class="gold">ERP SOFTWARE</h2>
+    <p class="subtitle">Secure Owner Login</p>
+
+    <form id="loginForm">
+      <input id="email" type="email"
+        placeholder="Owner Email" required>
+
+      <input id="password" type="password"
+        placeholder="Password" required>
+
+      <button class="gold-btn" id="loginButton"
+        type="submit">LOGIN</button>
+    </form>
+
+    <p id="message"></p>
+    <p class="small">Authorized accounts only</p>
+  </div>
 </section>
 
 <div id="app">
- <aside class="sidebar">
-  <div class="brand">FAST MIND SOLUTIONS</div>
-  <nav id="navigation">
-   <button class="nav-btn active" data-page="Dashboard">▦ Dashboard</button>
-   <button class="nav-btn" data-page="Inventory">▣ Inventory</button>
-   <button class="nav-btn" data-page="Sales">↗ Sales</button>
-   <button class="nav-btn" data-page="Purchases">↙ Purchases</button>
-   <button class="nav-btn" data-page="Customers">♙ Customers</button>
-   <button class="nav-btn" data-page="Suppliers">♧ Suppliers</button>
-   <button class="nav-btn" data-page="Finance">◈ Finance</button>
-   <button class="nav-btn" data-page="Expenses">▤ Expenses</button>
-   <button class="nav-btn" data-page="HR & Payroll">♧ HR & Payroll</button>
-   <button class="nav-btn" data-page="Reports">▥ Reports</button>
-   <button class="nav-btn" data-page="Settings">⚙ Settings</button>
-   <button class="nav-btn" data-page="Super Admin">♛ Super Admin</button>
-  </nav>
- </aside>
 
- <main class="main">
-  <header class="topbar">
-   <div>
-    <h1 id="pageTitle">Dashboard</h1>
-    <p class="small">FAST MIND SOLUTIONS • ERP SYSTEM</p>
-   </div>
-   <button class="logout" id="logoutBtn">Logout</button>
-  </header>
+  <aside class="sidebar">
+    <div class="brand">FAST MIND SOLUTIONS</div>
 
-  <section id="dashboardContent">
-   <div class="welcome">
-    <h2>Welcome to <span class="gold">FAST MIND SOLUTIONS</span></h2>
-    <p class="small">Your business management workspace</p>
-   </div>
-   <div class="cards">
-    <div class="card"><h3>Total Sales</h3><strong>—</strong></div>
-    <div class="card"><h3>Total Purchases</h3><strong>—</strong></div>
-    <div class="card"><h3>Stock Items</h3><strong id="stockCount">0</strong></div>
-    <div class="card"><h3>Net Balance</h3><strong>—</strong></div>
-   </div>
-   <h2>ERP Modules</h2>
-   <div class="module-grid" id="moduleGrid"></div>
-  </section>
+    <nav id="navigation">
+      <button class="nav-btn active" data-page="Dashboard">▦ Dashboard</button>
+      <button class="nav-btn" data-page="Inventory">▣ Inventory</button>
+      <button class="nav-btn" data-page="Sales">↗ Sales</button>
+      <button class="nav-btn" data-page="Purchases">↙ Purchases</button>
+      <button class="nav-btn" data-page="Customers">♙ Customers</button>
+      <button class="nav-btn" data-page="Suppliers">♧ Suppliers</button>
+      <button class="nav-btn" data-page="Finance">◈ Finance</button>
+      <button class="nav-btn" data-page="Expenses">▤ Expenses</button>
+      <button class="nav-btn" data-page="HR & Payroll">♧ HR & Payroll</button>
+      <button class="nav-btn" data-page="Reports">▥ Reports</button>
+      <button class="nav-btn" data-page="Settings">⚙ Settings</button>
+      <button class="nav-btn" data-page="Super Admin">♛ Super Admin</button>
+    </nav>
+  </aside>
 
-  <section id="inventoryContent" class="panel" hidden>
-   <h2>Inventory Management</h2>
-   <p class="small">Add and manage products for your company.</p>
-   <form id="productForm">
-    <div class="form-grid">
-     <input id="productName" placeholder="Product name" required>
-     <input id="productSku" placeholder="Product code / SKU" required>
-     <input id="productQty" type="number" min="0" step="1" placeholder="Opening stock" required>
-     <input id="productPrice" type="number" min="0" step="0.01" placeholder="Unit price" required>
-    </div>
-    <button class="gold-btn" type="submit" style="margin-top:12px">Add Product</button>
-   </form>
-   <p class="status" id="inventoryStatus"></p>
-   <div class="table-wrap">
-    <table>
-     <thead>
-      <tr><th>Product</th><th>SKU</th><th>Stock</th><th>Unit Price</th><th>Action</th></tr>
-     </thead>
-     <tbody id="productRows"></tbody>
-    </table>
-   </div>
-  </section>
-  <p class="status" id="pageMessage"></p>
- </main>
+  <main class="main">
+
+    <header class="topbar">
+      <div>
+        <h1 id="pageTitle">Dashboard</h1>
+        <p class="small">FAST MIND SOLUTIONS • ERP SYSTEM</p>
+      </div>
+      <button class="logout" id="logoutBtn">Logout</button>
+    </header>
+
+    <section id="dashboardContent">
+      <div class="welcome">
+        <h2>Welcome to <span class="gold">FAST MIND SOLUTIONS</span></h2>
+        <p class="small">Your business management workspace</p>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Total Sales</h3>
+          <strong>—</strong>
+        </div>
+        <div class="card">
+          <h3>Total Purchases</h3>
+          <strong>—</strong>
+        </div>
+        <div class="card">
+          <h3>Stock Items</h3>
+          <strong id="stockCount">0</strong>
+        </div>
+        <div class="card">
+          <h3>Net Balance</h3>
+          <strong>—</strong>
+        </div>
+      </div>
+
+      <h2>ERP Modules</h2>
+      <div class="module-grid" id="moduleGrid"></div>
+    </section>
+
+    <section id="inventoryContent" class="panel" hidden>
+      <h2>Inventory Management</h2>
+      <p class="small">Add and manage products for your company.</p>
+
+      <form id="productForm">
+        <div class="form-grid">
+          <input id="productName"
+            placeholder="Product name" required>
+
+          <input id="productSku"
+            placeholder="Product code / SKU" required>
+
+          <input id="productQty" type="number"
+            min="0" step="1" placeholder="Opening stock" required>
+
+          <input id="productPrice" type="number"
+            min="0" step="0.01" placeholder="Unit price" required>
+        </div>
+
+        <button class="gold-btn" type="submit"
+          style="margin-top:12px">Add Product</button>
+      </form>
+
+      <p class="status" id="inventoryStatus"></p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>SKU</th>
+              <th>Stock</th>
+              <th>Unit Price</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="productRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <p class="status" id="pageMessage"></p>
+
+  </main>
 </div>
 
 <script type="module">
-import {initializeApp} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+
+import {initializeApp}
+from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
 
 import {
- getAuth,signInWithEmailAndPassword,onAuthStateChanged,signOut
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
 import {
- getFirestore,doc,getDoc,collection,addDoc,getDocs,
- deleteDoc,serverTimestamp
+  getFirestore,
+  doc,
+  getDoc,
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
-const firebaseConfig={
- apiKey:"AIzaSyAIYhnQBwVB4nicSwKWzwDvaJQVQvibnMU",
- authDomain:"fast-mind-solution.firebaseapp.com",
- projectId:"fast-mind-solution",
- storageBucket:"fast-mind-solution.firebasestorage.app",
- messagingSenderId:"505740976965",
- appId:"1:505740976965:web:12f6e5dfab4f6b66ff542c",
- measurementId:"G-4ZJNWHD59Y"
+const firebaseConfig = {
+  apiKey: "AIzaSyAIYhnQBwVB4nicSwKWzwDvaJQVQvibnMU",
+  authDomain: "fast-mind-solution.firebaseapp.com",
+  projectId: "fast-mind-solution",
+  storageBucket: "fast-mind-solution.firebasestorage.app",
+  messagingSenderId: "505740976965",
+  appId: "1:505740976965:web:12f6e5dfab4f6b66ff542c",
+  measurementId: "G-4ZJNWHD59Y"
 };
 
-const firebaseApp=initializeApp(firebaseConfig);
-const auth=getAuth(firebaseApp);
-const db=getFirestore(firebaseApp);
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
 
-const $=id=>document.getElementById(id);
-let currentCompanyId=null;
-let currentUser=null;
-let verificationInProgress=false;
+const $ = id => document.getElementById(id);
 
-function showLogin(messageText=""){
- $("loginScreen").style.display="grid";
- $("app").style.display="none";
- $("message").textContent=messageText;
+// Owner's company document ID
+const OWNER_COMPANY_ID = "fast-mind-main";
+
+let currentCompanyId = null;
+let currentUser = null;
+let verificationInProgress = false;
+
+function showLogin(messageText = "") {
+  $("loginScreen").style.display = "grid";
+  $("app").style.display = "none";
+  $("message").textContent = messageText;
 }
 
-function showApp(){
- $("loginScreen").style.display="none";
- $("app").style.display="block";
+function showApp() {
+  $("loginScreen").style.display = "none";
+  $("app").style.display = "block";
 }
 
-function withTimeout(promise,milliseconds,label){
- let timer;
- const timeout=new Promise((_,reject)=>{
-  timer=setTimeout(()=>{
-   reject(new Error(label+" timed out after "+milliseconds/1000+" seconds."));
-  },milliseconds);
- });
- return Promise.race([promise,timeout]).finally(()=>clearTimeout(timer));
-}
+function withTimeout(promise, milliseconds, label) {
+  let timer;
 
-$("loginForm").addEventListener("submit",async e=>{
- e.preventDefault();
- $("loginButton").disabled=true;
- $("message").textContent="Signing in...";
-
- try{
-  await withTimeout(
-   signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value),
-   20000,
-   "Firebase sign-in"
-  );
- }catch(error){
-  console.error("SIGN IN ERROR:",error.code,error.message);
-  showLogin("Login Error: "+(error.code||"")+" "+error.message);
-  $("loginButton").disabled=false;
- }
-});
-
-$("logoutBtn").addEventListener("click",async()=>{
- await signOut(auth);
-});
-
-onAuthStateChanged(auth,async user=>{
- if(verificationInProgress)return;
-
- currentUser=user;
- currentCompanyId=null;
-
- if(!user){
-  showLogin();
-  $("loginButton").disabled=false;
-  return;
- }
-
- verificationInProgress=true;
- showLogin("Checking owner profile...");
-
- let errorMessage="";
-
- try{
-  const profileRef=doc(db,"userProfiles",user.uid);
-
-  const profileSnap=await withTimeout(
-   getDoc(profileRef),
-   15000,
-   "Firestore owner profile read"
-  );
-
-  if(!profileSnap.exists()){
-   throw new Error("PROFILE_NOT_FOUND: No profile document for UID "+user.uid);
-  }
-
-  const profile=profileSnap.data();
-
-  if(profile.active!==true){
-   throw new Error("PROFILE_INACTIVE: active must be Boolean true.");
-  }
-
-  if(String(profile.role||"").trim()!=="owner"){
-   throw new Error("INVALID_ROLE: role must be owner.");
-  }
-
-  if(typeof profile.companyId!=="string"||!profile.companyId.trim()){
-   throw new Error("COMPANY_ID_MISSING: companyId is empty.");
-  }
-
-  currentCompanyId=profile.companyId.trim();
-
-  const companyRef=doc(db,"companies",currentCompanyId);
-  const companySnap=await withTimeout(
-   getDoc(companyRef),
-   15000,
-   "Firestore company read"
-  );
-
-  if(!companySnap.exists()){
-   throw new Error("COMPANY_NOT_FOUND: "+currentCompanyId);
-  }
-
-  const company=companySnap.data();
-
-  if(company.active!==true){
-   throw new Error("COMPANY_INACTIVE: Company active must be true.");
-  }
-
- }catch(error){
-  console.error("PROFILE VERIFICATION ERROR:",error);
-  errorMessage="Profile Error: "+(error.code||"")+" "+error.message;
-  currentCompanyId=null;
-
-  try{
-   await signOut(auth);
-  }catch(signOutError){
-   console.error("SIGN OUT ERROR:",signOutError);
-  }
-
-  showLogin(errorMessage);
-  verificationInProgress=false;
-  return;
- }
-
- verificationInProgress=false;
- showApp();
- await loadProducts();
-});
-
-const modules=[
- "Inventory","Sales","Purchases","Customers","Suppliers",
- "Finance","Expenses","HR & Payroll","CRM","Production",
- "Procurement","Projects","Assets","Reports","Settings","Super Admin"
-];
-
-modules.forEach(name=>{
- const button=document.createElement("button");
- button.className="module";
- button.textContent=name;
- button.addEventListener("click",()=>showPage(name));
- $("moduleGrid").appendChild(button);
-});
-
-function showPage(name){
- $("pageTitle").textContent=name;
- $("dashboardContent").hidden=name!=="Dashboard";
- $("inventoryContent").hidden=name!=="Inventory";
-
- $("pageMessage").textContent=
-  ["Dashboard","Inventory"].includes(name)?"":
-  name+" module is not connected yet. We will build it next.";
-
- document.querySelectorAll(".nav-btn").forEach(btn=>{
-  btn.classList.toggle("active",btn.dataset.page===name);
- });
-
- if(name==="Inventory")loadProducts();
-}
-
-document.querySelectorAll(".nav-btn").forEach(btn=>{
- btn.addEventListener("click",()=>showPage(btn.dataset.page));
-});
-
-function inventoryRef(){
- if(!currentCompanyId)throw new Error("Company is not verified.");
- return collection(db,"companies",currentCompanyId,"inventory");
-}
-
-async function loadProducts(){
- if(!currentCompanyId)return;
-
- $("inventoryStatus").textContent="Loading products...";
- $("productRows").replaceChildren();
-
- try{
-  const snapshot=await withTimeout(
-   getDocs(inventoryRef()),15000,"Inventory loading"
-  );
-
-  snapshot.forEach(productDoc=>{
-   const p=productDoc.data();
-   const tr=document.createElement("tr");
-
-   [p.name,p.sku,String(p.quantity??0),String(p.price??0)].forEach(value=>{
-    const td=document.createElement("td");
-    td.textContent=value??"";
-    tr.appendChild(td);
-   });
-
-   const action=document.createElement("td");
-   const del=document.createElement("button");
-   del.className="delete-btn";
-   del.textContent="Delete";
-   del.addEventListener("click",()=>removeProduct(productDoc.id));
-   action.appendChild(del);
-   tr.appendChild(action);
-   $("productRows").appendChild(tr);
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(() => {
+      reject(new Error(
+        label + " timed out after " +
+        milliseconds / 1000 + " seconds."
+      ));
+    }, milliseconds);
   });
 
-  $("stockCount").textContent=String(snapshot.size);
-  $("inventoryStatus").textContent=snapshot.size+" product(s) found.";
-
- }catch(error){
-  console.error("INVENTORY LOAD ERROR:",error);
-  $("inventoryStatus").textContent=
-   "Inventory Error: "+(error.code||"")+" "+error.message;
- }
+  return Promise.race([promise, timeout])
+    .finally(() => clearTimeout(timer));
 }
 
-$("productForm").addEventListener("submit",async e=>{
- e.preventDefault();
- if(!currentCompanyId)return;
+// LOGIN
+$("loginForm").addEventListener("submit", async e => {
+  e.preventDefault();
 
- const name=$("productName").value.trim();
- const sku=$("productSku").value.trim();
- const quantity=Number($("productQty").value);
- const price=Number($("productPrice").value);
+  $("loginButton").disabled = true;
+  $("message").textContent = "Signing in...";
 
- if(!name||!sku||!Number.isFinite(quantity)||quantity<0||
-    !Number.isFinite(price)||price<0){
-  $("inventoryStatus").textContent="Please enter valid product details.";
-  return;
- }
+  try {
+    await withTimeout(
+      signInWithEmailAndPassword(
+        auth,
+        $("email").value.trim(),
+        $("password").value
+      ),
+      20000,
+      "Firebase sign-in"
+    );
+  } catch (error) {
+    console.error("SIGN IN ERROR:", error.code, error.message);
 
- $("inventoryStatus").textContent="Saving product...";
+    showLogin(
+      "Login Error: " +
+      (error.code || "") + " " + error.message
+    );
 
- try{
-  await withTimeout(addDoc(inventoryRef(),{
-   name,sku,quantity,price,
-   createdAt:serverTimestamp(),
-   createdBy:currentUser.uid
-  }),15000,"Saving product");
-
-  $("productForm").reset();
-  await loadProducts();
-  $("inventoryStatus").textContent="Product saved successfully.";
-
- }catch(error){
-  console.error("PRODUCT SAVE ERROR:",error);
-  $("inventoryStatus").textContent=
-   "Save Error: "+(error.code||"")+" "+error.message;
- }
+    $("loginButton").disabled = false;
+  }
 });
 
-async function removeProduct(productId){
- if(!confirm("Delete this product?"))return;
+// LOGOUT
+$("logoutBtn").addEventListener("click", async () => {
+  await signOut(auth);
+});
 
- try{
-  await deleteDoc(
-   doc(db,"companies",currentCompanyId,"inventory",productId)
-  );
+// OWNER PROFILE VERIFICATION
+onAuthStateChanged(auth, async user => {
+
+  if (verificationInProgress) return;
+
+  currentUser = user;
+  currentCompanyId = null;
+
+  if (!user) {
+    showLogin();
+    $("loginButton").disabled = false;
+    return;
+  }
+
+  verificationInProgress = true;
+  showLogin("Checking owner profile...");
+
+  let errorMessage = "";
+
+  try {
+
+    // CORRECT PROFILE LOCATION:
+    // companies/fast-mind-main/userProfiles/UID
+    const profileRef = doc(
+      db,
+      "companies",
+      OWNER_COMPANY_ID,
+      "userProfiles",
+      user.uid
+    );
+
+    const profileSnap = await withTimeout(
+      getDoc(profileRef),
+      15000,
+      "Firestore owner profile read"
+    );
+
+    if (!profileSnap.exists()) {
+      throw new Error(
+        "PROFILE_NOT_FOUND: No profile document at companies/" +
+        OWNER_COMPANY_ID + "/userProfiles/" + user.uid
+      );
+    }
+
+    const profile = profileSnap.data();
+
+    if (profile.active !== true) {
+      throw new Error(
+        "PROFILE_INACTIVE: active must be Boolean true."
+      );
+    }
+
+    if (String(profile.role || "").trim() !== "owner") {
+      throw new Error(
+        "INVALID_ROLE: role must be owner."
+      );
+    }
+
+    if (
+      typeof profile.companyId !== "string" ||
+      !profile.companyId.trim()
+    ) {
+      throw new Error(
+        "COMPANY_ID_MISSING: companyId is empty."
+      );
+    }
+
+    currentCompanyId = profile.companyId.trim();
+
+    if (currentCompanyId !== OWNER_COMPANY_ID) {
+      throw new Error(
+        "COMPANY_ID_MISMATCH: Profile companyId does not match owner company."
+      );
+    }
+
+    // COMPANY DOCUMENT VERIFICATION
+    const companyRef = doc(
+      db,
+      "companies",
+      currentCompanyId
+    );
+
+    const companySnap = await withTimeout(
+      getDoc(companyRef),
+      15000,
+      "Firestore company read"
+    );
+
+    if (!companySnap.exists()) {
+      throw new Error(
+        "COMPANY_NOT_FOUND: " + currentCompanyId
+      );
+    }
+
+    const company = companySnap.data();
+
+    if (company.active !== true) {
+      throw new Error(
+        "COMPANY_INACTIVE: Company active must be true."
+      );
+    }
+
+  } catch (error) {
+
+    console.error("PROFILE VERIFICATION ERROR:", error);
+
+    errorMessage =
+      "Profile Error: " +
+      (error.code || "") + " " + error.message;
+
+    currentCompanyId = null;
+
+    try {
+      await signOut(auth);
+    } catch (signOutError) {
+      console.error("SIGN OUT ERROR:", signOutError);
+    }
+
+    showLogin(errorMessage);
+    verificationInProgress = false;
+    $("loginButton").disabled = false;
+    return;
+  }
+
+  verificationInProgress = false;
+
+  showApp();
   await loadProducts();
+});
 
- }catch(error){
-  console.error("DELETE ERROR:",error);
-  $("inventoryStatus").textContent=
-   "Delete Error: "+(error.code||"")+" "+error.message;
- }
+// ERP MODULES
+const modules = [
+  "Inventory",
+  "Sales",
+  "Purchases",
+  "Customers",
+  "Suppliers",
+  "Finance",
+  "Expenses",
+  "HR & Payroll",
+  "CRM",
+  "Production",
+  "Procurement",
+  "Projects",
+  "Assets",
+  "Reports",
+  "Settings",
+  "Super Admin"
+];
+
+modules.forEach(name => {
+  const button = document.createElement("button");
+
+  button.className = "module";
+  button.textContent = name;
+
+  button.addEventListener("click", () => showPage(name));
+
+  $("moduleGrid").appendChild(button);
+});
+
+// PAGE NAVIGATION
+function showPage(name) {
+
+  $("pageTitle").textContent = name;
+
+  $("dashboardContent").hidden = name !== "Dashboard";
+  $("inventoryContent").hidden = name !== "Inventory";
+
+  $("pageMessage").textContent =
+    ["Dashboard", "Inventory"].includes(name)
+      ? ""
+      : name + " module is not connected yet. We will build it next.";
+
+  document.querySelectorAll(".nav-btn").forEach(btn => {
+    btn.classList.toggle(
+      "active",
+      btn.dataset.page === name
+    );
+  });
+
+  if (name === "Inventory") {
+    loadProducts();
+  }
 }
+
+document.querySelectorAll(".nav-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    showPage(btn.dataset.page);
+  });
+});
+
+// COMPANY INVENTORY LOCATION
+function inventoryRef() {
+
+  if (!currentCompanyId) {
+    throw new Error("Company is not verified.");
+  }
+
+  return collection(
+    db,
+    "companies",
+    currentCompanyId,
+    "inventory"
+  );
+}
+
+// LOAD PRODUCTS
+async function loadProducts() {
+
+  if (!currentCompanyId) return;
+
+  $("inventoryStatus").textContent = "Loading products...";
+  $("productRows").replaceChildren();
+
+  try {
+
+    const snapshot = await withTimeout(
+      getDocs(inventoryRef()),
+      15000,
+      "Inventory loading"
+    );
+
+    snapshot.forEach(productDoc => {
+
+      const p = productDoc.data();
+      const tr = document.createElement("tr");
+
+      [
+        p.name,
+        p.sku,
+        String(p.quantity ?? 0),
+        String(p.price ?? 0)
+      ].forEach(value => {
+
+        const td = document.createElement("td");
+        td.textContent = value ?? "";
+        tr.appendChild(td);
+
+      });
+
+      const action = document.createElement("td");
+      const del = document.createElement("button");
+
+      del.className = "delete-btn";
+      del.textContent = "Delete";
+
+      del.addEventListener("click", () => {
+        removeProduct(productDoc.id);
+      });
+
+      action.appendChild(del);
+      tr.appendChild(action);
+
+      $("productRows").appendChild(tr);
+    });
+
+    $("stockCount").textContent = String(snapshot.size);
+
+    $("inventoryStatus").textContent =
+      snapshot.size + " product(s) found.";
+
+  } catch (error) {
+
+    console.error("INVENTORY LOAD ERROR:", error);
+
+    $("inventoryStatus").textContent =
+      "Inventory Error: " +
+      (error.code || "") + " " + error.message;
+  }
+}
+
+// ADD PRODUCT
+$("productForm").addEventListener("submit", async e => {
+
+  e.preventDefault();
+
+  if (!currentCompanyId) return;
+
+  const name = $("productName").value.trim();
+  const sku = $("productSku").value.trim();
+  const quantity = Number($("productQty").value);
+  const price = Number($("productPrice").value);
+
+  if (
+    !name ||
+    !sku ||
+    !Number.isFinite(quantity) ||
+    quantity < 0 ||
+    !Number.isFinite(price) ||
+    price < 0
+  ) {
+    $("inventoryStatus").textContent =
+      "Please enter valid product details.";
+    return;
+  }
+
+  $("inventoryStatus").textContent = "Saving product...";
+
+  try {
+
+    await withTimeout(
+      addDoc(inventoryRef(), {
+        name,
+        sku,
+        quantity,
+        price,
+        createdAt: serverTimestamp(),
+        createdBy: currentUser.uid
+      }),
+      15000,
+      "Saving product"
+    );
+
+    $("productForm").reset();
+
+    await loadProducts();
+
+    $("inventoryStatus").textContent =
+      "Product saved successfully.";
+
+  } catch (error) {
+
+    console.error("PRODUCT SAVE ERROR:", error);
+
+    $("inventoryStatus").textContent =
+      "Save Error: " +
+      (error.code || "") + " " + error.message;
+  }
+});
+
+// DELETE PRODUCT
+async function removeProduct(productId) {
+
+  if (!confirm("Delete this product?")) return;
+
+  try {
+
+    await deleteDoc(
+      doc(
+        db,
+        "companies",
+        currentCompanyId,
+        "inventory",
+        productId
+      )
+    );
+
+    await loadProducts();
+
+  } catch (error) {
+
+    console.error("DELETE ERROR:", error);
+
+    $("inventoryStatus").textContent =
+      "Delete Error: " +
+      (error.code || "") + " " + error.message;
+  }
+}
+
 </script>
 </body>
 </html>
