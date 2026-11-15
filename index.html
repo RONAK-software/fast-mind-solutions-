@@ -17,210 +17,99 @@
 }
 *{box-sizing:border-box}
 body{
-  margin:0;
-  background:var(--navy);
-  color:var(--white);
+  margin:0;background:var(--navy);color:var(--white);
   font-family:Arial,sans-serif;
 }
 button,input{font:inherit}
 button{cursor:pointer}
-
 .login-wrap{
-  min-height:100vh;
-  display:grid;
-  place-items:center;
-  padding:20px;
+  min-height:100vh;display:grid;place-items:center;padding:20px;
 }
 .login-card{
-  width:100%;
-  max-width:410px;
-  padding:32px 26px;
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:18px;
-  text-align:center;
+  width:100%;max-width:410px;padding:32px 26px;
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:18px;text-align:center;
 }
-.logo{
-  font-size:27px;
-  font-weight:800;
-  color:var(--gold);
-}
+.logo{font-size:27px;font-weight:800;color:var(--gold)}
 .subtitle,.small{color:var(--muted)}
 input{
-  width:100%;
-  padding:13px;
-  margin:8px 0;
-  border-radius:8px;
-  border:1px solid var(--border);
-  background:#08172a;
-  color:white;
+  width:100%;padding:13px;margin:8px 0;border-radius:8px;
+  border:1px solid var(--border);background:#08172a;color:white;
 }
 .gold-btn{
-  padding:13px 18px;
-  border:0;
-  border-radius:8px;
-  background:var(--gold);
-  color:#101827;
-  font-weight:bold;
+  padding:13px 18px;border:0;border-radius:8px;
+  background:var(--gold);color:#101827;font-weight:bold;
 }
 .gold-btn:disabled{opacity:.6;cursor:wait}
-.login-card .gold-btn{
-  width:100%;
-  margin-top:12px;
-}
+.login-card .gold-btn{width:100%;margin-top:12px}
 #message{
-  color:#ffb6a8;
-  font-size:13px;
-  overflow-wrap:anywhere;
-  line-height:1.5;
+  color:#ffb6a8;font-size:13px;overflow-wrap:anywhere;line-height:1.5;
 }
 #app{display:none;min-height:100vh}
-
 .sidebar{
-  position:fixed;
-  inset:0 auto 0 0;
-  width:235px;
-  padding:22px 15px;
-  background:#091a30;
-  border-right:1px solid var(--border);
-  overflow:auto;
+  position:fixed;inset:0 auto 0 0;width:235px;padding:22px 15px;
+  background:#091a30;border-right:1px solid var(--border);overflow:auto;
 }
-.brand{
-  font-size:21px;
-  color:var(--gold);
-  font-weight:bold;
-  margin:5px 8px 25px;
-}
+.brand{font-size:21px;color:var(--gold);font-weight:bold;margin:5px 8px 25px}
 .nav-btn{
-  width:100%;
-  display:block;
-  text-align:left;
-  padding:12px;
-  margin:4px 0;
-  border:0;
-  border-radius:8px;
-  color:#dce4f0;
-  background:transparent;
+  width:100%;display:block;text-align:left;padding:12px;margin:4px 0;
+  border:0;border-radius:8px;color:#dce4f0;background:transparent;
 }
-.nav-btn.active,.nav-btn:hover{
-  background:#1b304c;
-  color:var(--gold);
-}
-.main{
-  margin-left:235px;
-  padding:26px;
-}
+.nav-btn.active,.nav-btn:hover{background:#1b304c;color:var(--gold)}
+.main{margin-left:235px;padding:26px}
 .topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
-  border-bottom:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+  gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--border);
   padding-bottom:18px;
 }
 h1{font-size:25px;margin:0}
 .gold{color:var(--gold)}
 .logout{
-  background:transparent;
-  color:var(--gold);
-  border:1px solid var(--gold);
-  border-radius:8px;
-  padding:10px 15px;
+  background:transparent;color:var(--gold);border:1px solid var(--gold);
+  border-radius:8px;padding:10px 15px;
 }
 .welcome,.card,.panel{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:13px;
-  padding:20px;
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:13px;padding:20px;
 }
 .welcome{
-  margin-top:22px;
-  background:linear-gradient(110deg,#132b49,#10213a);
+  margin-top:22px;background:linear-gradient(110deg,#132b49,#10213a);
 }
 .cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:14px;
-  margin:20px 0;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:14px;margin:20px 0;
 }
-.card h3{
-  font-size:14px;
-  color:var(--muted);
-  font-weight:normal;
-}
-.card strong{
-  font-size:25px;
-  color:var(--gold);
-}
+.card h3{font-size:14px;color:var(--muted);font-weight:normal}
+.card strong{font-size:25px;color:var(--gold)}
 .module-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-  gap:12px;
-  margin-top:16px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:12px;margin-top:16px;
 }
 .module{
-  padding:18px 10px;
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:10px;
-  color:white;
+  padding:18px 10px;background:var(--panel);border:1px solid var(--border);
+  border-radius:10px;color:white;
 }
-.module:hover{
-  border-color:var(--gold);
-  color:var(--gold);
-}
+.module:hover{border-color:var(--gold);color:var(--gold)}
 .panel{margin-top:20px}
 .panel h2{margin-top:0}
 .form-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
   gap:10px;
 }
 .form-grid input{margin:0}
-.table-wrap{
-  overflow-x:auto;
-  margin-top:16px;
-}
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:540px;
-}
-th,td{
-  text-align:left;
-  padding:12px;
-  border-bottom:1px solid var(--border);
-}
+.table-wrap{overflow-x:auto;margin-top:16px}
+table{width:100%;border-collapse:collapse;min-width:540px}
+th,td{text-align:left;padding:12px;border-bottom:1px solid var(--border)}
 th{color:var(--gold);font-size:13px}
 td{font-size:14px}
 .delete-btn{
-  background:#612e37;
-  color:white;
-  border:0;
-  border-radius:6px;
-  padding:7px 10px;
+  background:#612e37;color:white;border:0;border-radius:6px;padding:7px 10px;
 }
-.status{
-  color:var(--muted);
-  font-size:13px;
-  margin-top:12px;
-  overflow-wrap:anywhere;
-}
+.status{color:var(--muted);font-size:13px;margin-top:12px;overflow-wrap:anywhere}
 [hidden]{display:none!important}
-
 @media(max-width:700px){
-  .sidebar{
-    position:relative;
-    width:100%;
-    height:auto;
-    padding:12px;
-  }
-  .sidebar nav{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:3px;
-  }
+  .sidebar{position:relative;width:100%;height:auto;padding:12px}
+  .sidebar nav{display:grid;grid-template-columns:repeat(2,1fr);gap:3px}
   .brand{margin-bottom:12px}
   .main{margin:0;padding:16px}
   h1{font-size:21px}
@@ -237,14 +126,9 @@ td{font-size:14px}
     <p class="subtitle">Secure Owner Login</p>
 
     <form id="loginForm">
-      <input id="email" type="email"
-        placeholder="Owner Email" required>
-
-      <input id="password" type="password"
-        placeholder="Password" required>
-
-      <button class="gold-btn" id="loginButton"
-        type="submit">LOGIN</button>
+      <input id="email" type="email" placeholder="Owner Email" required>
+      <input id="password" type="password" placeholder="Password" required>
+      <button class="gold-btn" id="loginButton" type="submit">LOGIN</button>
     </form>
 
     <p id="message"></p>
@@ -253,10 +137,8 @@ td{font-size:14px}
 </section>
 
 <div id="app">
-
   <aside class="sidebar">
     <div class="brand">FAST MIND SOLUTIONS</div>
-
     <nav id="navigation">
       <button class="nav-btn active" data-page="Dashboard">▦ Dashboard</button>
       <button class="nav-btn" data-page="Inventory">▣ Inventory</button>
@@ -274,7 +156,6 @@ td{font-size:14px}
   </aside>
 
   <main class="main">
-
     <header class="topbar">
       <div>
         <h1 id="pageTitle">Dashboard</h1>
@@ -290,22 +171,10 @@ td{font-size:14px}
       </div>
 
       <div class="cards">
-        <div class="card">
-          <h3>Total Sales</h3>
-          <strong>—</strong>
-        </div>
-        <div class="card">
-          <h3>Total Purchases</h3>
-          <strong>—</strong>
-        </div>
-        <div class="card">
-          <h3>Stock Items</h3>
-          <strong id="stockCount">0</strong>
-        </div>
-        <div class="card">
-          <h3>Net Balance</h3>
-          <strong>—</strong>
-        </div>
+        <div class="card"><h3>Total Sales</h3><strong>—</strong></div>
+        <div class="card"><h3>Total Purchases</h3><strong>—</strong></div>
+        <div class="card"><h3>Stock Items</h3><strong id="stockCount">0</strong></div>
+        <div class="card"><h3>Net Balance</h3><strong>—</strong></div>
       </div>
 
       <h2>ERP Modules</h2>
@@ -318,21 +187,16 @@ td{font-size:14px}
 
       <form id="productForm">
         <div class="form-grid">
-          <input id="productName"
-            placeholder="Product name" required>
-
-          <input id="productSku"
-            placeholder="Product code / SKU" required>
-
-          <input id="productQty" type="number"
-            min="0" step="1" placeholder="Opening stock" required>
-
-          <input id="productPrice" type="number"
-            min="0" step="0.01" placeholder="Unit price" required>
+          <input id="productName" placeholder="Product name" required>
+          <input id="productSku" placeholder="Product code / SKU" required>
+          <input id="productQty" type="number" min="0" step="1"
+            placeholder="Opening stock" required>
+          <input id="productPrice" type="number" min="0" step="0.01"
+            placeholder="Unit price" required>
         </div>
-
-        <button class="gold-btn" type="submit"
-          style="margin-top:12px">Add Product</button>
+        <button class="gold-btn" type="submit" style="margin-top:12px">
+          Add Product
+        </button>
       </form>
 
       <p class="status" id="inventoryStatus"></p>
@@ -341,11 +205,8 @@ td{font-size:14px}
         <table>
           <thead>
             <tr>
-              <th>Product</th>
-              <th>SKU</th>
-              <th>Stock</th>
-              <th>Unit Price</th>
-              <th>Action</th>
+              <th>Product</th><th>SKU</th><th>Stock</th>
+              <th>Unit Price</th><th>Action</th>
             </tr>
           </thead>
           <tbody id="productRows"></tbody>
@@ -354,20 +215,21 @@ td{font-size:14px}
     </section>
 
     <p class="status" id="pageMessage"></p>
-
   </main>
 </div>
 
 <script type="module">
 
-import {initializeApp}
+import { initializeApp }
 from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
 
 import {
   getAuth,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  signOut
+  signOut,
+  setPersistence,
+  browserLocalPersistence
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
 import {
@@ -394,10 +256,8 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
-
 const $ = id => document.getElementById(id);
 
-// Owner's company document ID
 const OWNER_COMPANY_ID = "fast-mind-main";
 
 let currentCompanyId = null;
@@ -417,18 +277,23 @@ function showApp() {
 
 function withTimeout(promise, milliseconds, label) {
   let timer;
-
   const timeout = new Promise((_, reject) => {
     timer = setTimeout(() => {
-      reject(new Error(
-        label + " timed out after " +
-        milliseconds / 1000 + " seconds."
-      ));
+      reject(new Error(label + " timed out after " +
+        milliseconds / 1000 + " seconds."));
     }, milliseconds);
   });
-
   return Promise.race([promise, timeout])
     .finally(() => clearTimeout(timer));
+}
+
+// IMPORTANT: Keep the Firebase login session on this browser.
+try {
+  await setPersistence(auth, browserLocalPersistence);
+  console.log("Firebase local persistence enabled.");
+} catch (error) {
+  console.error("PERSISTENCE ERROR:", error);
+  showLogin("Session setup error: " + error.message);
 }
 
 // LOGIN
@@ -439,198 +304,156 @@ $("loginForm").addEventListener("submit", async e => {
   $("message").textContent = "Signing in...";
 
   try {
-    await withTimeout(
-      signInWithEmailAndPassword(
-        auth,
-        $("email").value.trim(),
-        $("password").value
-      ),
-      20000,
-      "Firebase sign-in"
-    );
+    if (auth.currentUser) {
+      // If already signed in, retry profile verification.
+      await verifyOwner(auth.currentUser);
+    } else {
+      await withTimeout(
+        signInWithEmailAndPassword(
+          auth,
+          $("email").value.trim(),
+          $("password").value
+        ),
+        20000,
+        "Firebase sign-in"
+      );
+    }
   } catch (error) {
     console.error("SIGN IN ERROR:", error.code, error.message);
-
-    showLogin(
-      "Login Error: " +
-      (error.code || "") + " " + error.message
-    );
-
+    showLogin("Login Error: " + (error.code || "") + " " + error.message);
     $("loginButton").disabled = false;
   }
 });
 
 // LOGOUT
 $("logoutBtn").addEventListener("click", async () => {
-  await signOut(auth);
+  try {
+    await signOut(auth);
+    currentUser = null;
+    currentCompanyId = null;
+    showLogin("You have been logged out.");
+    $("loginButton").disabled = false;
+    $("loginForm").reset();
+  } catch (error) {
+    console.error("LOGOUT ERROR:", error);
+    alert("Logout error: " + error.message);
+  }
 });
 
-// OWNER PROFILE VERIFICATION
-onAuthStateChanged(auth, async user => {
-
+// VERIFY OWNER WITHOUT AUTOMATICALLY SIGNING OUT ON TEMPORARY ERRORS
+async function verifyOwner(user) {
   if (verificationInProgress) return;
 
+  verificationInProgress = true;
   currentUser = user;
   currentCompanyId = null;
-
-  if (!user) {
-    showLogin();
-    $("loginButton").disabled = false;
-    return;
-  }
-
-  verificationInProgress = true;
   showLogin("Checking owner profile...");
 
-  let errorMessage = "";
-
   try {
-
-    // CORRECT PROFILE LOCATION:
-    // companies/fast-mind-main/userProfiles/UID
     const profileRef = doc(
-      db,
-      "companies",
-      OWNER_COMPANY_ID,
-      "userProfiles",
-      user.uid
+      db, "companies", OWNER_COMPANY_ID, "userProfiles", user.uid
     );
 
     const profileSnap = await withTimeout(
-      getDoc(profileRef),
-      15000,
-      "Firestore owner profile read"
+      getDoc(profileRef), 15000, "Firestore owner profile read"
     );
 
     if (!profileSnap.exists()) {
       throw new Error(
-        "PROFILE_NOT_FOUND: No profile document at companies/" +
-        OWNER_COMPANY_ID + "/userProfiles/" + user.uid
+        "PROFILE_NOT_FOUND: Check the owner profile document."
       );
     }
 
     const profile = profileSnap.data();
 
     if (profile.active !== true) {
-      throw new Error(
-        "PROFILE_INACTIVE: active must be Boolean true."
-      );
+      throw new Error("PROFILE_INACTIVE: active must be true.");
     }
 
     if (String(profile.role || "").trim() !== "owner") {
-      throw new Error(
-        "INVALID_ROLE: role must be owner."
-      );
+      throw new Error("INVALID_ROLE: role must be owner.");
     }
 
     if (
       typeof profile.companyId !== "string" ||
       !profile.companyId.trim()
     ) {
-      throw new Error(
-        "COMPANY_ID_MISSING: companyId is empty."
-      );
+      throw new Error("COMPANY_ID_MISSING.");
     }
 
     currentCompanyId = profile.companyId.trim();
 
     if (currentCompanyId !== OWNER_COMPANY_ID) {
-      throw new Error(
-        "COMPANY_ID_MISMATCH: Profile companyId does not match owner company."
-      );
+      throw new Error("COMPANY_ID_MISMATCH.");
     }
 
-    // COMPANY DOCUMENT VERIFICATION
-    const companyRef = doc(
-      db,
-      "companies",
-      currentCompanyId
-    );
-
+    const companyRef = doc(db, "companies", currentCompanyId);
     const companySnap = await withTimeout(
-      getDoc(companyRef),
-      15000,
-      "Firestore company read"
+      getDoc(companyRef), 15000, "Firestore company read"
     );
 
     if (!companySnap.exists()) {
-      throw new Error(
-        "COMPANY_NOT_FOUND: " + currentCompanyId
-      );
+      throw new Error("COMPANY_NOT_FOUND.");
     }
 
     const company = companySnap.data();
 
     if (company.active !== true) {
-      throw new Error(
-        "COMPANY_INACTIVE: Company active must be true."
-      );
+      throw new Error("COMPANY_INACTIVE: active must be true.");
     }
+
+    showApp();
+    await loadProducts();
 
   } catch (error) {
-
     console.error("PROFILE VERIFICATION ERROR:", error);
-
-    errorMessage =
-      "Profile Error: " +
-      (error.code || "") + " " + error.message;
-
     currentCompanyId = null;
 
-    try {
-      await signOut(auth);
-    } catch (signOutError) {
-      console.error("SIGN OUT ERROR:", signOutError);
-    }
+    // Do not sign out automatically.
+    // Refresh or retry after a temporary Firestore/network error.
+    showLogin(
+      "Verification Error: " +
+      (error.code || "") + " " + error.message +
+      " Your login session has been kept. Correct the issue and retry."
+    );
+    $("loginButton").disabled = false;
 
-    showLogin(errorMessage);
+  } finally {
     verificationInProgress = false;
+  }
+}
+
+// AUTH SESSION CHECK
+onAuthStateChanged(auth, async user => {
+  if (!user) {
+    currentUser = null;
+    currentCompanyId = null;
+    showLogin();
     $("loginButton").disabled = false;
     return;
   }
 
-  verificationInProgress = false;
-
-  showApp();
-  await loadProducts();
+  await verifyOwner(user);
 });
 
 // ERP MODULES
 const modules = [
-  "Inventory",
-  "Sales",
-  "Purchases",
-  "Customers",
-  "Suppliers",
-  "Finance",
-  "Expenses",
-  "HR & Payroll",
-  "CRM",
-  "Production",
-  "Procurement",
-  "Projects",
-  "Assets",
-  "Reports",
-  "Settings",
-  "Super Admin"
+  "Inventory", "Sales", "Purchases", "Customers", "Suppliers",
+  "Finance", "Expenses", "HR & Payroll", "CRM", "Production",
+  "Procurement", "Projects", "Assets", "Reports", "Settings", "Super Admin"
 ];
 
 modules.forEach(name => {
   const button = document.createElement("button");
-
   button.className = "module";
   button.textContent = name;
-
   button.addEventListener("click", () => showPage(name));
-
   $("moduleGrid").appendChild(button);
 });
 
 // PAGE NAVIGATION
 function showPage(name) {
-
   $("pageTitle").textContent = name;
-
   $("dashboardContent").hidden = name !== "Dashboard";
   $("inventoryContent").hidden = name !== "Inventory";
 
@@ -640,82 +463,53 @@ function showPage(name) {
       : name + " module is not connected yet. We will build it next.";
 
   document.querySelectorAll(".nav-btn").forEach(btn => {
-    btn.classList.toggle(
-      "active",
-      btn.dataset.page === name
-    );
+    btn.classList.toggle("active", btn.dataset.page === name);
   });
 
-  if (name === "Inventory") {
-    loadProducts();
-  }
+  if (name === "Inventory") loadProducts();
 }
 
 document.querySelectorAll(".nav-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    showPage(btn.dataset.page);
-  });
+  btn.addEventListener("click", () => showPage(btn.dataset.page));
 });
 
-// COMPANY INVENTORY LOCATION
+// COMPANY INVENTORY
 function inventoryRef() {
-
   if (!currentCompanyId) {
     throw new Error("Company is not verified.");
   }
 
-  return collection(
-    db,
-    "companies",
-    currentCompanyId,
-    "inventory"
-  );
+  return collection(db, "companies", currentCompanyId, "inventory");
 }
 
 // LOAD PRODUCTS
 async function loadProducts() {
-
   if (!currentCompanyId) return;
 
   $("inventoryStatus").textContent = "Loading products...";
   $("productRows").replaceChildren();
 
   try {
-
     const snapshot = await withTimeout(
-      getDocs(inventoryRef()),
-      15000,
-      "Inventory loading"
+      getDocs(inventoryRef()), 15000, "Inventory loading"
     );
 
     snapshot.forEach(productDoc => {
-
       const p = productDoc.data();
       const tr = document.createElement("tr");
 
-      [
-        p.name,
-        p.sku,
-        String(p.quantity ?? 0),
-        String(p.price ?? 0)
-      ].forEach(value => {
-
-        const td = document.createElement("td");
-        td.textContent = value ?? "";
-        tr.appendChild(td);
-
-      });
+      [p.name, p.sku, String(p.quantity ?? 0), String(p.price ?? 0)]
+        .forEach(value => {
+          const td = document.createElement("td");
+          td.textContent = value ?? "";
+          tr.appendChild(td);
+        });
 
       const action = document.createElement("td");
       const del = document.createElement("button");
-
       del.className = "delete-btn";
       del.textContent = "Delete";
-
-      del.addEventListener("click", () => {
-        removeProduct(productDoc.id);
-      });
-
+      del.addEventListener("click", () => removeProduct(productDoc.id));
       action.appendChild(del);
       tr.appendChild(action);
 
@@ -723,25 +517,19 @@ async function loadProducts() {
     });
 
     $("stockCount").textContent = String(snapshot.size);
-
     $("inventoryStatus").textContent =
       snapshot.size + " product(s) found.";
 
   } catch (error) {
-
     console.error("INVENTORY LOAD ERROR:", error);
-
     $("inventoryStatus").textContent =
-      "Inventory Error: " +
-      (error.code || "") + " " + error.message;
+      "Inventory Error: " + (error.code || "") + " " + error.message;
   }
 }
 
 // ADD PRODUCT
 $("productForm").addEventListener("submit", async e => {
-
   e.preventDefault();
-
   if (!currentCompanyId) return;
 
   const name = $("productName").value.trim();
@@ -750,12 +538,9 @@ $("productForm").addEventListener("submit", async e => {
   const price = Number($("productPrice").value);
 
   if (
-    !name ||
-    !sku ||
-    !Number.isFinite(quantity) ||
-    quantity < 0 ||
-    !Number.isFinite(price) ||
-    price < 0
+    !name || !sku ||
+    !Number.isFinite(quantity) || quantity < 0 ||
+    !Number.isFinite(price) || price < 0
   ) {
     $("inventoryStatus").textContent =
       "Please enter valid product details.";
@@ -765,7 +550,6 @@ $("productForm").addEventListener("submit", async e => {
   $("inventoryStatus").textContent = "Saving product...";
 
   try {
-
     await withTimeout(
       addDoc(inventoryRef(), {
         name,
@@ -780,48 +564,29 @@ $("productForm").addEventListener("submit", async e => {
     );
 
     $("productForm").reset();
-
     await loadProducts();
-
-    $("inventoryStatus").textContent =
-      "Product saved successfully.";
+    $("inventoryStatus").textContent = "Product saved successfully.";
 
   } catch (error) {
-
     console.error("PRODUCT SAVE ERROR:", error);
-
     $("inventoryStatus").textContent =
-      "Save Error: " +
-      (error.code || "") + " " + error.message;
+      "Save Error: " + (error.code || "") + " " + error.message;
   }
 });
 
 // DELETE PRODUCT
 async function removeProduct(productId) {
-
   if (!confirm("Delete this product?")) return;
 
   try {
-
     await deleteDoc(
-      doc(
-        db,
-        "companies",
-        currentCompanyId,
-        "inventory",
-        productId
-      )
+      doc(db, "companies", currentCompanyId, "inventory", productId)
     );
-
     await loadProducts();
-
   } catch (error) {
-
     console.error("DELETE ERROR:", error);
-
     $("inventoryStatus").textContent =
-      "Delete Error: " +
-      (error.code || "") + " " + error.message;
+      "Delete Error: " + (error.code || "") + " " + error.message;
   }
 }
 
