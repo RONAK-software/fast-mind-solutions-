@@ -3,693 +3,235 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>FAST MIND SOLUTIONS ERP</title>
-
 <style>
-:root {
-  --navy:#071426;
-  --panel:#10233d;
-  --gold:#d9ad50;
-  --white:#f4f6fa;
-  --muted:#aab6c8;
-  --border:#263c58;
-}
-*{box-sizing:border-box}
-body{margin:0;background:var(--navy);color:var(--white);font-family:Arial,sans-serif}
-button,input,select{font:inherit}
-button{cursor:pointer}
-.login-wrap{min-height:100vh;display:grid;place-items:center;padding:20px}
-.login-card{width:100%;max-width:410px;padding:32px 26px;background:var(--panel);border:1px solid var(--border);border-radius:18px;text-align:center}
-.logo{font-size:27px;font-weight:800;color:var(--gold)}
-.subtitle,.small{color:var(--muted)}
-input,select{width:100%;padding:13px;margin:8px 0;border-radius:8px;border:1px solid var(--border);background:#08172a;color:white}
-.gold-btn{padding:13px 18px;border:0;border-radius:8px;background:var(--gold);color:#101827;font-weight:bold}
-.gold-btn:disabled{opacity:.6;cursor:wait}
-.login-card .gold-btn{width:100%;margin-top:12px}
-#message{color:#ffb6a8;font-size:13px;overflow-wrap:anywhere;line-height:1.5}
-#app{display:none;min-height:100vh}
-.sidebar{position:fixed;inset:0 auto 0 0;width:235px;padding:22px 15px;background:#091a30;border-right:1px solid var(--border);overflow:auto}
-.brand{font-size:21px;color:var(--gold);font-weight:bold;margin:5px 8px 25px}
-.nav-btn{width:100%;display:block;text-align:left;padding:12px;margin:4px 0;border:0;border-radius:8px;color:#dce4f0;background:transparent}
-.nav-btn.active,.nav-btn:hover{background:#1b304c;color:var(--gold)}
-.main{margin-left:235px;padding:26px}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:18px}
-h1{font-size:25px;margin:0}
-.gold{color:var(--gold)}
-.logout{background:transparent;color:var(--gold);border:1px solid var(--gold);border-radius:8px;padding:10px 15px}
-.welcome,.card,.panel{background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:20px}
-.welcome{margin-top:22px;background:linear-gradient(110deg,#132b49,#10213a)}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:20px 0}
-.card h3{font-size:14px;color:var(--muted);font-weight:normal}
-.card strong{font-size:25px;color:var(--gold)}
-.module-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:16px}
-.module{padding:18px 10px;background:var(--panel);border:1px solid var(--border);border-radius:10px;color:white}
-.module:hover{border-color:var(--gold);color:var(--gold)}
-.panel{margin-top:20px}
-.panel h2{margin-top:0}
-.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
-.form-grid input,.form-grid select{margin:0}
-.table-wrap{overflow-x:auto;margin-top:16px}
-table{width:100%;border-collapse:collapse;min-width:540px}
-th,td{text-align:left;padding:12px;border-bottom:1px solid var(--border)}
-th{color:var(--gold);font-size:13px}
-td{font-size:14px}
-.delete-btn{background:#612e37;color:white;border:0;border-radius:6px;padding:7px 10px}
-.status{color:var(--muted);font-size:13px;margin-top:12px;overflow-wrap:anywhere}
-.company-switch{width:auto;max-width:230px;margin:0;padding:10px}
+:root{--bg:#071426;--panel:#10233d;--gold:#d9ad50;--white:#f4f6fa;--muted:#aab6c8;--border:#263c58}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font-family:Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}
 [hidden]{display:none!important}
-@media(max-width:700px){
-  .sidebar{position:relative;width:100%;height:auto;padding:12px}
-  .sidebar nav{display:grid;grid-template-columns:repeat(2,1fr);gap:3px}
-  .brand{margin-bottom:12px}
-  .main{margin:0;padding:16px}
-  h1{font-size:21px}
-  .company-switch{max-width:100%;width:100%}
-}
+.login-wrap{min-height:100vh;display:grid;place-items:center;padding:20px}.login-card{width:100%;max-width:410px;padding:30px 25px;background:var(--panel);border:1px solid var(--border);border-radius:18px;text-align:center}
+.logo{font-size:25px;font-weight:800;color:var(--gold)}.muted,.small{color:var(--muted);font-size:13px}
+input,select{width:100%;padding:12px;margin:7px 0;border-radius:8px;border:1px solid var(--border);background:#08172a;color:white}
+button{border:0;border-radius:8px;padding:11px 14px}.gold-btn{background:var(--gold);color:#101827;font-weight:bold}.gold-btn:disabled{opacity:.5}
+#loginForm .gold-btn{width:100%;margin-top:10px}#message{color:#ffb6a8;font-size:13px;overflow-wrap:anywhere}
+#app{display:none;min-height:100vh}.sidebar{position:fixed;z-index:20;inset:0 auto 0 0;width:250px;padding:18px 14px;background:#091a30;border-right:1px solid var(--border);overflow:auto;transition:transform .2s}
+.brand{font-size:19px;font-weight:bold;color:var(--gold);padding:8px;margin-bottom:16px}
+.nav-btn{width:100%;display:block;text-align:left;background:transparent;color:#dce4f0;padding:12px;margin:3px 0}.nav-btn.active,.nav-btn:hover{background:#1b304c;color:var(--gold)}
+.main{margin-left:250px;padding:22px;min-width:0}.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:15px}
+.top-left{display:flex;align-items:center;gap:12px}.hamburger{font-size:22px;background:#1b304c;color:var(--gold);padding:9px 13px}
+h1{font-size:24px;margin:0}.gold{color:var(--gold)}.company-switch{max-width:250px;width:auto;margin:7px 0}
+.logout{background:transparent;color:var(--gold);border:1px solid var(--gold)}
+.panel,.card,.welcome{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px;margin-top:18px}
+.welcome{background:linear-gradient(110deg,#132b49,#10213a)}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:18px}
+.card h3{font-size:13px;color:var(--muted);font-weight:normal}.card strong{font-size:24px;color:var(--gold)}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:9px}.form-grid input,.form-grid select{margin:0}
+.table-wrap{overflow-x:auto;margin-top:14px}table{width:100%;border-collapse:collapse;min-width:540px}th,td{text-align:left;padding:11px;border-bottom:1px solid var(--border);font-size:13px}th{color:var(--gold)}
+.danger{background:#612e37;color:white}.secondary{background:#1b304c;color:white}.status{color:var(--muted);font-size:13px;overflow-wrap:anywhere;margin-top:12px}
+.actions{display:flex;gap:7px;flex-wrap:wrap}.module-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:15px}
+.module{background:var(--panel);border:1px solid var(--border);color:white;padding:18px 8px}.module:hover{border-color:var(--gold);color:var(--gold)}
+#pageContent{padding-bottom:40px}.notice{padding:12px;border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:13px}
+@media(max-width:760px){.sidebar{transform:translateX(-100%);width:260px;box-shadow:10px 0 30px #0008}.sidebar.open{transform:translateX(0)}.main{margin:0;padding:14px}.company-switch{max-width:100%;width:100%}h1{font-size:20px}}
 </style>
 </head>
-
 <body>
 
 <section class="login-wrap" id="loginScreen">
-  <div class="login-card">
-    <div class="logo">FAST MIND SOLUTIONS</div>
-    <h2 class="gold">ERP SOFTWARE</h2>
-    <p class="subtitle">Secure Owner Login</p>
-    <form id="loginForm">
-      <input id="email" type="email" placeholder="Owner Email" required>
-      <input id="password" type="password" placeholder="Password" required>
-      <button class="gold-btn" id="loginButton" type="submit">LOGIN</button>
-    </form>
-    <p id="message"></p>
-    <p class="small">Authorized accounts only</p>
-  </div>
+ <div class="login-card">
+  <div class="logo">FAST MIND SOLUTIONS</div>
+  <h2 class="gold">ERP SOFTWARE</h2>
+  <p class="muted">Secure Owner Login</p>
+  <form id="loginForm">
+   <input id="email" type="email" placeholder="Owner Email" required>
+   <input id="password" type="password" placeholder="Password" required>
+   <button class="gold-btn" id="loginButton">LOGIN</button>
+  </form>
+  <p id="message"></p><p class="muted">Authorized accounts only</p>
+ </div>
 </section>
 
 <div id="app">
-  <aside class="sidebar">
-    <div class="brand">FAST MIND SOLUTIONS</div>
-    <nav id="navigation">
-      <button class="nav-btn active" data-page="Dashboard">▦ Dashboard</button>
-      <button class="nav-btn" data-page="Company Management">▣ Company Management</button>
-      <button class="nav-btn" data-page="Inventory">▣ Inventory</button>
-      <button class="nav-btn" data-page="Sales">↗ Sales</button>
-      <button class="nav-btn" data-page="Purchases">↙ Purchases</button>
-      <button class="nav-btn" data-page="Customers">♙ Customers</button>
-      <button class="nav-btn" data-page="Suppliers">♧ Suppliers</button>
-      <button class="nav-btn" data-page="Finance">◈ Finance</button>
-      <button class="nav-btn" data-page="Expenses">▤ Expenses</button>
-      <button class="nav-btn" data-page="HR & Payroll">♧ HR & Payroll</button>
-      <button class="nav-btn" data-page="Reports">▥ Reports</button>
-      <button class="nav-btn" data-page="Settings">⚙ Settings</button>
-      <button class="nav-btn" data-page="Super Admin">♛ Super Admin</button>
-    </nav>
-  </aside>
-
-  <main class="main">
-    <header class="topbar">
-      <div>
-        <h1 id="pageTitle">Dashboard</h1>
-        <p class="small">FAST MIND SOLUTIONS • ERP SYSTEM</p>
-        <select id="companySwitcher" class="company-switch" aria-label="Select company"></select>
-      </div>
-      <button class="logout" id="logoutBtn">Logout</button>
-    </header>
-
-    <section id="dashboardContent">
-      <div class="welcome">
-        <h2>Welcome to <span class="gold">FAST MIND SOLUTIONS</span></h2>
-        <p class="small">Your business management workspace</p>
-        <p class="small">Current Company: <strong id="dashboardCompany">FAST MIND SOLUTIONS</strong></p>
-      </div>
-      <div class="cards">
-        <div class="card"><h3>Total Sales</h3><strong>—</strong></div>
-        <div class="card"><h3>Total Purchases</h3><strong>—</strong></div>
-        <div class="card"><h3>Stock Items</h3><strong id="stockCount">0</strong></div>
-        <div class="card"><h3>Net Balance</h3><strong>—</strong></div>
-      </div>
-      <h2>ERP Modules</h2>
-      <div class="module-grid" id="moduleGrid"></div>
-    </section>
-
-    <section id="companyContent" class="panel" hidden>
-      <h2>Company Management</h2>
-      <p class="small">Create and manage your companies. Each company has its own inventory.</p>
-
-      <h3 class="gold">Add New Company</h3>
-      <form id="companyForm">
-        <div class="form-grid">
-          <input id="companyName" placeholder="Company name" required maxlength="80">
-          <input id="companyIdInput" placeholder="Company ID (e.g. fast-mind-traders)" required maxlength="40">
-          <input id="companyCountry" placeholder="Country" required>
-          <select id="companyCurrency" required>
-            <option value="PKR">PKR - Pakistani Rupee</option>
-            <option value="USD">USD - US Dollar</option>
-            <option value="GBP">GBP - British Pound</option>
-            <option value="EUR">EUR - Euro</option>
-            <option value="AED">AED - UAE Dirham</option>
-            <option value="SAR">SAR - Saudi Riyal</option>
-            <option value="INR">INR - Indian Rupee</option>
-            <option value="BDT">BDT - Bangladeshi Taka</option>
-          </select>
-          <select id="companyType" required>
-            <option value="Wholesale">Wholesale</option>
-            <option value="Retail">Retail</option>
-            <option value="Trading">Trading</option>
-            <option value="Distribution">Distribution</option>
-            <option value="Manufacturing">Manufacturing</option>
-            <option value="Services">Services</option>
-          </select>
-        </div>
-        <button class="gold-btn" id="addCompanyButton" type="submit" style="margin-top:12px">Add Company</button>
-      </form>
-
-      <p class="status" id="companyStatus"></p>
-
-      <h3 class="gold">Your Companies</h3>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th>Company</th><th>Company ID</th><th>Country</th><th>Currency</th><th>Status</th><th>Action</th></tr>
-          </thead>
-          <tbody id="companyRows"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section id="inventoryContent" class="panel" hidden>
-      <h2>Inventory Management</h2>
-      <p class="small">Add and manage products for your selected company.</p>
-      <form id="productForm">
-        <div class="form-grid">
-          <input id="productName" placeholder="Product name" required>
-          <input id="productSku" placeholder="Product code / SKU" required>
-          <input id="productQty" type="number" min="0" step="1" placeholder="Opening stock" required>
-          <input id="productPrice" type="number" min="0" step="0.01" placeholder="Unit price" required>
-        </div>
-        <button class="gold-btn" type="submit" style="margin-top:12px">Add Product</button>
-      </form>
-      <p class="status" id="inventoryStatus"></p>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Product</th><th>SKU</th><th>Stock</th><th>Unit Price</th><th>Action</th></tr></thead>
-          <tbody id="productRows"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <p class="status" id="pageMessage"></p>
-  </main>
+ <aside class="sidebar" id="sidebar">
+  <div class="brand">FAST MIND SOLUTIONS</div>
+  <nav id="navigation"></nav>
+  <button class="nav-btn" id="menuLogout">⇥ Logout</button>
+ </aside>
+ <main class="main">
+  <header class="topbar">
+   <div class="top-left">
+    <button class="hamburger" id="menuToggle" aria-label="Open menu">☰</button>
+    <div><h1 id="pageTitle">Dashboard</h1><div class="small">BUSINESS MANAGEMENT SYSTEM</div></div>
+   </div>
+   <select id="companySwitcher" class="company-switch" aria-label="Select company"></select>
+  </header>
+  <div id="pageContent"></div>
+  <p class="status" id="globalStatus"></p>
+ </main>
 </div>
 
 <script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+import {getAuth,signInWithEmailAndPassword,onAuthStateChanged,signOut,setPersistence,browserLocalPersistence} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+import {getFirestore,doc,getDoc,collection,addDoc,getDocs,deleteDoc,setDoc,updateDoc,serverTimestamp,runTransaction} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-
-import {
-  getAuth, signInWithEmailAndPassword, onAuthStateChanged,
-  signOut, setPersistence, browserLocalPersistence
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-
-import {
-  getFirestore, doc, getDoc, collection, addDoc,
-  getDocs, deleteDoc, setDoc, serverTimestamp
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAIYhnQBwVB4nicSwKWzwDvaJQVQvibnMU",
-  authDomain: "fast-mind-solution.firebaseapp.com",
-  projectId: "fast-mind-solution",
-  storageBucket: "fast-mind-solution.firebasestorage.app",
-  messagingSenderId: "505740976965",
-  appId: "1:505740976965:web:12f6e5dfab4f6b66ff542c",
-  measurementId: "G-4ZJNWHD59Y"
+const firebaseConfig={
+ apiKey:"AIzaSyAIYhnQBwVB4nicSwKWzwDvaJQVQvibnMU",
+ authDomain:"fast-mind-solution.firebaseapp.com",
+ projectId:"fast-mind-solution",
+ storageBucket:"fast-mind-solution.firebasestorage.app",
+ messagingSenderId:"505740976965",
+ appId:"1:505740976965:web:12f6e5dfab4f6b66ff542c",
+ measurementId:"G-4ZJNWHD59Y"
 };
-
-const firebaseApp = initializeApp(firebaseConfig);
-const auth = getAuth(firebaseApp);
-const db = getFirestore(firebaseApp);
-const $ = id => document.getElementById(id);
-
-const OWNER_COMPANY_ID = "fast-mind-main";
-
-let currentCompanyId = null;
-let currentCompanyName = "FAST MIND SOLUTIONS";
-let currentUser = null;
-let verificationInProgress = false;
-let companiesCache = [];
-
-function showLogin(messageText = "") {
-  $("loginScreen").style.display = "grid";
-  $("app").style.display = "none";
-  $("message").textContent = messageText;
+const appFirebase=initializeApp(firebaseConfig);
+const auth=getAuth(appFirebase),db=getFirestore(appFirebase);
+const $=id=>document.getElementById(id);
+const OWNER_COMPANY_ID="fast-mind-main";
+let currentUser=null,currentCompanyId=null,currentCompanyName="",companies=[],busy=false;
+let products=[],customers=[],suppliers=[];
+const pages=["Dashboard","Company Management","Inventory","Sales","Purchases","Customers","Suppliers","Finance","Expenses","HR & Payroll","Reports","Settings","Super Admin"];
+const money=n=>Number(n||0).toLocaleString("en-PK",{maximumFractionDigits:2});
+const path=(name)=>collection(db,"companies",currentCompanyId,name);
+const ref=(name,id)=>doc(db,"companies",currentCompanyId,name,id);
+const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function status(t){$("globalStatus").textContent=t||""}
+function loginView(t=""){$("loginScreen").style.display="grid";$("app").style.display="none";$("message").textContent=t}
+function appView(){$("loginScreen").style.display="none";$("app").style.display="block"}
+function companyCurrency(){return companies.find(c=>c.id===currentCompanyId)?.currency||"PKR"}
+function fmt(n){return companyCurrency()+" "+money(n)}
+function selectedCompany(){return companies.find(c=>c.id===currentCompanyId)}
+function showPage(name){$("pageTitle").textContent=name;$("sidebar").classList.remove("open");document.querySelectorAll(".nav-btn[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===name));renderPage(name)}
+function nav(){
+ $("navigation").innerHTML=pages.map((p,i)=>`<button class="nav-btn ${i===0?"active":""}" data-page="${safe(p)}">${["▦","▣","▤","↗","↙","♙","♧","◈","▤","♧","▥","⚙","♛"][i]} &nbsp;${safe(p)}</button>`).join("");
+ $("navigation").querySelectorAll("button").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
 }
+$("menuToggle").onclick=()=>$("sidebar").classList.toggle("open");
+$("menuLogout").onclick=logout;
+async function logout(){try{await signOut(auth);localStorage.removeItem("fastMindSelectedCompany");currentUser=null;currentCompanyId=null;loginView();$("loginForm").reset()}catch(e){status(e.message)}}
+$("loginForm").onsubmit=async e=>{e.preventDefault();$("loginButton").disabled=true;$("message").textContent="Signing in...";try{await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value)}catch(err){loginView("Login Error: "+(err.code||"")+" "+err.message)}finally{$("loginButton").disabled=false}};
+try{await setPersistence(auth,browserLocalPersistence)}catch(e){loginView(e.message)}
+let verifying=false;
+onAuthStateChanged(auth,async user=>{
+ if(!user){currentUser=null;currentCompanyId=null;loginView();return}
+ if(verifying)return;verifying=true;currentUser=user;
+ try{
+  const profile=await getDoc(doc(db,"companies",OWNER_COMPANY_ID,"userProfiles",user.uid));
+  if(!profile.exists())throw Error("Owner profile not found.");
+  const p=profile.data();
+  if(p.active!==true||p.role!=="owner"||p.companyId!==OWNER_COMPANY_ID)throw Error("Owner profile is not authorized.");
+  const main=await getDoc(doc(db,"companies",OWNER_COMPANY_ID));
+  if(!main.exists()||main.data().active!==true)throw Error("Main company is inactive or missing.");
+  appView();nav();await loadCompanies();
+  const saved=localStorage.getItem("fastMindSelectedCompany");
+  const valid=companies.find(c=>c.id===saved&&c.active);
+  await switchCompany(valid?valid.id:OWNER_COMPANY_ID,false);
+  showPage("Dashboard");
+ }catch(e){console.error(e);loginView("Verification Error: "+(e.code||"")+" "+e.message)}finally{verifying=false}
+});
 
-function showApp() {
-  $("loginScreen").style.display = "none";
-  $("app").style.display = "block";
+async function loadCompanies(){
+ const snap=await getDocs(collection(db,"companies"));companies=[];
+ snap.forEach(d=>{const x=d.data();companies.push({id:d.id,name:x.companyName||d.id,country:x.country||"",currency:x.currency||"PKR",type:x.businessType||"",active:x.active===true})});
+ renderSwitcher();
 }
-
-function withTimeout(promise, milliseconds, label) {
-  let timer;
-  const timeout = new Promise((_, reject) => {
-    timer = setTimeout(() => reject(new Error(
-      label + " timed out after " + milliseconds / 1000 + " seconds."
-    )), milliseconds);
-  });
-  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+function renderSwitcher(){
+ $("companySwitcher").innerHTML=companies.filter(c=>c.active).map(c=>`<option value="${safe(c.id)}">${safe(c.name)} (${safe(c.currency)})</option>`).join("");
+ if(currentCompanyId)$("companySwitcher").value=currentCompanyId;
 }
-
-try {
-  await setPersistence(auth, browserLocalPersistence);
-} catch (error) {
-  console.error("PERSISTENCE ERROR:", error);
-  showLogin("Session setup error: " + error.message);
+async function switchCompany(id,notify=true){
+ const c=companies.find(x=>x.id===id&&x.active);if(!c)throw Error("Company not found or inactive.");
+ currentCompanyId=id;currentCompanyName=c.name;localStorage.setItem("fastMindSelectedCompany",id);renderSwitcher();
+ if(notify){status("Company switched: "+c.name);showPage("Dashboard")}
 }
-
-// LOGIN
-$("loginForm").addEventListener("submit", async e => {
-  e.preventDefault();
-  $("loginButton").disabled = true;
-  $("message").textContent = "Signing in...";
-
-  try {
-    if (auth.currentUser) {
-      await verifyOwner(auth.currentUser);
-    } else {
-      await withTimeout(
-        signInWithEmailAndPassword(auth, $("email").value.trim(), $("password").value),
-        20000, "Firebase sign-in"
-      );
-    }
-  } catch (error) {
-    console.error("SIGN IN ERROR:", error);
-    showLogin("Login Error: " + (error.code || "") + " " + error.message);
-    $("loginButton").disabled = false;
+$("companySwitcher").onchange=async()=>{try{await switchCompany($("companySwitcher").value); }catch(e){status(e.message)}};
+async function getRows(name){const snap=await getDocs(path(name));return snap.docs.map(d=>({id:d.id,...d.data()}))}
+async function refreshCore(){[products,customers,suppliers]=await Promise.all([getRows("inventory"),getRows("customers"),getRows("suppliers")])}
+function table(headers,rows){return `<div class="table-wrap"><table><thead><tr>${headers.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${rows||`<tr><td colspan="${headers.length}">No records found</td></tr>`}</tbody></table></div>`}
+function formInput(id,placeholder,type="text",required=true,extra=""){return `<input id="${id}" type="${type}" placeholder="${placeholder}" ${required?"required":""} ${extra}>`}
+function options(items,empty){return `<option value="">${empty}</option>`+items.map(x=>`<option value="${safe(x.id)}">${safe(x.name||x.sku||x.id)}</option>`).join("")}
+function pageForm(title,fields,button="Save"){return `<div class="panel"><h2>${title}</h2><form id="moduleForm"><div class="form-grid">${fields}</div><button class="gold-btn" style="margin-top:12px">${button}</button></form><p class="status" id="formStatus"></p></div>`}
+function setFormStatus(t){const el=$("formStatus");if(el)el.textContent=t}
+async function addRecord(name,data){await addDoc(path(name),{...data,createdAt:serverTimestamp(),createdBy:currentUser.uid})}
+function delButton(name,id){return `<button class="danger" data-delete="${safe(name)}" data-id="${safe(id)}">Delete</button>`}
+function bindDeletes(){document.querySelectorAll("[data-delete]").forEach(b=>b.onclick=async()=>{if(!confirm("Delete this record?"))return;try{await deleteDoc(ref(b.dataset.delete,b.dataset.id));status("Record deleted.");renderPage($("pageTitle").textContent)}catch(e){status("Delete error: "+e.message)}})}
+async function renderPage(name){
+ status("");
+ const root=$("pageContent");
+ try{
+  await refreshCore();
+  if(name==="Dashboard"){
+   const [sales,purchases,expenses]=await Promise.all([getRows("sales"),getRows("purchases"),getRows("expenses")]);
+   const saleTotal=sales.reduce((a,x)=>a+Number(x.total||0),0),purchaseTotal=purchases.reduce((a,x)=>a+Number(x.total||0),0),expenseTotal=expenses.reduce((a,x)=>a+Number(x.amount||0),0);
+   root.innerHTML=`<div class="welcome"><h2>Welcome to <span class="gold">FAST MIND SOLUTIONS</span></h2><p class="muted">Current Company: ${safe(currentCompanyName)}</p></div>
+   <div class="cards"><div class="card"><h3>Total Sales</h3><strong>${money(saleTotal)}</strong></div><div class="card"><h3>Total Purchases</h3><strong>${money(purchaseTotal)}</strong></div><div class="card"><h3>Stock Items</h3><strong>${products.length}</strong></div><div class="card"><h3>Expenses</h3><strong>${money(expenseTotal)}</strong></div><div class="card"><h3>Customers</h3><strong>${customers.length}</strong></div><div class="card"><h3>Suppliers</h3><strong>${suppliers.length}</strong></div></div>
+   <h2>ERP Modules</h2><div class="module-grid">${pages.slice(1).map(p=>`<button class="module" data-open="${safe(p)}">${safe(p)}</button>`).join("")}</div>`;
+   root.querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>showPage(b.dataset.open));return;
   }
-});
-
-// LOGOUT
-$("logoutBtn").addEventListener("click", async () => {
-  try {
-    await signOut(auth);
-    localStorage.removeItem("fastMindSelectedCompany");
-    currentUser = null;
-    currentCompanyId = null;
-    currentCompanyName = "FAST MIND SOLUTIONS";
-    showLogin("You have been logged out.");
-    $("loginButton").disabled = false;
-    $("loginForm").reset();
-  } catch (error) {
-    alert("Logout error: " + error.message);
+  if(name==="Company Management"||name==="Super Admin"){
+   root.innerHTML=`<div class="panel"><h2>Company Management</h2><p class="muted">Create a separate company workspace. Existing company data will not be moved or deleted.</p>
+   <form id="companyForm"><div class="form-grid">${formInput("coName","Company name")}${formInput("coId","Company ID (example: new-traders)")}${formInput("coCountry","Country")}<select id="coCurrency"><option>PKR</option><option>USD</option><option>GBP</option><option>EUR</option><option>AED</option><option>SAR</option><option>INR</option><option>BDT</option></select><select id="coType"><option>Wholesale</option><option>Retail</option><option>Trading</option><option>Distribution</option><option>Manufacturing</option><option>Services</option></select></div><button class="gold-btn" style="margin-top:12px">Create Company</button></form><p id="companyStatus" class="status"></p></div>
+   <div class="panel"><h2>Your Companies</h2>${table(["Company","ID","Country","Currency","Status","Action"],companies.map(c=>`<tr><td>${safe(c.name)}</td><td>${safe(c.id)}</td><td>${safe(c.country)}</td><td>${safe(c.currency)}</td><td>${c.active?"Active":"Inactive"}</td><td><button class="gold-btn" data-switch="${safe(c.id)}" ${!c.active?"disabled":""}>Switch</button></td></tr>`).join(""))}</div>`;
+   $("companyForm").onsubmit=async e=>{e.preventDefault();const id=$("coId").value.trim().toLowerCase().replace(/[^a-z0-9-]/g,"-").replace(/-+/g,"-").replace(/^-|-$/g,"");const out=$("companyStatus");try{if(id.length<3||!$("coName").value.trim()||!$("coCountry").value.trim())throw Error("Please enter valid company details.");const r=doc(db,"companies",id);if((await getDoc(r)).exists())throw Error("This Company ID already exists.");await setDoc(r,{companyId:id,companyName:$("coName").value.trim(),country:$("coCountry").value.trim(),currency:$("coCurrency").value,businessType:$("coType").value,active:true,createdAt:serverTimestamp(),createdBy:currentUser.uid});await loadCompanies();out.textContent="Company created. Select it from the company switcher.";renderPage(name)}catch(err){out.textContent=err.message}};
+   root.querySelectorAll("[data-switch]").forEach(b=>b.onclick=async()=>{await switchCompany(b.dataset.switch);});return;
   }
-});
-
-// OWNER VERIFICATION
-async function verifyOwner(user) {
-  if (verificationInProgress) return;
-
-  verificationInProgress = true;
-  currentUser = user;
-  currentCompanyId = null;
-  showLogin("Checking owner profile...");
-
-  try {
-    const profileRef = doc(db, "companies", OWNER_COMPANY_ID, "userProfiles", user.uid);
-    const profileSnap = await withTimeout(getDoc(profileRef), 15000, "Owner profile read");
-
-    if (!profileSnap.exists()) throw new Error("Owner profile not found.");
-
-    const profile = profileSnap.data();
-
-    if (profile.active !== true) throw new Error("Owner profile is inactive.");
-    if (String(profile.role || "").trim() !== "owner") throw new Error("Invalid owner role.");
-    if (profile.companyId !== OWNER_COMPANY_ID) throw new Error("Company ID mismatch.");
-
-    const mainCompanySnap = await withTimeout(
-      getDoc(doc(db, "companies", OWNER_COMPANY_ID)), 15000, "Main company read"
-    );
-
-    if (!mainCompanySnap.exists() || mainCompanySnap.data().active !== true) {
-      throw new Error("Main company is missing or inactive.");
-    }
-
-    showApp();
-
-    // Load companies and restore the last selected company if it is valid.
-    await loadCompanies();
-
-    const savedCompanyId = localStorage.getItem("fastMindSelectedCompany");
-    if (savedCompanyId && companiesCache.some(c => c.id === savedCompanyId && c.active === true)) {
-      await switchCompany(savedCompanyId, false);
-    } else {
-      await switchCompany(OWNER_COMPANY_ID, false);
-    }
-
-  } catch (error) {
-    console.error("OWNER VERIFICATION ERROR:", error);
-    currentCompanyId = null;
-    showLogin("Verification Error: " + (error.code || "") + " " + error.message);
-    $("loginButton").disabled = false;
-  } finally {
-    verificationInProgress = false;
+  if(name==="Inventory"){
+   root.innerHTML=pageForm("Inventory Management",formInput("pName","Product name")+formInput("pSku","Product code / SKU")+formInput("pQty","Opening stock","number",true,'min="0" step="1"')+formInput("pPrice","Unit price","number",true,'min="0" step="0.01"'),"Add Product")+`<div class="panel"><h2>Products</h2>${table(["Product","SKU","Stock","Unit Price","Action"],products.map(p=>`<tr><td>${safe(p.name)}</td><td>${safe(p.sku)}</td><td>${money(p.quantity)}</td><td>${fmt(p.price)}</td><td>${delButton("inventory",p.id)}</td></tr>`).join(""))}</div>`;
+   $("moduleForm").onsubmit=async e=>{e.preventDefault();try{const sku=$("pSku").value.trim();if(products.some(p=>(p.sku||"").toLowerCase()===sku.toLowerCase()))throw Error("This SKU already exists.");await addRecord("inventory",{name:$("pName").value.trim(),sku,quantity:Number($("pQty").value),price:Number($("pPrice").value)});renderPage(name);status("Product saved.")}catch(err){setFormStatus(err.message)}};bindDeletes();return;
   }
-}
-
-// AUTH SESSION
-onAuthStateChanged(auth, async user => {
-  if (!user) {
-    currentUser = null;
-    currentCompanyId = null;
-    showLogin();
-    $("loginButton").disabled = false;
-    return;
+  if(name==="Customers"||name==="Suppliers"){
+   const col=name==="Customers"?"customers":"suppliers",list=name==="Customers"?customers:suppliers;
+   root.innerHTML=pageForm(name,formInput("personName","Name")+formInput("personPhone","Phone number", "tel",false)+formInput("personAddress","Address", "text",false)+formInput("personOpening","Opening balance","number",false,'min="0" step="0.01"'),"Add "+(name==="Customers"?"Customer":"Supplier"))+`<div class="panel"><h2>${name} List</h2>${table(["Name","Phone","Address","Opening Balance","Action"],list.map(x=>`<tr><td>${safe(x.name)}</td><td>${safe(x.phone)}</td><td>${safe(x.address)}</td><td>${fmt(x.openingBalance)}</td><td>${delButton(col,x.id)}</td></tr>`).join(""))}</div>`;
+   $("moduleForm").onsubmit=async e=>{e.preventDefault();try{await addRecord(col,{name:$("personName").value.trim(),phone:$("personPhone").value.trim(),address:$("personAddress").value.trim(),openingBalance:Number($("personOpening").value||0)});renderPage(name);status("Saved successfully.")}catch(err){setFormStatus(err.message)}};bindDeletes();return;
   }
-  await verifyOwner(user);
-});
-
-// MODULES
-const modules = [
-  "Company Management", "Inventory", "Sales", "Purchases",
-  "Customers", "Suppliers", "Finance", "Expenses",
-  "HR & Payroll", "CRM", "Production", "Procurement",
-  "Projects", "Assets", "Reports", "Settings", "Super Admin"
-];
-
-modules.forEach(name => {
-  const button = document.createElement("button");
-  button.className = "module";
-  button.textContent = name;
-  button.addEventListener("click", () => showPage(name));
-  $("moduleGrid").appendChild(button);
-});
-
-// NAVIGATION
-function showPage(name) {
-  $("pageTitle").textContent = name;
-  $("dashboardContent").hidden = name !== "Dashboard";
-  $("companyContent").hidden = name !== "Company Management";
-  $("inventoryContent").hidden = name !== "Inventory";
-
-  $("pageMessage").textContent =
-    ["Dashboard", "Company Management", "Inventory"].includes(name)
-      ? ""
-      : name + " module is not connected yet. We will build it next.";
-
-  document.querySelectorAll(".nav-btn").forEach(btn => {
-    btn.classList.toggle("active", btn.dataset.page === name);
-  });
-
-  if (name === "Inventory") loadProducts();
-  if (name === "Company Management") loadCompanies();
-}
-
-document.querySelectorAll(".nav-btn").forEach(btn => {
-  btn.addEventListener("click", () => showPage(btn.dataset.page));
-});
-
-// COMPANY MANAGEMENT
-function cleanCompanyId(value) {
-  return value.trim().toLowerCase()
-    .replace(/[^a-z0-9-]/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "");
-}
-
-async function loadCompanies() {
-  $("companyStatus").textContent = "Loading companies...";
-  $("companyRows").replaceChildren();
-
-  try {
-    const snapshot = await withTimeout(
-      getDocs(collection(db, "companies")), 15000, "Company list loading"
-    );
-
-    companiesCache = [];
-    snapshot.forEach(companyDoc => {
-      const data = companyDoc.data();
-      companiesCache.push({
-        id: companyDoc.id,
-        name: data.companyName || companyDoc.id,
-        country: data.country || "—",
-        currency: data.currency || "PKR",
-        active: data.active === true
-      });
+  if(name==="Sales"||name==="Purchases"){
+   const sale=name==="Sales",col=sale?"sales":"purchases",partyList=sale?customers:suppliers,partyLabel=sale?"Customer":"Supplier";
+   root.innerHTML=pageForm(name,`<select id="party" required>${options(partyList,"Select "+partyLabel)}</select><select id="item" required>${options(products,"Select product")}</select>${formInput("qty","Quantity","number",true,'min="1" step="1"')}${formInput("unitPrice","Unit price","number",true,'min="0" step="0.01"')}`,sale?"Save Sale":"Save Purchase")+`<div class="panel"><h2>${name} History</h2>${table(["Date","Party","Product","Qty","Total"],(await getRows(col)).map(x=>`<tr><td>${x.createdAt?.toDate?.().toLocaleDateString()||"—"}</td><td>${safe(x.partyName)}</td><td>${safe(x.productName)}</td><td>${money(x.quantity)}</td><td>${fmt(x.total)}</td></tr>`).join(""))}</div>`;
+   $("item").onchange=()=>{const p=products.find(x=>x.id===$("item").value);if(p)$("unitPrice").value=p.price??0};
+   $("moduleForm").onsubmit=async e=>{e.preventDefault();try{
+    const party=partyList.find(x=>x.id===$("party").value),product=products.find(x=>x.id===$("item").value),qty=Number($("qty").value),price=Number($("unitPrice").value);
+    if(!party||!product||!Number.isInteger(qty)||qty<=0||!Number.isFinite(price)||price<0)throw Error("Please check party, product, quantity and price.");
+    const invRef=ref("inventory",product.id),docRef=doc(path(col)),ledgerRef=doc(path(sale?"customerLedger":"supplierLedger")),total=qty*price;
+    await runTransaction(db,async tx=>{
+     const invSnap=await tx.get(invRef);if(!invSnap.exists())throw Error("Product no longer exists.");
+     const current=Number(invSnap.data().quantity||0);
+     if(sale&&current<qty)throw Error("Insufficient stock. Available: "+current);
+     tx.update(invRef,{quantity:current+(sale?-qty:qty),updatedAt:serverTimestamp()});
+     tx.set(docRef,{partyId:party.id,partyName:party.name,productId:product.id,productName:product.name,sku:product.sku,quantity:qty,price,total,createdAt:serverTimestamp(),createdBy:currentUser.uid});
+     tx.set(ledgerRef,{partyId:party.id,partyName:party.name,type:sale?"sale":"purchase",referenceId:docRef.id,debit:sale?total:0,credit:sale?0:total,amount:total,createdAt:serverTimestamp(),createdBy:currentUser.uid});
     });
-
-    renderCompanyList();
-    renderCompanySwitcher();
-    $("companyStatus").textContent = companiesCache.length + " company record(s) found.";
-
-  } catch (error) {
-    console.error("COMPANY LOAD ERROR:", error);
-    $("companyStatus").textContent =
-      "Company Error: " + (error.code || "") + " " + error.message;
+    renderPage(name);status(name+" saved. Stock and ledger updated.");
+   }catch(err){setFormStatus(err.message)}};return;
   }
+  if(name==="Finance"){
+   const all=[...await getRows("customerLedger"),...await getRows("supplierLedger")];
+   root.innerHTML=pageForm("Record Payment",`<select id="payType"><option value="customer">Customer receipt</option><option value="supplier">Supplier payment</option></select><select id="payParty" required><option value="">Select account</option></select>${formInput("payAmount","Amount","number",true,'min="0.01" step="0.01"')}${formInput("payNote","Payment note","text",false)}`,"Save Payment")+`<div class="panel"><h2>Recent Ledger Entries</h2>${table(["Account","Type","Debit","Credit","Date"],all.map(x=>`<tr><td>${safe(x.partyName)}</td><td>${safe(x.type)}</td><td>${fmt(x.debit)}</td><td>${fmt(x.credit)}</td><td>${x.createdAt?.toDate?.().toLocaleDateString()||"—"}</td></tr>`).join(""))}</div>`;
+   const fill=()=>{const arr=$("payType").value==="customer"?customers:suppliers;$("payParty").innerHTML=options(arr,"Select account")};$("payType").onchange=fill;fill();
+   $("moduleForm").onsubmit=async e=>{e.preventDefault();try{const isCustomer=$("payType").value==="customer",party=(isCustomer?customers:suppliers).find(x=>x.id===$("payParty").value),amount=Number($("payAmount").value);if(!party||amount<=0)throw Error("Select an account and enter a valid amount.");await addRecord(isCustomer?"customerLedger":"supplierLedger",{partyId:party.id,partyName:party.name,type:isCustomer?"receipt":"payment",debit:isCustomer?0:amount,credit:isCustomer?amount:0,amount,note:$("payNote").value});renderPage(name);status("Payment saved in ledger.")}catch(err){setFormStatus(err.message)}};return;
+  }
+  if(name==="Expenses"){
+   const list=await getRows("expenses");
+   root.innerHTML=pageForm("Add Expense",formInput("expTitle","Expense description")+formInput("expCategory","Category")+formInput("expAmount","Amount","number",true,'min="0.01" step="0.01"')+formInput("expDate","Date","date",false),"Save Expense")+`<div class="panel"><h2>Expense Records</h2>${table(["Description","Category","Amount","Date","Action"],list.map(x=>`<tr><td>${safe(x.title)}</td><td>${safe(x.category)}</td><td>${fmt(x.amount)}</td><td>${safe(x.date||"")}</td><td>${delButton("expenses",x.id)}</td></tr>`).join(""))}</div>`;
+   $("moduleForm").onsubmit=async e=>{e.preventDefault();try{await addRecord("expenses",{title:$("expTitle").value.trim(),category:$("expCategory").value.trim(),amount:Number($("expAmount").value),date:$("expDate").value});renderPage(name);status("Expense saved.")}catch(err){setFormStatus(err.message)}};bindDeletes();return;
+  }
+  if(name==="HR & Payroll"){
+   const staff=await getRows("employees"),payroll=await getRows("payroll");
+   root.innerHTML=pageForm("Add Employee",formInput("empName","Employee name")+formInput("empRole","Job title")+formInput("empPhone","Phone","tel",false)+formInput("empSalary","Monthly salary","number",true,'min="0" step="0.01"'),"Add Employee")+`<div class="panel"><h2>Employees</h2>${table(["Name","Position","Phone","Salary","Action"],staff.map(x=>`<tr><td>${safe(x.name)}</td><td>${safe(x.role)}</td><td>${safe(x.phone)}</td><td>${fmt(x.salary)}</td><td>${delButton("employees",x.id)}</td></tr>`).join(""))}</div><div class="panel"><h2>Payroll Records</h2><p class="muted">Record a salary payment for an employee.</p><form id="payrollForm"><div class="form-grid"><select id="employee" required>${options(staff,"Select employee")}</select>${formInput("salaryPaid","Amount","number",true,'min="0.01" step="0.01"')}</div><button class="gold-btn" style="margin-top:10px">Record Payroll</button></form><div class="table-wrap">${table(["Employee","Amount","Date"],payroll.map(x=>`<tr><td>${safe(x.employeeName)}</td><td>${fmt(x.amount)}</td><td>${x.createdAt?.toDate?.().toLocaleDateString()||"—"}</td></tr>`).join(""))}</div></div>`;
+   $("moduleForm").onsubmit=async e=>{e.preventDefault();try{await addRecord("employees",{name:$("empName").value.trim(),role:$("empRole").value.trim(),phone:$("empPhone").value.trim(),salary:Number($("empSalary").value)});renderPage(name);status("Employee added.")}catch(err){setFormStatus(err.message)}};
+   $("payrollForm").onsubmit=async e=>{e.preventDefault();try{const emp=staff.find(x=>x.id===$("employee").value),amount=Number($("salaryPaid").value);if(!emp||amount<=0)throw Error("Select employee and valid amount.");await addRecord("payroll",{employeeId:emp.id,employeeName:emp.name,amount});renderPage(name);status("Payroll record saved.")}catch(err){status(err.message)}};bindDeletes();return;
+  }
+  if(name==="Reports"){
+   const [sales,purchases,expenses,cl,sl]=await Promise.all(["sales","purchases","expenses","customerLedger","supplierLedger"].map(getRows));
+   const sum=(a,k)=>a.reduce((t,x)=>t+Number(x[k]||0),0);
+   root.innerHTML=`<div class="cards"><div class="card"><h3>Sales Total</h3><strong>${fmt(sum(sales,"total"))}</strong></div><div class="card"><h3>Purchases Total</h3><strong>${fmt(sum(purchases,"total"))}</strong></div><div class="card"><h3>Expenses Total</h3><strong>${fmt(sum(expenses,"amount"))}</strong></div><div class="card"><h3>Customer Ledger Debit</h3><strong>${fmt(sum(cl,"debit"))}</strong></div><div class="card"><h3>Supplier Ledger Credit</h3><strong>${fmt(sum(sl,"credit"))}</strong></div></div><div class="panel"><h2>Stock Report</h2>${table(["Product","SKU","Quantity","Unit Price","Stock Value"],products.map(p=>`<tr><td>${safe(p.name)}</td><td>${safe(p.sku)}</td><td>${money(p.quantity)}</td><td>${fmt(p.price)}</td><td>${fmt(Number(p.quantity||0)*Number(p.price||0))}</td></tr>`).join(""))}</div><p class="notice">These are operational summaries, not audited financial statements. Opening balances and payment allocation are not yet included in a full double-entry accounting system.</p>`;return;
+  }
+  if(name==="Settings"){
+   const c=selectedCompany();
+   root.innerHTML=`<div class="panel"><h2>Company Settings</h2><form id="settingsForm"><div class="form-grid">${formInput("setName","Company name","text",true)}<input id="setCountry" placeholder="Country"><select id="setCurrency"><option>PKR</option><option>USD</option><option>GBP</option><option>EUR</option><option>AED</option><option>SAR</option><option>INR</option><option>BDT</option></select></div><button class="gold-btn" style="margin-top:12px">Save Settings</button></form><p class="status" id="settingsStatus"></p></div>`;
+   $("setName").value=c?.name||"";$("setCountry").value=c?.country||"";$("setCurrency").value=c?.currency||"PKR";
+   $("settingsForm").onsubmit=async e=>{e.preventDefault();try{await updateDoc(doc(db,"companies",currentCompanyId),{companyName:$("setName").value.trim(),country:$("setCountry").value.trim(),currency:$("setCurrency").value});await loadCompanies();currentCompanyName=$("setName").value.trim();$("settingsStatus").textContent="Settings saved."}catch(err){$("settingsStatus").textContent=err.message}};return;
+  }
+  root.innerHTML=`<div class="panel"><h2>${safe(name)}</h2><p class="notice">This module is not included in the current working build. No demo action or fake save button is provided.</p></div>`;
+ }catch(e){console.error(e);root.innerHTML=`<div class="panel"><h2>Loading error</h2><p class="status">${safe(e.code||"")} ${safe(e.message)}</p></div>`}
 }
-
-function renderCompanyList() {
-  $("companyRows").replaceChildren();
-
-  companiesCache.forEach(company => {
-    const tr = document.createElement("tr");
-
-    [
-      company.name,
-      company.id,
-      company.country,
-      company.currency,
-      company.active ? "Active" : "Inactive"
-    ].forEach(value => {
-      const td = document.createElement("td");
-      td.textContent = value;
-      tr.appendChild(td);
-    });
-
-    const action = document.createElement("td");
-    const selectButton = document.createElement("button");
-    selectButton.className = "gold-btn";
-    selectButton.textContent =
-      company.id === currentCompanyId ? "Selected" : "Switch";
-    selectButton.disabled = !company.active || company.id === currentCompanyId;
-    selectButton.addEventListener("click", () => switchCompany(company.id, true));
-    action.appendChild(selectButton);
-    tr.appendChild(action);
-
-    $("companyRows").appendChild(tr);
-  });
-}
-
-function renderCompanySwitcher() {
-  const select = $("companySwitcher");
-  select.replaceChildren();
-
-  companiesCache.filter(c => c.active).forEach(company => {
-    const option = document.createElement("option");
-    option.value = company.id;
-    option.textContent = company.name;
-    select.appendChild(option);
-  });
-
-  if (currentCompanyId) select.value = currentCompanyId;
-}
-
-async function switchCompany(companyId, showMessage = true) {
-  try {
-    const company = companiesCache.find(c => c.id === companyId && c.active);
-    if (!company) throw new Error("Company not found or inactive.");
-
-    currentCompanyId = company.id;
-    currentCompanyName = company.name;
-    localStorage.setItem("fastMindSelectedCompany", company.id);
-
-    $("dashboardCompany").textContent = currentCompanyName;
-    $("companySwitcher").value = company.id;
-
-    renderCompanyList();
-    await loadProducts();
-
-    if (showMessage) {
-      $("companyStatus").textContent =
-        "Switched to " + currentCompanyName + " successfully.";
-      showPage("Dashboard");
-    }
-  } catch (error) {
-    console.error("COMPANY SWITCH ERROR:", error);
-    $("companyStatus").textContent = "Switch Error: " + error.message;
-  }
-}
-
-$("companySwitcher").addEventListener("change", async () => {
-  await switchCompany($("companySwitcher").value, true);
-});
-
-// ADD COMPANY
-$("companyForm").addEventListener("submit", async e => {
-  e.preventDefault();
-
-  const name = $("companyName").value.trim();
-  const companyId = cleanCompanyId($("companyIdInput").value);
-  const country = $("companyCountry").value.trim();
-  const currency = $("companyCurrency").value;
-  const businessType = $("companyType").value;
-
-  if (!name || !companyId || !country) {
-    $("companyStatus").textContent = "Please fill in all company details.";
-    return;
-  }
-
-  if (companyId.length < 3 || companyId.length > 40) {
-    $("companyStatus").textContent = "Company ID must be 3 to 40 characters.";
-    return;
-  }
-
-  $("addCompanyButton").disabled = true;
-  $("companyStatus").textContent = "Creating company...";
-
-  try {
-    const companyRef = doc(db, "companies", companyId);
-    const existing = await getDoc(companyRef);
-
-    if (existing.exists()) {
-      throw new Error("This Company ID already exists. Choose another ID.");
-    }
-
-    await setDoc(companyRef, {
-      companyId,
-      companyName: name,
-      country,
-      currency,
-      businessType,
-      active: true,
-      createdAt: serverTimestamp(),
-      createdBy: currentUser.uid
-    });
-
-    $("companyForm").reset();
-    await loadCompanies();
-
-    $("companyStatus").textContent =
-      "Company created successfully. You can now switch to it.";
-
-  } catch (error) {
-    console.error("ADD COMPANY ERROR:", error);
-    $("companyStatus").textContent =
-      "Company Save Error: " + (error.code || "") + " " + error.message;
-  } finally {
-    $("addCompanyButton").disabled = false;
-  }
-});
-
-// INVENTORY
-function inventoryRef() {
-  if (!currentCompanyId) throw new Error("Company is not selected.");
-  return collection(db, "companies", currentCompanyId, "inventory");
-}
-
-async function loadProducts() {
-  if (!currentCompanyId) return;
-
-  $("inventoryStatus").textContent = "Loading products...";
-  $("productRows").replaceChildren();
-
-  try {
-    const snapshot = await withTimeout(
-      getDocs(inventoryRef()), 15000, "Inventory loading"
-    );
-
-    snapshot.forEach(productDoc => {
-      const p = productDoc.data();
-      const tr = document.createElement("tr");
-
-      [p.name, p.sku, String(p.quantity ?? 0), String(p.price ?? 0)]
-        .forEach(value => {
-          const td = document.createElement("td");
-          td.textContent = value ?? "";
-          tr.appendChild(td);
-        });
-
-      const action = document.createElement("td");
-      const del = document.createElement("button");
-      del.className = "delete-btn";
-      del.textContent = "Delete";
-      del.addEventListener("click", () => removeProduct(productDoc.id));
-      action.appendChild(del);
-      tr.appendChild(action);
-
-      $("productRows").appendChild(tr);
-    });
-
-    $("stockCount").textContent = String(snapshot.size);
-    $("inventoryStatus").textContent =
-      currentCompanyName + ": " + snapshot.size + " product(s) found.";
-
-  } catch (error) {
-    console.error("INVENTORY LOAD ERROR:", error);
-    $("inventoryStatus").textContent =
-      "Inventory Error: " + (error.code || "") + " " + error.message;
-  }
-}
-
-// ADD PRODUCT
-$("productForm").addEventListener("submit", async e => {
-  e.preventDefault();
-  if (!currentCompanyId) return;
-
-  const name = $("productName").value.trim();
-  const sku = $("productSku").value.trim();
-  const quantity = Number($("productQty").value);
-  const price = Number($("productPrice").value);
-
-  if (
-    !name || !sku ||
-    !Number.isFinite(quantity) || quantity < 0 ||
-    !Number.isFinite(price) || price < 0
-  ) {
-    $("inventoryStatus").textContent = "Please enter valid product details.";
-    return;
-  }
-
-  $("inventoryStatus").textContent = "Saving product...";
-
-  try {
-    await withTimeout(
-      addDoc(inventoryRef(), {
-        name, sku, quantity, price,
-        createdAt: serverTimestamp(),
-        createdBy: currentUser.uid
-      }),
-      15000, "Saving product"
-    );
-
-    $("productForm").reset();
-    await loadProducts();
-    $("inventoryStatus").textContent = "Product saved successfully.";
-
-  } catch (error) {
-    console.error("PRODUCT SAVE ERROR:", error);
-    $("inventoryStatus").textContent =
-      "Save Error: " + (error.code || "") + " " + error.message;
-  }
-});
-
-// DELETE PRODUCT
-async function removeProduct(productId) {
-  if (!confirm("Delete this product?")) return;
-
-  try {
-    await deleteDoc(
-      doc(db, "companies", currentCompanyId, "inventory", productId)
-    );
-    await loadProducts();
-  } catch (error) {
-    console.error("DELETE ERROR:", error);
-    $("inventoryStatus").textContent =
-      "Delete Error: " + (error.code || "") + " " + error.message;
-  }
-}
-
 </script>
 </body>
 </html>
