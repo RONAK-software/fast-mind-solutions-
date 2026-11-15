@@ -22,8 +22,38 @@ body{
 }
 button,input{font:inherit}
 button{cursor:pointer}
+
+/* STARTUP SCREEN */
+#bootScreen{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:20px;
+  text-align:center;
+}
+.boot-card{
+  width:100%;
+  max-width:410px;
+  padding:30px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+}
+.boot-logo{
+  color:var(--gold);
+  font-size:25px;
+  font-weight:bold;
+}
+.boot-text{
+  color:var(--muted);
+  margin-top:15px;
+}
+
 .login-wrap{
-  min-height:100vh;display:grid;place-items:center;padding:20px;
+  min-height:100vh;
+  display:none;
+  place-items:center;
+  padding:20px;
 }
 .login-card{
   width:100%;max-width:410px;padding:32px 26px;
@@ -45,6 +75,7 @@ input{
 #message{
   color:#ffb6a8;font-size:13px;overflow-wrap:anywhere;line-height:1.5;
 }
+
 #app{display:none;min-height:100vh}
 .sidebar{
   position:fixed;top:0;bottom:0;left:0;
@@ -133,6 +164,14 @@ td{font-size:14px}
 
 <body>
 
+<!-- Temporary startup screen: login form stays hidden while Firebase restores session -->
+<section id="bootScreen">
+  <div class="boot-card">
+    <div class="boot-logo">FAST MIND SOLUTIONS</div>
+    <p class="boot-text" id="bootMessage">Restoring your secure session...</p>
+  </div>
+</section>
+
 <section class="login-wrap" id="loginScreen">
   <div class="login-card">
     <div class="logo">FAST MIND SOLUTIONS</div>
@@ -149,7 +188,6 @@ td{font-size:14px}
 </section>
 
 <div id="app">
-
   <div class="menu-overlay" id="menuOverlay"></div>
 
   <aside class="sidebar" id="sidebar">
@@ -268,18 +306,29 @@ const db = getFirestore(firebaseApp);
 const $ = id => document.getElementById(id);
 
 const OWNER_COMPANY_ID = "fast-mind-main";
+
 let currentCompanyId = null;
 let currentUser = null;
-let verificationInProgress = false;
 let verifiedUid = null;
+let verificationPromise = null;
+let authReady = false;
+
+function showBoot(messageText = "Restoring your secure session...") {
+  $("bootScreen").style.display = "grid";
+  $("bootMessage").textContent = messageText;
+  $("loginScreen").style.display = "none";
+  $("app").style.display = "none";
+}
 
 function showLogin(messageText = "") {
+  $("bootScreen").style.display = "none";
   $("loginScreen").style.display = "grid";
   $("app").style.display = "none";
   $("message").textContent = messageText;
 }
 
 function showApp() {
+  $("bootScreen").style.display = "none";
   $("loginScreen").style.display = "none";
   $("app").style.display = "block";
 }
@@ -291,6 +340,7 @@ function withTimeout(promise, milliseconds, label) {
       reject(new Error(label + " timed out."));
     }, milliseconds);
   });
+
   return Promise.race([promise, timeout])
     .finally(() => clearTimeout(timer));
 }
@@ -310,17 +360,10 @@ $("menuToggle").addEventListener("click", openMenu);
 $("menuClose").addEventListener("click", closeMenu);
 $("menuOverlay").addEventListener("click", closeMenu);
 
-// FIREBASE LOCAL SESSION
-try {
-  await setPersistence(auth, browserLocalPersistence);
-} catch (error) {
-  console.error("PERSISTENCE ERROR:", error);
-  showLogin("Session setup error: " + error.message);
-}
-
-// LOGIN
+// LOGIN FORM
 $("loginForm").addEventListener("submit", async e => {
   e.preventDefault();
+
   $("loginButton").disabled = true;
   $("message").textContent = "Signing in...";
 
@@ -330,7 +373,9 @@ $("loginForm").addEventListener("submit", async e => {
     } else {
       await withTimeout(
         signInWithEmailAndPassword(
-          auth, $("email").value.trim(), $("password").value
+          auth,
+          $("email").value.trim(),
+          $("password").value
         ),
         20000,
         "Firebase sign-in"
@@ -338,7 +383,9 @@ $("loginForm").addEventListener("submit", async e => {
     }
   } catch (error) {
     console.error("LOGIN ERROR:", error);
-    showLogin("Login Error: " + (error.code || "") + " " + error.message);
+    showLogin(
+      "Login Error: " + (error.code || "") + " " + error.message
+    );
     $("loginButton").disabled = false;
   }
 });
@@ -347,13 +394,17 @@ $("loginForm").addEventListener("submit", async e => {
 $("logoutBtn").addEventListener("click", async () => {
   try {
     await signOut(auth);
+
     currentUser = null;
     currentCompanyId = null;
     verifiedUid = null;
+    verificationPromise = null;
+
     closeMenu();
     showLogin("You have been logged out.");
     $("loginButton").disabled = false;
     $("loginForm").reset();
+
   } catch (error) {
     alert("Logout error: " + error.message);
   }
@@ -361,78 +412,116 @@ $("logoutBtn").addEventListener("click", async () => {
 
 // OWNER VERIFICATION
 async function verifyOwner(user) {
-  if (verificationInProgress) return;
+  if (!user) return;
+
   if (verifiedUid === user.uid && currentCompanyId) {
     showApp();
     return;
   }
 
-  verificationInProgress = true;
-  currentUser = user;
-  currentCompanyId = null;
-  showLogin("Checking owner profile...");
-
-  try {
-    const profileRef = doc(
-      db, "companies", OWNER_COMPANY_ID, "userProfiles", user.uid
-    );
-
-    const profileSnap = await withTimeout(
-      getDoc(profileRef), 15000, "Owner profile read"
-    );
-
-    if (!profileSnap.exists()) {
-      throw new Error("PROFILE_NOT_FOUND: Owner profile not found.");
-    }
-
-    const profile = profileSnap.data();
-
-    if (profile.active !== true) throw new Error("PROFILE_INACTIVE.");
-    if (String(profile.role || "").trim() !== "owner") {
-      throw new Error("INVALID_ROLE.");
-    }
-    if (profile.companyId !== OWNER_COMPANY_ID) {
-      throw new Error("COMPANY_ID_MISMATCH.");
-    }
-
-    const companySnap = await withTimeout(
-      getDoc(doc(db, "companies", OWNER_COMPANY_ID)),
-      15000,
-      "Company verification"
-    );
-
-    if (!companySnap.exists()) throw new Error("COMPANY_NOT_FOUND.");
-    if (companySnap.data().active !== true) {
-      throw new Error("COMPANY_INACTIVE.");
-    }
-
-    currentCompanyId = OWNER_COMPANY_ID;
-    verifiedUid = user.uid;
-    showApp();
-    await loadProducts();
-
-  } catch (error) {
-    console.error("VERIFICATION ERROR:", error);
-    currentCompanyId = null;
-    verifiedUid = null;
-
-    showLogin(
-      "Verification Error: " + (error.code || "") + " " +
-      error.message + " Login session retained. Please retry."
-    );
-    $("loginButton").disabled = false;
-
-  } finally {
-    verificationInProgress = false;
+  // Avoid running the same verification twice at once.
+  if (verificationPromise) {
+    return verificationPromise;
   }
+
+  verificationPromise = (async () => {
+    currentUser = user;
+    currentCompanyId = null;
+
+    // IMPORTANT: Do not show login form while checking the owner.
+    showBoot("Verifying your secure owner account...");
+
+    try {
+      const profileRef = doc(
+        db,
+        "companies",
+        OWNER_COMPANY_ID,
+        "userProfiles",
+        user.uid
+      );
+
+      const profileSnap = await withTimeout(
+        getDoc(profileRef),
+        15000,
+        "Owner profile read"
+      );
+
+      if (!profileSnap.exists()) {
+        throw new Error("PROFILE_NOT_FOUND: Owner profile not found.");
+      }
+
+      const profile = profileSnap.data();
+
+      if (profile.active !== true) {
+        throw new Error("PROFILE_INACTIVE.");
+      }
+
+      if (String(profile.role || "").trim() !== "owner") {
+        throw new Error("INVALID_ROLE.");
+      }
+
+      if (profile.companyId !== OWNER_COMPANY_ID) {
+        throw new Error("COMPANY_ID_MISMATCH.");
+      }
+
+      const companySnap = await withTimeout(
+        getDoc(doc(db, "companies", OWNER_COMPANY_ID)),
+        15000,
+        "Company verification"
+      );
+
+      if (!companySnap.exists()) {
+        throw new Error("COMPANY_NOT_FOUND.");
+      }
+
+      if (companySnap.data().active !== true) {
+        throw new Error("COMPANY_INACTIVE.");
+      }
+
+      // Confirm this is still the currently signed-in account.
+      if (!auth.currentUser || auth.currentUser.uid !== user.uid) {
+        return;
+      }
+
+      currentCompanyId = OWNER_COMPANY_ID;
+      verifiedUid = user.uid;
+
+      showApp();
+      await loadProducts();
+
+    } catch (error) {
+      console.error("VERIFICATION ERROR:", error);
+
+      currentCompanyId = null;
+      verifiedUid = null;
+
+      // Keep the Firebase session. Do not automatically sign out.
+      showLogin(
+        "Verification Error: " + (error.code || "") + " " +
+        error.message + " Your login session is retained. Please retry."
+      );
+
+      $("loginButton").disabled = false;
+
+    } finally {
+      verificationPromise = null;
+    }
+  })();
+
+  return verificationPromise;
 }
 
 // AUTH STATE
+// Firebase restores the saved session before deciding which screen to show.
 onAuthStateChanged(auth, async user => {
+  authReady = true;
+
   if (!user) {
     currentUser = null;
     currentCompanyId = null;
     verifiedUid = null;
+    verificationPromise = null;
+
     showLogin();
     $("loginButton").disabled = false;
     return;
@@ -459,6 +548,7 @@ modules.forEach(name => {
 // NAVIGATION
 function showPage(name) {
   $("pageTitle").textContent = name;
+
   $("dashboardContent").hidden = name !== "Dashboard";
   $("inventoryContent").hidden = name !== "Inventory";
 
@@ -472,7 +562,10 @@ function showPage(name) {
   });
 
   closeMenu();
-  if (name === "Inventory") loadProducts();
+
+  if (name === "Inventory") {
+    loadProducts();
+  }
 }
 
 document.querySelectorAll(".nav-btn[data-page]").forEach(btn => {
@@ -481,7 +574,10 @@ document.querySelectorAll(".nav-btn[data-page]").forEach(btn => {
 
 // INVENTORY
 function inventoryRef() {
-  if (!currentCompanyId) throw new Error("Company not verified.");
+  if (!currentCompanyId) {
+    throw new Error("Company not verified.");
+  }
+
   return collection(db, "companies", currentCompanyId, "inventory");
 }
 
@@ -493,25 +589,33 @@ async function loadProducts() {
 
   try {
     const snapshot = await withTimeout(
-      getDocs(inventoryRef()), 15000, "Inventory loading"
+      getDocs(inventoryRef()),
+      15000,
+      "Inventory loading"
     );
 
     snapshot.forEach(productDoc => {
       const p = productDoc.data();
       const tr = document.createElement("tr");
 
-      [p.name, p.sku, String(p.quantity ?? 0), String(p.price ?? 0)]
-        .forEach(value => {
-          const td = document.createElement("td");
-          td.textContent = value ?? "";
-          tr.appendChild(td);
-        });
+      [
+        p.name,
+        p.sku,
+        String(p.quantity ?? 0),
+        String(p.price ?? 0)
+      ].forEach(value => {
+        const td = document.createElement("td");
+        td.textContent = value ?? "";
+        tr.appendChild(td);
+      });
 
       const action = document.createElement("td");
       const del = document.createElement("button");
+
       del.className = "delete-btn";
       del.textContent = "Delete";
       del.addEventListener("click", () => removeProduct(productDoc.id));
+
       action.appendChild(del);
       tr.appendChild(action);
 
@@ -519,10 +623,12 @@ async function loadProducts() {
     });
 
     $("stockCount").textContent = String(snapshot.size);
-    $("inventoryStatus").textContent = snapshot.size + " product(s) found.";
+    $("inventoryStatus").textContent =
+      snapshot.size + " product(s) found.";
 
   } catch (error) {
     console.error("INVENTORY ERROR:", error);
+
     $("inventoryStatus").textContent =
       "Inventory Error: " + (error.code || "") + " " + error.message;
   }
@@ -531,6 +637,7 @@ async function loadProducts() {
 // ADD PRODUCT
 $("productForm").addEventListener("submit", async e => {
   e.preventDefault();
+
   if (!currentCompanyId) return;
 
   const name = $("productName").value.trim();
@@ -539,10 +646,15 @@ $("productForm").addEventListener("submit", async e => {
   const price = Number($("productPrice").value);
 
   if (
-    !name || !sku || !Number.isFinite(quantity) || quantity < 0 ||
-    !Number.isFinite(price) || price < 0
+    !name ||
+    !sku ||
+    !Number.isFinite(quantity) ||
+    quantity < 0 ||
+    !Number.isFinite(price) ||
+    price < 0
   ) {
-    $("inventoryStatus").textContent = "Enter valid product details.";
+    $("inventoryStatus").textContent =
+      "Enter valid product details.";
     return;
   }
 
@@ -551,7 +663,10 @@ $("productForm").addEventListener("submit", async e => {
   try {
     await withTimeout(
       addDoc(inventoryRef(), {
-        name, sku, quantity, price,
+        name,
+        sku,
+        quantity,
+        price,
         createdAt: serverTimestamp(),
         createdBy: currentUser.uid
       }),
@@ -561,10 +676,13 @@ $("productForm").addEventListener("submit", async e => {
 
     $("productForm").reset();
     await loadProducts();
-    $("inventoryStatus").textContent = "Product saved successfully.";
+
+    $("inventoryStatus").textContent =
+      "Product saved successfully.";
 
   } catch (error) {
     console.error("SAVE ERROR:", error);
+
     $("inventoryStatus").textContent =
       "Save Error: " + (error.code || "") + " " + error.message;
   }
@@ -578,13 +696,19 @@ async function removeProduct(productId) {
     await deleteDoc(
       doc(db, "companies", currentCompanyId, "inventory", productId)
     );
+
     await loadProducts();
+
   } catch (error) {
     console.error("DELETE ERROR:", error);
+
     $("inventoryStatus").textContent =
       "Delete Error: " + (error.code || "") + " " + error.message;
   }
 }
+
+// Keep startup screen visible until Firebase reports the session state.
+showBoot();
 
 </script>
 </body>
